@@ -40,6 +40,8 @@ const ErrorPage = () => {
   const error = useRouteError();
   const currentError = getError(error);
 
+  console.log(error);
+
   if (currentError.status && currentError.status === 404) {
     return (
       <StyledErrorPage>

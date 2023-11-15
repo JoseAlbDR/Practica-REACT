@@ -3,6 +3,8 @@ import AppLayout from './pages/AppLayout';
 import ErrorPage from './pages/error/ErrorPage';
 import Signup from './pages/auth/signup/Signup';
 
+import { action as signupAction } from './pages/auth/signup/Signup';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -13,6 +15,7 @@ const router = createBrowserRouter([
         index: true,
         element: <Signup />,
         errorElement: <ErrorPage />,
+        action: signupAction,
       },
     ],
   },
