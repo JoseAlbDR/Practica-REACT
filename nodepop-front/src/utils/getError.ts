@@ -1,5 +1,5 @@
 import { isRouteErrorResponse } from 'react-router-dom';
-import { IError } from '../interfaces/ErrorInterface';
+import { IError } from '../interfaces/error.interfaces';
 
 export const getError = (error: unknown): IError => {
   if (isRouteErrorResponse(error)) {
