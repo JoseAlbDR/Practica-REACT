@@ -23,7 +23,7 @@ export const action = async (data: ActionFunctionArgs) => {
   try {
     await login({ email, password });
     toast.success('User Succesfully Logged In');
-    return redirect('/login');
+    return redirect('/adverts');
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error);
@@ -42,7 +42,7 @@ const Signup = () => {
     <StyledSignup>
       <Form method="post" className="form">
         <Logo />
-        <h4>Sign Up</h4>
+        <h4>Login</h4>
         <FormRow
           type="email"
           name="email"
@@ -60,8 +60,14 @@ const Signup = () => {
         <SubmitButton />
         <p>
           Not a Member Yet?
-          <Link to="/login" className="member-btn">
+          <Link to="/signup" className="member-btn">
             Signup
+          </Link>
+        </p>
+        <p>
+          Bring me back home
+          <Link to="/" className="member-btn">
+            Home
           </Link>
         </p>
       </Form>

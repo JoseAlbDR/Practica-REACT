@@ -81,6 +81,12 @@ const Signup = () => {
             Login
           </Link>
         </p>
+        <p>
+          Bring me back home
+          <Link to="/" className="member-btn">
+            Home
+          </Link>
+        </p>
       </Form>
     </StyledSignup>
   );
