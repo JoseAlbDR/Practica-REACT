@@ -30,7 +30,7 @@ export const action = async (data: ActionFunctionArgs) => {
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error);
-      toast.error('User Already Exist');
+      toast.error('There was an error, try with another user name');
     }
     console.log({ error });
     return error;
