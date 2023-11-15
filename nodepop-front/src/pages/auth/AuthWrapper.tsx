@@ -8,6 +8,10 @@ export const Wrapper = styled.div`
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
 
+    label {
+      text-transform: capitalize;
+    }
+
     .logo {
       display: block;
       margin: 0 auto;
