@@ -1,9 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import AppLayout from './pages/AppLayout';
 import ErrorPage from './pages/error/ErrorPage';
-import Signup from './pages/auth/signup/Signup';
+import Signup from './pages/auth/Signup';
+import Login from './pages/auth/Login';
 
-import { action as signupAction } from './pages/auth/signup/Signup';
+import { action as signupAction } from './pages/auth/Signup';
+import { action as loginAction } from './pages/auth/Login';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,11 @@ const router = createBrowserRouter([
         element: <Signup />,
         errorElement: <ErrorPage />,
         action: signupAction,
+      },
+      {
+        path: '/login',
+        element: <Login />,
+        action: loginAction,
       },
     ],
   },
