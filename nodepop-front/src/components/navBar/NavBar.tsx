@@ -1,8 +1,13 @@
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  Link,
+} from 'react-router-dom';
+
 import Wrapper from './styles/NavBarWrapper';
 import { Logo } from '..';
-import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { IUser } from '../../interfaces/auth.interfaces';
 
 const NavBar = () => {

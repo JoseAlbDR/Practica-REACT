@@ -1,17 +1,17 @@
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 import {
   ActionFunctionArgs,
   Form,
+  Link,
   redirect,
   useNavigation,
 } from 'react-router-dom';
+
 import StyledSignup from './styles/AuthWrapper';
-import Logo from '../../components/shared/Logo';
-import FormRow from '../../components/form/FormRow';
-import SubmitButton from '../../components/shared/SubmitButton';
-import { Link } from 'react-router-dom';
+
+import { Logo, FormRow, SubmitButton } from '../../components';
 import { login } from './service';
-import { AxiosError } from 'axios';
-import { toast } from 'react-toastify';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;

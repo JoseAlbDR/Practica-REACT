@@ -1,12 +1,14 @@
+import { Link } from 'react-router-dom';
 import { useLoaderData } from 'react-router-dom';
-import { getAllAdverts } from './service';
-import { IAdvert } from '../../interfaces/advert.interface';
-import Wrapper from './styles/AllAdvertsWrapper';
-import Advert from '../../components/adverts/Advert';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
-import { Link } from 'react-router-dom';
+
+import Wrapper from './styles/AllAdvertsWrapper';
+
+import { IAdvert } from '../../interfaces/advert.interface';
+import { Advert } from '../../components';
 import { checkAuth } from '../../utils/checkAuth';
+import { getAllAdverts } from './service';
 
 export const loader = async () => {
   try {

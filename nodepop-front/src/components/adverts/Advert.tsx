@@ -1,19 +1,13 @@
-import { IAdvert } from '../../interfaces/advert.interface';
+import { FaMoneyBill } from 'react-icons/fa';
+
 import Wrapper from './styles/AdvertWrapper';
 import onSale from '../../assets/images/sell.svg';
 import search from '../../assets/images/search.svg';
-import AdvertInfo from './components/AdvertInfo';
-import {
-  FaCalendarCheck,
-  FaEnvelope,
-  FaMoneyBill,
-  FaPencilRuler,
-  FaTrash,
-  FaUser,
-} from 'react-icons/fa';
-import AdvertTags from './components/AdvertTags';
 
-const Advert = ({ name, sale, price, tags, photo, id }: IAdvert) => {
+import { AdvertInfo, AdvertTags } from '../';
+import { IAdvert } from '../../interfaces/advert.interface';
+
+const Advert = ({ name, sale, price, tags, photo }: IAdvert) => {
   return (
     <Wrapper>
       <img src={photo} alt={`${name} image`} className="img" />

@@ -1,10 +1,11 @@
-import { Outlet, redirect, useNavigation } from 'react-router-dom';
-import { getUser } from '../adverts/service';
 import { toast } from 'react-toastify';
+import { Outlet, redirect, useNavigation } from 'react-router-dom';
+
 import Wrapper from './styles/MainLayoutWrapper';
-import { Spinner } from '../../components';
-import NavBar from '../../components/navBar/NavBar';
+
+import { NavBar, Spinner } from '../../components';
 import { checkAuth } from '../../utils/checkAuth';
+import { getUser } from '../adverts/service';
 
 export const loader = async () => {
   try {

@@ -1,5 +1,6 @@
-import { ITags } from '../../../interfaces/tags.interface';
 import { FaTag } from 'react-icons/fa';
+
+import { ITags } from '../../../interfaces/tags.interface';
 
 const AdvertTags = ({ tags }: { tags: ITags[] }) => {
   return (

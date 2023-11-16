@@ -1,8 +1,9 @@
-import { useRouteError } from 'react-router-dom';
-import { getError } from '../../utils/getError';
-import notFound from '../../assets/images/not-found.svg';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useRouteError } from 'react-router-dom';
+
+import notFound from '../../assets/images/not-found.svg';
+import { getError } from '../../utils/getError';
 
 const StyledErrorPage = styled.main`
   min-height: 100vh;
