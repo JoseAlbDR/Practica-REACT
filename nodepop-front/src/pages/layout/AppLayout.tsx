@@ -1,23 +1,11 @@
-import { useState } from 'react';
-import { Outlet, useOutletContext } from 'react-router-dom';
-
-type ContextType = {
-  rememberLogin: boolean;
-  setRememberLogin: React.Dispatch<React.SetStateAction<boolean>>;
-};
+import { Outlet } from 'react-router-dom';
 
 const AppLayout = () => {
-  const [rememberLogin, setRememberLogin] = useState<boolean>(false);
-
   return (
     <>
-      <Outlet context={[rememberLogin, setRememberLogin]} />
+      <Outlet />
     </>
   );
-};
-
-export const useRememberLogin = () => {
-  return useOutletContext<ContextType>();
 };
 
 export default AppLayout;
