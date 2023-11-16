@@ -22,6 +22,11 @@ const Wrapper = styled.section`
     gap: 2rem;
   }
 
+  .create-link {
+    color: var(--primary-700);
+    text-decoration: underline;
+  }
+
   @media (width > 992px) {
     width: 90%;
   }
