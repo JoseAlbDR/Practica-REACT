@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, useNavigation } from 'react-router-dom';
+import { Outlet, redirect, useNavigation } from 'react-router-dom';
 import { getUser } from '../adverts/service';
 import { toast } from 'react-toastify';
 import Wrapper from './styles/MainLayoutWrapper';
@@ -11,23 +11,20 @@ export const loader = async () => {
     return user;
   } catch (error) {
     console.log(error);
-    toast.info('Not Authenticated, please signup or login');
-    return null;
+    toast.error('Not Authenticated, please signup or login');
+    return redirect('/login');
   }
 };
 
 const AppLayout = () => {
   const navigation = useNavigation();
   const isLoading = navigation.state === 'loading';
-  const user = useLoaderData();
 
   return (
     <Wrapper>
       <main className="main">
         <NavBar />
-        <div className="main-page">
-          {isLoading ? <Spinner /> : <Outlet context={user} />}
-        </div>
+        <div className="main-page">{isLoading ? <Spinner /> : <Outlet />}</div>
       </main>
     </Wrapper>
   );
