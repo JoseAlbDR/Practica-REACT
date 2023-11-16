@@ -4,7 +4,7 @@ import {
   redirect,
   useNavigation,
 } from 'react-router-dom';
-import StyledSignup from './AuthWrapper';
+import StyledSignup from './styles/AuthWrapper';
 import Logo from '../../components/Logo';
 import FormRow from '../../components/form/FormRow';
 import SubmitButton from '../../components/SubmitButton';
@@ -23,7 +23,7 @@ export const action = async (data: ActionFunctionArgs) => {
   try {
     await login({ email, password });
     toast.success('User Succesfully Logged In');
-    return redirect('/adverts');
+    return redirect('/main');
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error);
@@ -57,7 +57,7 @@ const Signup = () => {
           defaultValue="mekieros"
           disabled={isSubmitting}
         ></FormRow>
-        <SubmitButton />
+        <SubmitButton formBtn />
         <p>
           Not a Member Yet?
           <Link to="/signup" className="member-btn">
@@ -65,8 +65,8 @@ const Signup = () => {
           </Link>
         </p>
         <p>
-          Bring me back home
-          <Link to="/" className="member-btn">
+          Want to explore? Go
+          <Link to="/main" className="member-btn">
             Home
           </Link>
         </p>
