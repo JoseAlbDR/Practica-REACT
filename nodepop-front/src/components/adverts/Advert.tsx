@@ -11,6 +11,7 @@ import {
   FaTrash,
   FaUser,
 } from 'react-icons/fa';
+import AdvertTags from './components/AdvertTags';
 
 const Advert = ({ name, sale, price, tags, photo, id }: IAdvert) => {
   return (
@@ -28,6 +29,7 @@ const Advert = ({ name, sale, price, tags, photo, id }: IAdvert) => {
         </div>
         <h2 className="title">{name}</h2>
         <AdvertInfo icon={<FaMoneyBill />} text={price + '€'} />
+        <AdvertTags tags={tags} />
       </div>
     </Wrapper>
   );
