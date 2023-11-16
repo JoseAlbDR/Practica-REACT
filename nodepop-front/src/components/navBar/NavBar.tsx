@@ -9,7 +9,6 @@ const NavBar = () => {
   const user = useLoaderData() as IUser;
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
 
   const currentLocation = location.pathname.split('/').at(-1);
 

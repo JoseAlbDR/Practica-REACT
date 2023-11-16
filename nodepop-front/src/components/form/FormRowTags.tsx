@@ -7,7 +7,6 @@ interface FormRowTagsProps {
 
 const FormRowTags = ({ tags = undefined }: FormRowTagsProps) => {
   const renderTags = useLoaderData() as ITags[];
-  console.log(renderTags);
 
   return (
     <div className="form-row">
