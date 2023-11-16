@@ -1,4 +1,4 @@
-import { IFormRowProps } from './formRow.interface';
+import { IFormRowProps } from '../../interfaces/formRow.interface';
 const FormRow = ({
   type,
   name,
@@ -9,7 +9,7 @@ const FormRow = ({
 }: IFormRowProps) => {
   return (
     <div className="form-row">
-      <label htmlFor="" className={name}>
+      <label htmlFor={name} className="form-label">
         {labelText}
       </label>
       <input
