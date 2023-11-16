@@ -30,7 +30,9 @@ export const action = async (data: ActionFunctionArgs) => {
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error);
-      toast.error('There was an error, try with another user name');
+      toast.error(
+        'There was an error, try with another user name or try again later'
+      );
     }
     console.log({ error });
     return error;
