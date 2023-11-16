@@ -31,6 +31,16 @@ const Wrapper = styled.nav`
       max-width: 30%;
     }
   }
+
+  .menu-btn {
+    text-align: center;
+  }
+
+  @media (width > 425px) {
+    .menu-btn {
+      min-width: 135px;
+    }
+  }
 `;
 
 export default Wrapper;
