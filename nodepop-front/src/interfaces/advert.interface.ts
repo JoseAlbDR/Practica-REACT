@@ -1,8 +1,10 @@
+import { ITags } from './tags.interface';
+
 export interface IAdvert {
   name: string;
   sale: boolean;
   price: number;
-  tags: string[];
+  tags: ITags[];
   photo: string;
   id: string;
 }
