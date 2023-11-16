@@ -1,4 +1,10 @@
-export { default as Logo } from './Logo';
-export { default as SubmitButton } from './SubmitButton';
+export { default as AdvertInfo } from './adverts/components/AdvertInfo';
+export { default as AdvertTags } from './adverts/components/AdvertTags';
+export { default as FormInput } from './form/FormInput';
 export { default as FormRow } from './form/FormRow';
-export { default as Spinner } from './Spinner';
+export { default as FormRowSelect } from './form/FormRowSelect';
+export { default as FormRowTags } from './form/FormRowTags';
+export { default as Logo } from './shared/Logo';
+export { default as NavBar } from './navBar/NavBar';
+export { default as Spinner } from './shared/Spinner';
+export { default as SubmitButton } from './shared/SubmitButton';
