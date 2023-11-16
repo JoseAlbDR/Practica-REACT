@@ -40,18 +40,18 @@ const router = createBrowserRouter([
         action: loginAction,
       },
       {
-        path: '/main',
+        path: '/adverts',
         element: <MainLayout />,
         loader: currentUserLoader,
         children: [
-          // {
-          //   index: true,
-          //   element: <AllAdverts />,
-          //   loader: allAdvertsLoader,
-          //   errorElement: <ErrorPage />,
-          // },
           {
             index: true,
+            element: <AllAdverts />,
+            loader: allAdvertsLoader,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: 'new',
             element: <CreateAdvert />,
             loader: tagsLoader,
             action: createAdvertAction,
