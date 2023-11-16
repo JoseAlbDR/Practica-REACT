@@ -7,10 +7,10 @@ export const signup = async (user: IUser) => {
   return response;
 };
 
-export const login = async (user: ILogin) => {
+export const login = async (user: ILogin, remember: boolean) => {
   const { accessToken } = (await customFetch.post('auth/login', user)) as {
     accessToken: string;
   };
 
-  localStorage.setItem('accessToken', accessToken);
+  if (remember) localStorage.setItem('accessToken', accessToken);
 };

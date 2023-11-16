@@ -8,6 +8,12 @@ export const Wrapper = styled.div`
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
 
+    .check-form-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
     label {
       text-transform: capitalize;
     }
@@ -36,6 +42,7 @@ export const Wrapper = styled.div`
     a {
       color: var(--primary-600);
       margin-left: 0.5rem;
+      font-weight: 700;
     }
   }
 `;

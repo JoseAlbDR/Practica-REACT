@@ -5,9 +5,9 @@ import {
   useNavigation,
 } from 'react-router-dom';
 import StyledSignup from './styles/AuthWrapper';
-import Logo from '../../components/Logo';
+import Logo from '../../components/shared/Logo';
 import FormRow from '../../components/form/FormRow';
-import SubmitButton from '../../components/SubmitButton';
+import SubmitButton from '../../components/shared/SubmitButton';
 import { Link } from 'react-router-dom';
 import { signup } from './service';
 import { AxiosError } from 'axios';
@@ -77,15 +77,10 @@ const Signup = () => {
         <SubmitButton formBtn />
         <p>
           Already a member?
-          <Link to="/login" className="member-btn">
-            Login
-          </Link>
+          <Link to="/login">Login</Link>
         </p>
         <p>
-          Want to explore? Go
-          <Link to="/main" className="member-btn">
-            Home
-          </Link>
+          <Link to="/">Landing Page</Link>
         </p>
       </Form>
     </StyledSignup>

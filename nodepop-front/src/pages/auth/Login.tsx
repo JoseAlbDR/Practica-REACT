@@ -5,9 +5,9 @@ import {
   useNavigation,
 } from 'react-router-dom';
 import StyledSignup from './styles/AuthWrapper';
-import Logo from '../../components/Logo';
+import Logo from '../../components/shared/Logo';
 import FormRow from '../../components/form/FormRow';
-import SubmitButton from '../../components/SubmitButton';
+import SubmitButton from '../../components/shared/SubmitButton';
 import { Link } from 'react-router-dom';
 import { login } from './service';
 import { AxiosError } from 'axios';
@@ -19,11 +19,12 @@ export const action = async (data: ActionFunctionArgs) => {
 
   const email = formData.get('email') as string;
   const password = formData.get('password') as string;
+  const rememberMe = formData.get('rememberMe') ? true : false;
 
   try {
-    await login({ email, password });
+    await login({ email, password }, rememberMe);
     toast.success('User Succesfully Logged In');
-    return redirect('/main');
+    return redirect('/adverts');
   } catch (error) {
     if (error instanceof AxiosError) {
       console.log(error);
@@ -57,6 +58,10 @@ const Signup = () => {
           defaultValue="mekieros"
           disabled={isSubmitting}
         ></FormRow>
+        <div className="check-form-row">
+          <input type="checkbox" name="rememberMe" />
+          Remember Me
+        </div>
         <SubmitButton formBtn />
         <p>
           Not a Member Yet?
@@ -65,9 +70,8 @@ const Signup = () => {
           </Link>
         </p>
         <p>
-          Want to explore? Go
-          <Link to="/main" className="member-btn">
-            Home
+          <Link to="/" className="member-btn">
+            Landing Page
           </Link>
         </p>
       </Form>
