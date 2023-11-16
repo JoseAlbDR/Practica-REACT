@@ -1,3 +1,4 @@
+export { default as Advert } from './adverts/Advert';
 export { default as AdvertInfo } from './adverts/components/AdvertInfo';
 export { default as AdvertTags } from './adverts/components/AdvertTags';
 export { default as FormInput } from './form/FormInput';
