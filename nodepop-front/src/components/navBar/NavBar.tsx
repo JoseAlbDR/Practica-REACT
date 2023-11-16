@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
 import Wrapper from './styles/NavBarWrapper';
 import { Logo } from '..';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,10 @@ import { IUser } from '../../interfaces/auth.interfaces';
 const NavBar = () => {
   const user = useLoaderData() as IUser;
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+
+  const currentLocation = location.pathname.split('/').at(-1);
 
   const logout = () => {
     localStorage.removeItem('accessToken');
@@ -31,8 +35,11 @@ const NavBar = () => {
             </>
           ) : (
             <>
-              <Link to="/" className="btn menu-btn">
-                New Advert
+              <Link
+                to={`${currentLocation === 'new' ? '/adverts' : 'new'}`}
+                className="btn menu-btn"
+              >
+                {currentLocation === 'new' ? 'Advert List' : 'Create Advert'}
               </Link>
               <button onClick={logout} className="btn btn-hipster menu-btn">
                 Logout
