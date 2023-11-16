@@ -6,9 +6,11 @@ import Advert from '../../components/adverts/Advert';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 import { Link } from 'react-router-dom';
+import { checkAuth } from '../../utils/checkAuth';
 
 export const loader = async () => {
   try {
+    checkAuth();
     const adverts = await getAllAdverts();
     return adverts;
   } catch (error) {

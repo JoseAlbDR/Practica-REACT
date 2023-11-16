@@ -2,21 +2,27 @@ import {
   ActionFunctionArgs,
   Form,
   redirect,
-  useNavigate,
   useNavigation,
 } from 'react-router-dom';
-import { FormRow, SubmitButton } from '../../components';
-import FormRowSelect from '../../components/form/FormRowSelect';
 import { toast } from 'react-toastify';
-import { getTags } from '../../components/form/service';
-import FormRowTags from '../../components/form/FormRowTags';
+
+import {
+  FormRow,
+  SubmitButton,
+  FormRowTags,
+  FormInput,
+  FormRowSelect,
+} from '../../components';
+
 import Wrapper from './styles/CreateAdvertWrapper';
 
-import FormInput from '../../components/form/FormInput';
+import { checkAuth } from '../../utils/checkAuth';
+import { getTags } from '../../components/form/service';
 import { createAdvert } from './service';
 
 export const loader = async () => {
   try {
+    checkAuth();
     const tags = await getTags();
     return tags;
   } catch (error) {
@@ -28,9 +34,6 @@ export const loader = async () => {
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
   const formData = await request.formData();
-  // const name = formData.get('name') as string;
-  // const sale = (formData.get('sale') as string) === 'on sale' ? true : false;
-  // const tags = formData.get('tags') as string[];
 
   try {
     await createAdvert(formData);
