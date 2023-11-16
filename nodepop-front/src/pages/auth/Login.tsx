@@ -27,8 +27,9 @@ export const action = async (data: ActionFunctionArgs) => {
     return redirect('/adverts');
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.log(error);
-      toast.error('Wrong Username or Password');
+      if (error.response?.data.statusCode === 401)
+        toast.error('Wrong Username or Password');
+      else toast.error('Ups! There was an error, try again later');
     }
     console.log({ error });
     return error;
