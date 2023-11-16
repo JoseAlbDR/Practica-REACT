@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AppLayout from './pages/AppLayout';
 import ErrorPage from './pages/error/ErrorPage';
 import Signup from './pages/auth/Signup';
 import Login from './pages/auth/Login';
@@ -9,10 +8,15 @@ import { action as signupAction } from './pages/auth/Signup';
 import { action as loginAction } from './pages/auth/Login';
 
 // Loaders
-import { loader as currentUserLoader } from './pages/adverts/Adverts';
+import { loader as currentUserLoader } from './pages/layout/MainLayout';
+import { loader as allAdvertsLoader } from './pages/adverts/AllAdverts';
+import { loader as tagsLoader } from './pages/adverts/CreateAdvert';
 
 import Landing from './pages/landing/Landing';
-import Adverts from './pages/adverts/Adverts';
+import AppLayout from './pages/layout/AppLayout';
+import MainLayout from './pages/layout/MainLayout';
+import AllAdverts from './pages/adverts/AllAdverts';
+import CreateAdvert from './pages/adverts/CreateAdvert';
 
 const router = createBrowserRouter([
   {
@@ -35,9 +39,22 @@ const router = createBrowserRouter([
         action: loginAction,
       },
       {
-        path: '/adverts',
-        element: <Adverts />,
+        path: '/main',
+        element: <MainLayout />,
         loader: currentUserLoader,
+        children: [
+          // {
+          //   index: true,
+          //   element: <AllAdverts />,
+          //   loader: allAdvertsLoader,
+          //   errorElement: <ErrorPage />,
+          // },
+          {
+            index: true,
+            element: <CreateAdvert />,
+            loader: tagsLoader,
+          },
+        ],
       },
     ],
   },
