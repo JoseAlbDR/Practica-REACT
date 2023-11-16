@@ -3,19 +3,8 @@ const url = import.meta.env.VITE_BASE_URL;
 
 const customFetch = axios.create({ baseURL: url });
 customFetch.interceptors.response.use(({ data }) => data);
-customFetch.interceptors.request.use(
-  (config) => {
-    const token = localStorage.getItem('accessToken');
 
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-
-    return config;
-  },
-  (error) => {
-    return Promise.reject(error);
-  }
-);
+export const setAuthorizationHeader = (token: string) =>
+  (customFetch.defaults.headers.common['Authorization'] = `Bearer ${token}`);
 
 export default customFetch;
