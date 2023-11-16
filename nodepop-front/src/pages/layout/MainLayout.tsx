@@ -1,4 +1,4 @@
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useLoaderData, useNavigation } from 'react-router-dom';
 import { getUser } from '../adverts/service';
 import { toast } from 'react-toastify';
 import Wrapper from './styles/MainLayoutWrapper';
@@ -19,14 +19,14 @@ export const loader = async () => {
 const AppLayout = () => {
   const navigation = useNavigation();
   const isLoading = navigation.state === 'loading';
+  const user = useLoaderData();
 
   return (
     <Wrapper>
       <main className="main">
         <NavBar />
         <div className="main-page">
-          <h2>main</h2>
-          {isLoading ? <Spinner /> : <Outlet />}
+          {isLoading ? <Spinner /> : <Outlet context={user} />}
         </div>
       </main>
     </Wrapper>
