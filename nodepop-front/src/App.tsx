@@ -1,7 +1,12 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+
+// Pages
 import ErrorPage from './pages/error/ErrorPage';
 import Signup from './pages/auth/Signup';
 import Login from './pages/auth/Login';
+import Landing from './pages/landing/Landing';
+import AllAdverts from './pages/adverts/AllAdverts';
+import CreateAdvert from './pages/adverts/CreateAdvert';
 
 // Actions
 import { action as signupAction } from './pages/auth/Signup';
@@ -9,15 +14,13 @@ import { action as loginAction } from './pages/auth/Login';
 import { action as createAdvertAction } from './pages/adverts/CreateAdvert';
 
 // Loaders
-import { loader as currentUserLoader } from './pages/layout/MainLayout';
+import { loader as currentUserLoader } from './pages/layout/AdvertsLayout';
 import { loader as allAdvertsLoader } from './pages/adverts/AllAdverts';
 import { loader as tagsLoader } from './pages/adverts/CreateAdvert';
 
-import Landing from './pages/landing/Landing';
+// Layouts
 import AppLayout from './pages/layout/AppLayout';
-import MainLayout from './pages/layout/MainLayout';
-import AllAdverts from './pages/adverts/AllAdverts';
-import CreateAdvert from './pages/adverts/CreateAdvert';
+import AdvertsLayout from './pages/layout/AdvertsLayout';
 
 const router = createBrowserRouter([
   {
@@ -41,7 +44,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/adverts',
-        element: <MainLayout />,
+        element: <AdvertsLayout />,
         loader: currentUserLoader,
         children: [
           {
