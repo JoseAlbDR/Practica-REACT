@@ -1,9 +1,9 @@
 import {
   ActionFunctionArgs,
   Form,
+  redirect,
   useNavigate,
   useNavigation,
-  useOutletContext,
 } from 'react-router-dom';
 import { FormRow, SubmitButton } from '../../components';
 import FormRowSelect from '../../components/form/FormRowSelect';
@@ -11,8 +11,7 @@ import { toast } from 'react-toastify';
 import { getTags } from '../../components/form/service';
 import FormRowTags from '../../components/form/FormRowTags';
 import Wrapper from './styles/CreateAdvertWrapper';
-import { useEffect } from 'react';
-import { IUser } from '../../interfaces/auth.interfaces';
+
 import FormInput from '../../components/form/FormInput';
 import { createAdvert } from './service';
 
@@ -36,7 +35,7 @@ export const action = async (data: ActionFunctionArgs) => {
   try {
     await createAdvert(formData);
     toast.success('Advert Successfully Created');
-    return null;
+    return redirect('/adverts');
   } catch (error) {
     console.log(error);
     toast.error('Error creating an Advertise, try again later');
@@ -46,16 +45,7 @@ export const action = async (data: ActionFunctionArgs) => {
 
 const CreateAdvert = () => {
   const navigation = useNavigation();
-  const navigate = useNavigate();
-  const user = useOutletContext() as IUser;
   const isSubmitting = navigation.state === 'submitting';
-
-  useEffect(() => {
-    if (!user) {
-      toast.error('Unauthenticated, please login first.');
-      navigate('login');
-    }
-  }, [user, navigate]);
 
   return (
     <Wrapper>

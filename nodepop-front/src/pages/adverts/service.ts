@@ -1,7 +1,7 @@
-// import { AxiosPromise } from 'axios';
+import { AxiosPromise } from 'axios';
 
 import customFetch from '../../api/customFetch';
-// import { Advert } from '../../interfaces/advert.interface';
+import { IAdvert } from '../../interfaces/advert.interface';
 
 export const getUser = async () => {
   const user = await customFetch.get('/auth/me');
@@ -13,7 +13,7 @@ export const createAdvert = async (advert: FormData) => {
   await customFetch.post('/v1/adverts', advert);
 };
 
-// export const getAllAdverts = async (): AxiosPromise<Advert[]> => {
-//   const adverts = await customFetch.get('/v1/adverts');
-//   return adverts;
-// };
+export const getAllAdverts = async (): AxiosPromise<IAdvert[]> => {
+  const adverts = await customFetch.get('/v1/adverts');
+  return adverts;
+};
