@@ -6,6 +6,7 @@ import Login from './pages/auth/Login';
 // Actions
 import { action as signupAction } from './pages/auth/Signup';
 import { action as loginAction } from './pages/auth/Login';
+import { action as createAdvertAction } from './pages/adverts/CreateAdvert';
 
 // Loaders
 import { loader as currentUserLoader } from './pages/layout/MainLayout';
@@ -53,6 +54,7 @@ const router = createBrowserRouter([
             index: true,
             element: <CreateAdvert />,
             loader: tagsLoader,
+            action: createAdvertAction,
           },
         ],
       },

@@ -1,4 +1,5 @@
 import {
+  ActionFunctionArgs,
   Form,
   useNavigate,
   useNavigation,
@@ -13,6 +14,7 @@ import Wrapper from './styles/CreateAdvertWrapper';
 import { useEffect } from 'react';
 import { IUser } from '../../interfaces/auth.interfaces';
 import FormInput from '../../components/form/FormInput';
+import { createAdvert } from './service';
 
 export const loader = async () => {
   try {
@@ -21,6 +23,24 @@ export const loader = async () => {
   } catch (error) {
     console.log(error);
     toast.error('Error Loading Tags');
+  }
+};
+
+export const action = async (data: ActionFunctionArgs) => {
+  const { request } = data;
+  const formData = await request.formData();
+  // const name = formData.get('name') as string;
+  // const sale = (formData.get('sale') as string) === 'on sale' ? true : false;
+  // const tags = formData.get('tags') as string[];
+
+  try {
+    await createAdvert(formData);
+    toast.success('Advert Successfully Created');
+    return null;
+  } catch (error) {
+    console.log(error);
+    toast.error('Error creating an Advertise, try again later');
+    return error;
   }
 };
 
@@ -39,7 +59,7 @@ const CreateAdvert = () => {
 
   return (
     <Wrapper>
-      <Form className="form">
+      <Form method="post" className="form" encType="multipart/form-data">
         <h4>New Advert</h4>
         <FormRow
           type="text"
@@ -48,7 +68,7 @@ const CreateAdvert = () => {
           defaultValue=""
           disabled={isSubmitting}
         />
-        <FormRowSelect name="onSale" types={['on sale', 'search']} />
+        <FormRowSelect name="sale" types={['on sale', 'search']} />
         <FormRowTags />
         <FormRow
           type="number"
@@ -61,7 +81,7 @@ const CreateAdvert = () => {
           labelText="select an image file (max 0.5MB)"
           type="file"
           id="image"
-          name="image"
+          name="photo"
         />
         <SubmitButton formBtn />
       </Form>
