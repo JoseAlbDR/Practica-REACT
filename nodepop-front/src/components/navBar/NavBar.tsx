@@ -10,6 +10,7 @@ import Wrapper from './styles/NavBarWrapper';
 import { Logo } from '..';
 import { IUser } from '../../interfaces/auth.interfaces';
 import { storage } from '../../utils';
+import { removeAuthorizationHeader } from '../../api/customFetch';
 
 const NavBar = () => {
   const user = useLoaderData() as IUser;
@@ -20,6 +21,7 @@ const NavBar = () => {
 
   const logout = () => {
     storage.remove('accessToken');
+    removeAuthorizationHeader();
     toast.success(`User ${user.name} successfully logged out`);
     navigate('/login');
   };
