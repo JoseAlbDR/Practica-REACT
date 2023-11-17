@@ -14,13 +14,14 @@ import { action as loginAction } from './pages/auth/Login';
 import { action as createAdvertAction } from './pages/adverts/CreateAdvert';
 
 // Loaders
-import { loader as currentUserLoader } from './pages/layout/AdvertsLayout';
+import { loader as currentUserLoader } from './components/protected/ProtectedRoute';
 import { loader as allAdvertsLoader } from './pages/adverts/AllAdverts';
 import { loader as tagsLoader } from './pages/adverts/CreateAdvert';
 
 // Layouts
 import AppLayout from './pages/layout/AppLayout';
 import AdvertsLayout from './pages/layout/AdvertsLayout';
+import ProtectedRoute from './components/protected/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -42,9 +43,14 @@ const router = createBrowserRouter([
         element: <Login />,
         action: loginAction,
       },
+
       {
         path: '/adverts',
-        element: <AdvertsLayout />,
+        element: (
+          <ProtectedRoute>
+            <AdvertsLayout />
+          </ProtectedRoute>
+        ),
         loader: currentUserLoader,
         children: [
           {

@@ -7,12 +7,10 @@ import Wrapper from './styles/AllAdvertsWrapper';
 
 import { IAdvert } from '../../interfaces/advert.interface';
 import { Advert } from '../../components';
-import { checkAuth } from '../../utils/checkAuth';
 import { getAllAdverts } from './service';
 
 export const loader = async () => {
   try {
-    checkAuth();
     const adverts = await getAllAdverts();
     return adverts;
   } catch (error) {

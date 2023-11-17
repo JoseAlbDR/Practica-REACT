@@ -1,24 +1,9 @@
-import { toast } from 'react-toastify';
-import { Outlet, redirect, useNavigation } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router-dom';
 
 import Wrapper from './styles/MainLayoutWrapper';
 
 import { NavBar, Spinner } from '../../components';
-import { checkAuth } from '../../utils/checkAuth';
-import { getUser } from '../adverts/service';
-
-export const loader = async () => {
-  try {
-    checkAuth();
-    const user = await getUser();
-    console.log(user);
-    return user;
-  } catch (error) {
-    console.log(error);
-    toast.error('Not Authenticated, please signup or login');
-    return redirect('/login');
-  }
-};
+import { UserProvider } from '../../context/UserContext';
 
 const AdvertsLayout = () => {
   const navigation = useNavigation();
@@ -26,10 +11,14 @@ const AdvertsLayout = () => {
 
   return (
     <Wrapper>
-      <main className="main">
-        <NavBar />
-        <div className="main-page">{isLoading ? <Spinner /> : <Outlet />}</div>
-      </main>
+      <UserProvider>
+        <main className="main">
+          <NavBar />
+          <div className="main-page">
+            {isLoading ? <Spinner /> : <Outlet />}
+          </div>
+        </main>
+      </UserProvider>
     </Wrapper>
   );
 };

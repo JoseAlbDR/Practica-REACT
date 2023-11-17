@@ -4,7 +4,8 @@ import {
   ActionFunctionArgs,
   Form,
   Link,
-  redirect,
+  useActionData,
+  useNavigate,
   useNavigation,
 } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ import { storage } from '../../utils';
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { login } from './service';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../../context/AuthContext';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -26,7 +28,7 @@ export const action = async (data: ActionFunctionArgs) => {
   try {
     await login({ email, password }, rememberMe);
     toast.success('User Succesfully Logged In');
-    return redirect('/adverts');
+    return true;
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response?.data.statusCode === 401)
@@ -34,19 +36,29 @@ export const action = async (data: ActionFunctionArgs) => {
       else toast.error('Ups! There was an error, try again later');
     }
     console.log({ error });
-    return error;
+    return false;
   }
 };
 
 const Login = () => {
   const [remember, setRemember] = useState(false);
+  const isLogged = useActionData() as boolean;
   const navigation = useNavigation();
+  const navigate = useNavigate();
+
+  const { toggleLogged } = useAuth();
   const isSubmitting = navigation.state === 'submitting';
 
   useEffect(() => {
-    if (storage.get('accessToken')) setRemember(true);
-    else setRemember(false);
+    if (storage.get('accessToken')) {
+      setRemember(true);
+    } else setRemember(false);
   }, []);
+
+  useEffect(() => {
+    if (isLogged) navigate('/adverts');
+    toggleLogged(isLogged);
+  }, [isLogged, toggleLogged, navigate]);
 
   return (
     <StyledLogin>

@@ -1,5 +1,9 @@
-import customFetch, { setAuthorizationHeader } from '../../api/customFetch';
+import customFetch, {
+  removeAuthorizationHeader,
+  setAuthorizationHeader,
+} from '../../api/customFetch';
 import { ILogin, IUser } from '../../interfaces/auth.interfaces';
+import { storage } from '../../utils';
 
 export const signup = async (user: IUser) => {
   const userData = await customFetch.post('/auth/signup', user);
@@ -14,4 +18,9 @@ export const login = async (user: ILogin, remember: boolean) => {
   setAuthorizationHeader(accessToken);
 
   if (remember) localStorage.setItem('accessToken', accessToken);
+};
+
+export const logout = async () => {
+  removeAuthorizationHeader();
+  storage.remove('accessToken');
 };

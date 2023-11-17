@@ -16,13 +16,10 @@ import {
 
 import Wrapper from './styles/CreateAdvertWrapper';
 
-import { checkAuth } from '../../utils/checkAuth';
-import { getTags } from '../../components/form/service';
-import { createAdvert } from './service';
+import { getTags, createAdvert } from './service';
 
 export const loader = async () => {
   try {
-    checkAuth();
     const tags = await getTags();
     return tags;
   } catch (error) {

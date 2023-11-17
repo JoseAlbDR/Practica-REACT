@@ -1,27 +1,24 @@
 import { toast } from 'react-toastify';
-import {
-  useLoaderData,
-  useLocation,
-  useNavigate,
-  Link,
-} from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 import Wrapper from './styles/NavBarWrapper';
 import { Logo } from '..';
-import { IUser } from '../../interfaces/auth.interfaces';
-import { storage } from '../../utils';
-import { removeAuthorizationHeader } from '../../api/customFetch';
+
+import { useUser } from '../../context/UserContext';
+import { useAuth } from '../../context/AuthContext';
+import { logout } from '../../pages/auth/service';
 
 const NavBar = () => {
-  const user = useLoaderData() as IUser;
+  const { user } = useUser();
+  const { toggleLogged } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const currentLocation = location.pathname.split('/').at(-1);
 
-  const logout = () => {
-    storage.remove('accessToken');
-    removeAuthorizationHeader();
+  const onLogout = async () => {
+    await logout();
+    toggleLogged(false);
     toast.success(`User ${user.name} successfully logged out`);
     navigate('/login');
   };
@@ -48,7 +45,7 @@ const NavBar = () => {
               >
                 {currentLocation === 'new' ? 'Advert List' : 'Create Advert'}
               </Link>
-              <button onClick={logout} className="btn btn-hipster menu-btn">
+              <button onClick={onLogout} className="btn btn-hipster menu-btn">
                 Logout
               </button>
             </>
