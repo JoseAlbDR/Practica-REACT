@@ -11,6 +11,7 @@ export const loader = async () => {
   try {
     checkAuth();
     const user = await getUser();
+    console.log(user);
     return user;
   } catch (error) {
     console.log(error);
