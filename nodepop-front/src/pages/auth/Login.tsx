@@ -8,10 +8,12 @@ import {
   useNavigation,
 } from 'react-router-dom';
 
-import StyledSignup from './styles/AuthWrapper';
+import StyledLogin from './styles/AuthWrapper';
+import { storage } from '../../utils';
 
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { login } from './service';
+import { useEffect, useState } from 'react';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -36,12 +38,18 @@ export const action = async (data: ActionFunctionArgs) => {
   }
 };
 
-const Signup = () => {
+const Login = () => {
+  const [remember, setRemember] = useState(false);
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
+  useEffect(() => {
+    if (storage.get('accessToken')) setRemember(true);
+    else setRemember(false);
+  }, []);
+
   return (
-    <StyledSignup>
+    <StyledLogin>
       <Form method="post" className="form">
         <Logo />
         <h4>Login</h4>
@@ -60,7 +68,12 @@ const Signup = () => {
           disabled={isSubmitting}
         ></FormRow>
         <div className="check-form-row">
-          <input type="checkbox" name="rememberMe" />
+          <input
+            type="checkbox"
+            name="rememberMe"
+            checked={remember}
+            onChange={() => setRemember((remember) => !remember)}
+          />
           Remember Me
         </div>
         <SubmitButton formBtn />
@@ -76,8 +89,8 @@ const Signup = () => {
           </Link>
         </p>
       </Form>
-    </StyledSignup>
+    </StyledLogin>
   );
 };
 
-export default Signup;
+export default Login;

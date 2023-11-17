@@ -23,8 +23,7 @@ export const action = async (data: ActionFunctionArgs) => {
   const password = formData.get('password') as string;
 
   try {
-    const response = await signup({ email, name, username, password });
-    console.log(response);
+    await signup({ email, name, username, password });
     toast.success('User Succesfully Created');
     return redirect('/login');
   } catch (error) {

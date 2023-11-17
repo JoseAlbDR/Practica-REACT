@@ -27,8 +27,10 @@ const Wrapper = styled.nav`
     justify-content: space-between;
     flex: 1;
 
-    img {
-      max-width: 30%;
+    a {
+      img {
+        max-width: 100%;
+      }
     }
   }
 

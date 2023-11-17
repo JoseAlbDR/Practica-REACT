@@ -9,6 +9,7 @@ import {
 import Wrapper from './styles/NavBarWrapper';
 import { Logo } from '..';
 import { IUser } from '../../interfaces/auth.interfaces';
+import { storage } from '../../utils';
 
 const NavBar = () => {
   const user = useLoaderData() as IUser;
@@ -18,7 +19,7 @@ const NavBar = () => {
   const currentLocation = location.pathname.split('/').at(-1);
 
   const logout = () => {
-    localStorage.removeItem('accessToken');
+    storage.remove('accessToken');
     toast.success(`User ${user.name} successfully logged out`);
     navigate('/login');
   };
