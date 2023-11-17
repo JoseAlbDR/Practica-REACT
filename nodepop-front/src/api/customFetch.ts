@@ -5,7 +5,6 @@ const customFetch = axios.create({ baseURL: url });
 customFetch.interceptors.response.use(({ data }) => data);
 
 export const setAuthorizationHeader = (token: string) => {
-  console.log(token);
   customFetch.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 

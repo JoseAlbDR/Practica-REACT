@@ -4,13 +4,14 @@ import { useLocation, useNavigate, Link } from 'react-router-dom';
 import Wrapper from './styles/NavBarWrapper';
 import { Logo } from '..';
 
-import { useUser } from '../../context/UserContext';
 import { useAuth } from '../../context/AuthContext';
 import { logout } from '../../pages/auth/service';
+import { useUser } from '../../context/UserContext';
 
 const NavBar = () => {
+  const { isLogged, toggleLogged } = useAuth();
   const { user } = useUser();
-  const { toggleLogged } = useAuth();
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -19,7 +20,7 @@ const NavBar = () => {
   const onLogout = async () => {
     await logout();
     toggleLogged(false);
-    toast.success(`User ${user.name} successfully logged out`);
+    toast.success(`User ${user?.name} successfully logged out`);
     navigate('/login');
   };
 
@@ -28,7 +29,7 @@ const NavBar = () => {
       <div className="nav-center">
         <ul className="nav-items">
           <Logo />
-          {!user ? (
+          {!isLogged ? (
             <>
               <Link to="/login" className="btn menu-btn">
                 Login

@@ -1,19 +1,12 @@
-import { ReactNode } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Navigate, redirect } from 'react-router-dom';
+import { Navigate, Outlet, redirect } from 'react-router-dom';
 import { getUser } from './service';
 import { toast } from 'react-toastify';
 import { UserProvider } from '../../context/UserContext';
-import { storage } from '../../utils';
-import { setAuthorizationHeader } from '../../api/customFetch';
+import { checkRememberMe } from '../../utils';
 
 export const loader = async () => {
-  const accessToken = storage.get('accessToken');
-
-  if (accessToken) {
-    setAuthorizationHeader(accessToken);
-  }
-
+  checkRememberMe();
   try {
     const user = await getUser();
     return user;
@@ -24,13 +17,15 @@ export const loader = async () => {
   }
 };
 
-const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+const ProtectedRoute = () => {
   const { isLogged } = useAuth();
 
   return (
     <>
       {isLogged ? (
-        <UserProvider>{children}</UserProvider>
+        <UserProvider>
+          <Outlet />
+        </UserProvider>
       ) : (
         <Navigate to="/login" />
       )}

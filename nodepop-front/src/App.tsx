@@ -45,25 +45,26 @@ const router = createBrowserRouter([
       },
 
       {
-        path: '/adverts',
-        element: (
-          <ProtectedRoute>
-            <AdvertsLayout />
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute />,
         loader: currentUserLoader,
         children: [
           {
-            index: true,
-            element: <AllAdverts />,
-            loader: allAdvertsLoader,
-            errorElement: <ErrorPage />,
-          },
-          {
-            path: 'new',
-            element: <CreateAdvert />,
-            loader: tagsLoader,
-            action: createAdvertAction,
+            path: '/adverts',
+            element: <AdvertsLayout />,
+            children: [
+              {
+                index: true,
+                element: <AllAdverts />,
+                loader: allAdvertsLoader,
+                errorElement: <ErrorPage />,
+              },
+              {
+                path: 'new',
+                element: <CreateAdvert />,
+                loader: tagsLoader,
+                action: createAdvertAction,
+              },
+            ],
           },
         ],
       },
