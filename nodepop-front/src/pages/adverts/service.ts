@@ -4,6 +4,12 @@ import customFetch from '../../api/customFetch';
 import { IAdvert } from '../../interfaces/advert.interface';
 
 export const createAdvert = async (advert: FormData) => {
+  const sale = advert.get('sale');
+
+  const forSale = sale === 'on sale' ? 'true' : 'false';
+
+  advert.set('sale', forSale);
+
   await customFetch.post('/v1/adverts', advert);
 };
 
