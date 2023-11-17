@@ -10,8 +10,8 @@ interface AdvertInforProps {
 const AdvertInfo = ({ icon, text }: AdvertInforProps) => {
   return (
     <Wrapper>
-      <span className="product-icon">{icon}</span>
-      <span className="product-text">{text}</span>
+      <span className="advert-icon">{icon}</span>
+      <span className="advert-text">{text}</span>
     </Wrapper>
   );
 };
