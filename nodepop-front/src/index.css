@@ -48,6 +48,7 @@ html {
   --extra-small-text: 0.7em;
   /* rest of the vars */
 
+  --backdrop-color: rgba(255, 255, 255, 0.1);
   --border-radius: 0.25rem;
   --letter-spacing: 1px;
   --transition: 0.3s ease-in-out all;
