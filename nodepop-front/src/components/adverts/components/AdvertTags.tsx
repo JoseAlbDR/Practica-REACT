@@ -10,7 +10,7 @@ const AdvertTags = ({ tags }: { tags: ITags[] }) => {
         <FaTag />
       </h3>
       <div className="tags">
-        {tags.map((tag) => (
+        {tags?.map((tag) => (
           <div key={tag} className="tag">
             <span>{tag}</span>
           </div>
