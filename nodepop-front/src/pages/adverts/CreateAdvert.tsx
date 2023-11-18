@@ -25,6 +25,7 @@ export const loader = async () => {
   } catch (error) {
     console.log(error);
     toast.error('Error Loading Tags');
+    throw new Error('Error Loading Tags');
   }
 };
 
@@ -39,7 +40,7 @@ export const action = async (data: ActionFunctionArgs) => {
   } catch (error) {
     console.log(error);
     toast.error('Error creating an Advertise, try again later');
-    return error;
+    throw new Error('Error creating an Advertise');
   }
 };
 

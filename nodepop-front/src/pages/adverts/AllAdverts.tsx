@@ -19,7 +19,7 @@ export const loader = async () => {
       if (error?.response?.status === 401) return;
     }
     toast.error('Error loading adverts, try again later');
-    return error;
+    throw new Error('Error loading adverts');
   }
 };
 
