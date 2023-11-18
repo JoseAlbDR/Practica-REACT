@@ -10,6 +10,8 @@ const Wrapper = styled.section`
     width: 100vw;
     margin: 0 auto;
     padding: 2rem 0;
+    display: grid;
+    place-items: center;
   }
   @media (width > 768px) {
     .main-page {
