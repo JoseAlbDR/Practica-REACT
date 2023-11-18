@@ -1,24 +1,28 @@
-import StyledConfirmDelete from './styles/ConfirmDeleteWrapper';
+import StyledConfirmModal from './styles/ConfirmModalWrapper';
 
-interface ConfirmDeleteProps {
+interface ConfirmModalProps {
   resourceName: string;
   onConfirm: () => Promise<void>;
   disabled?: boolean;
   onCloseModal?: () => void;
+  type: string;
 }
 
-function ConfirmDelete({
+const ConfirmModal = ({
   resourceName,
   onConfirm,
   disabled,
   onCloseModal,
-}: ConfirmDeleteProps) {
+  type,
+}: ConfirmModalProps) => {
   return (
-    <StyledConfirmDelete>
-      <h3>Delete {resourceName}</h3>
+    <StyledConfirmModal>
+      <h3>{type === 'delete' ? `Delete ${resourceName}` : type}</h3>
       <p>
-        Are you sure you want to delete this {resourceName} permanently? This
-        action cannot be undone.
+        {type === 'delete'
+          ? `Are you sure you want to delete this ${resourceName} permanently? This
+        action cannot be undone.`
+          : `Are you sure you want to ${type}`}
       </p>
 
       <div>
@@ -37,8 +41,8 @@ function ConfirmDelete({
           Delete
         </button>
       </div>
-    </StyledConfirmDelete>
+    </StyledConfirmModal>
   );
-}
+};
 
-export default ConfirmDelete;
+export default ConfirmModal;

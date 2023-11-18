@@ -9,7 +9,7 @@ import { AdvertProps } from '../../interfaces/advert.interface';
 import { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import ConfirmDelete from '../shared/ConfirmDelete';
+import ConfirmDelete from '../shared/ConfirmModal';
 import Modal from '../shared/Modal';
 import { deleteAdvert } from './service';
 
@@ -71,6 +71,7 @@ const Advert = ({
             </Modal.Open>
             <Modal.Window name="delete">
               <ConfirmDelete
+                type="delete"
                 resourceName="advert"
                 onConfirm={() => handleDeleteAdvert(id)}
               />
