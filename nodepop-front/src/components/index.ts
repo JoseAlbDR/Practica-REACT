@@ -6,6 +6,6 @@ export { default as FormRow } from './form/FormRow';
 export { default as FormRowSelect } from './form/FormRowSelect';
 export { default as FormRowTags } from './form/FormRowTags';
 export { default as Logo } from './shared/Logo';
-export { default as NavBar } from './navBar/NavBar';
+export { default as NavBar } from './navbar/Navbar';
 export { default as Spinner } from './shared/Spinner';
 export { default as SubmitButton } from './shared/SubmitButton';

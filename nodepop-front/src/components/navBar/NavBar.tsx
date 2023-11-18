@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 
-import Wrapper from './styles/NavBarWrapper';
+import Wrapper from './styles/NavbarWrapper';
 import { Logo } from '..';
 
 import { useAuth } from '../../context/AuthContext';
