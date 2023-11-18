@@ -8,3 +8,7 @@ export interface IAdvert {
   photo: string;
   id: string;
 }
+
+export interface AdvertProps extends IAdvert {
+  type?: string;
+}
