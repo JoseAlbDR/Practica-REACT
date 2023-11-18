@@ -17,11 +17,13 @@ import { action as createAdvertAction } from './pages/adverts/CreateAdvert';
 import { loader as currentUserLoader } from './components/protected/ProtectedRoute';
 import { loader as allAdvertsLoader } from './pages/adverts/AllAdverts';
 import { loader as tagsLoader } from './pages/adverts/CreateAdvert';
+import { loader as advertDetailLoader } from './pages/adverts/AdvertDetail';
 
 // Layouts
 import AppLayout from './pages/layout/AppLayout';
 import AdvertsLayout from './pages/layout/AdvertsLayout';
 import ProtectedRoute from './components/protected/ProtectedRoute';
+import AdvertDetail from './pages/adverts/AdvertDetail';
 
 const router = createBrowserRouter([
   {
@@ -56,13 +58,18 @@ const router = createBrowserRouter([
                 index: true,
                 element: <AllAdverts />,
                 loader: allAdvertsLoader,
-                errorElement: <ErrorPage />,
               },
               {
                 path: 'new',
                 element: <CreateAdvert />,
                 loader: tagsLoader,
                 action: createAdvertAction,
+              },
+              {
+                path: ':id',
+                element: <AdvertDetail />,
+                loader: advertDetailLoader,
+                errorElement: <ErrorPage />,
               },
             ],
           },
