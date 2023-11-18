@@ -26,6 +26,7 @@ import ProtectedRoute from './components/protected/ProtectedRoute';
 import AdvertDetail from './pages/adverts/AdvertDetail';
 
 const router = createBrowserRouter([
+  // Public Routes
   {
     path: '/',
     element: <AppLayout />,
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
         element: <Login />,
         action: loginAction,
       },
-
+      // Protected routes
       {
         element: <ProtectedRoute />,
         loader: currentUserLoader,
