@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import bothSides from '../../../assets/images/both_sides.svg';
 
 export const Wrapper = styled.div`
   min-height: 100vh;
@@ -7,7 +8,7 @@ export const Wrapper = styled.div`
   form {
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
-
+    background-color: rgba(255, 255, 255, 0.9);
     .check-form-row {
       display: flex;
       align-items: center;
@@ -44,6 +45,15 @@ export const Wrapper = styled.div`
       margin-left: 0.5rem;
       font-weight: 700;
     }
+  }
+
+  background-image: url(${bothSides});
+  background-repeat: repeat-x;
+  background-size: cover;
+  background-position-x: center;
+
+  @media (width > 1400px) {
+    background-size: contain;
   }
 `;
 
