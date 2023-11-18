@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { useRouteError } from 'react-router-dom';
 
 import notFound from '../../assets/images/not-found.svg';
+import errorImage from '../../assets/images/error.svg';
 import { getError } from '../../utils/getError';
 
-const StyledErrorPage = styled.main`
+const StyledErrorPage = styled.main<{ $type: string }>`
   min-height: 100vh;
   text-align: center;
   text-transform: capitalize;
@@ -15,7 +16,8 @@ const StyledErrorPage = styled.main`
 
   img {
     width: 90vw;
-    max-width: 600px;
+
+    max-width: ${(props) => (props.$type === 'error' ? '300px' : '600px')};
     margin-bottom: 2rem;
     margin-top: -3rem;
   }
@@ -46,7 +48,7 @@ const ErrorPage = () => {
 
   if (currentError.status && currentError.status === 404) {
     return (
-      <StyledErrorPage>
+      <StyledErrorPage $type="notfound">
         <div>
           <img src={notFound} alt="not found" className="img notfound-img" />
           <h3>{currentError.msg}</h3>
@@ -57,10 +59,12 @@ const ErrorPage = () => {
     );
   }
   return (
-    <StyledErrorPage>
+    <StyledErrorPage $type="error">
       <div>
-        <h3>Something wet wrong</h3>
+        <img src={errorImage} alt="not found" className="img notfound-img" />
+        <h3>Something went wrong</h3>
         <p>{currentError.msg}</p>
+        <Link to="/">Bring me Home</Link>
       </div>
     </StyledErrorPage>
   );

@@ -58,12 +58,14 @@ const router = createBrowserRouter([
                 index: true,
                 element: <AllAdverts />,
                 loader: allAdvertsLoader,
+                errorElement: <ErrorPage />,
               },
               {
                 path: 'new',
                 element: <CreateAdvert />,
                 loader: tagsLoader,
                 action: createAdvertAction,
+                errorElement: <ErrorPage />,
               },
               {
                 path: ':id',
