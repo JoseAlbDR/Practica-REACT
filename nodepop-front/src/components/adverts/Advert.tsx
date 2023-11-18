@@ -31,6 +31,7 @@ const Advert = ({
       navigate('/adverts');
     } catch (error) {
       console.log(error);
+      throw error;
     }
   };
 
