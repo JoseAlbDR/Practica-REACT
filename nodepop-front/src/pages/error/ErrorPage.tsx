@@ -42,13 +42,14 @@ const ErrorPage = () => {
   const currentError = getError(error);
 
   console.log(error);
+  console.log(currentError);
 
   if (currentError.status && currentError.status === 404) {
     return (
       <StyledErrorPage>
         <div>
           <img src={notFound} alt="not found" className="img notfound-img" />
-          <h3>Ohh! Page Not Found</h3>
+          <h3>{currentError.msg}</h3>
           <p>We can't seem to find the page you are looking for</p>
           <Link to="/"> Bring me back Home</Link>
         </div>
