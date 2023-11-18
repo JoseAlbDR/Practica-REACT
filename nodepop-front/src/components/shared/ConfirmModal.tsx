@@ -22,23 +22,23 @@ const ConfirmModal = ({
         {type === 'delete'
           ? `Are you sure you want to delete this ${resourceName} permanently? This
         action cannot be undone.`
-          : `Are you sure you want to ${type}`}
+          : `Are you sure do you want to ${type}?`}
       </p>
 
       <div>
         <button
-          className="btn btn-hipster"
+          className="btn btn-block btn-hipster"
           disabled={disabled}
           onClick={onCloseModal}
         >
           Cancel
         </button>
         <button
-          className="btn danger-btn"
+          className="btn btn-block danger-btn"
           disabled={disabled}
           onClick={onConfirm}
         >
-          Delete
+          {type}
         </button>
       </div>
     </StyledConfirmModal>
