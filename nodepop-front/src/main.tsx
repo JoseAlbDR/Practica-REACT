@@ -9,6 +9,7 @@ import { setAuthorizationHeader } from './api/customFetch.ts';
 import { AuthProvider } from './context/AuthContext.tsx';
 
 const accessToken = storage.get('accessToken');
+const remember = storage.get('rememberUser');
 
 if (accessToken) {
   setAuthorizationHeader(accessToken);
@@ -16,7 +17,7 @@ if (accessToken) {
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <AuthProvider initialLogged={!!accessToken}>
+    <AuthProvider initialLogged={!!accessToken} remember={!!remember}>
       <App />
     </AuthProvider>
     <ToastContainer position="top-center" className={'toast-message'} />

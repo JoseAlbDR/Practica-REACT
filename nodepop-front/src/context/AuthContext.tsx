@@ -1,5 +1,6 @@
 import React, { createContext } from 'react';
 import { useState, useContext } from 'react';
+import { storage } from '../utils';
 
 interface AuthContextValues {
   isLogged: boolean;
@@ -12,13 +13,15 @@ const AuthContext = createContext<AuthContextValues | undefined>(undefined);
 
 const AuthProvider = ({
   initialLogged,
+  remember,
   children,
 }: {
   initialLogged: boolean;
+  remember: boolean;
   children: React.ReactNode;
 }): JSX.Element => {
   const [isLogged, setIsLogged] = useState<boolean>(initialLogged);
-  const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const [rememberMe, setRememberMe] = useState<boolean>(remember);
 
   const toggleLogged = (value: boolean) => {
     setIsLogged(value);
@@ -27,6 +30,11 @@ const AuthProvider = ({
 
   const toggleRememberMe = (value: boolean) => {
     setRememberMe(value);
+
+    value
+      ? storage.set('rememberUser', 'true')
+      : storage.remove('rememberUser');
+
     return;
   };
 

@@ -40,8 +40,6 @@ const Advert = ({
     event.currentTarget.src = '../../assets/images/Image_not_available.png';
   };
 
-  console.log(id);
-
   return (
     <Wrapper>
       <img

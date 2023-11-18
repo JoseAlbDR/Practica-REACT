@@ -17,7 +17,10 @@ export const login = async (user: ILogin, remember: boolean) => {
 
   setAuthorizationHeader(accessToken);
 
-  if (remember) localStorage.setItem('accessToken', accessToken);
+  if (remember) {
+    storage.set('accessToken', accessToken);
+    storage.set('rememberUser', remember.toString());
+  }
 };
 
 export const logout = async () => {
