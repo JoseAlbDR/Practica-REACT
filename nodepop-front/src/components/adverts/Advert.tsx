@@ -9,6 +9,10 @@ import { AdvertProps } from '../../interfaces/advert.interface';
 import { SyntheticEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import ConfirmDelete from '../shared/ConfirmDelete';
+import Modal from '../shared/Modal';
+import { deleteAdvert } from './service';
+
 const Advert = ({
   name,
   sale,
@@ -19,6 +23,16 @@ const Advert = ({
   type = '',
 }: AdvertProps) => {
   const navigate = useNavigate();
+
+  const handleDeleteAdvert = async (id: string) => {
+    console.log('Delete');
+    try {
+      await deleteAdvert(id);
+      navigate('/adverts');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     console.log('error');
@@ -49,7 +63,19 @@ const Advert = ({
         <AdvertInfo icon={<FaMoneyBill />} text={price + '€'} />
         <AdvertTags tags={tags} />
         {type === 'detail' ? (
-          <button className="btn btn-block danger-btn">Delete Advert</button>
+          <Modal>
+            <Modal.Open opens="delete">
+              <button className="btn btn-block danger-btn">
+                Delete Advert
+              </button>
+            </Modal.Open>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                resourceName="advert"
+                onConfirm={() => handleDeleteAdvert(id)}
+              />
+            </Modal.Window>
+          </Modal>
         ) : (
           <button
             className="btn btn-block"
