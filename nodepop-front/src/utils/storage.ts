@@ -1,11 +1,11 @@
 export const storage = {
   get(key: string) {
     const value = localStorage.getItem(key);
-    return value ? value : null;
+    return value ? JSON.parse(value) : null;
   },
 
   set(key: string, value: string) {
-    localStorage.setItem(key, value);
+    localStorage.setItem(key, JSON.stringify(value));
   },
 
   remove(key: string) {
