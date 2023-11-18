@@ -5,17 +5,15 @@ import {
   Form,
   Link,
   useActionData,
-  useNavigate,
   useNavigation,
 } from 'react-router-dom';
 
 import StyledLogin from './styles/AuthWrapper';
-import { storage } from '../../utils';
 
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { login } from './service';
-import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { useRememberUser } from '../../hooks/useRememberUser';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -41,24 +39,11 @@ export const action = async (data: ActionFunctionArgs) => {
 };
 
 const Login = () => {
-  const [remember, setRemember] = useState(false);
+  const { rememberMe, toggleRememberMe } = useAuth();
   const isLogged = useActionData() as boolean;
   const navigation = useNavigation();
-  const navigate = useNavigate();
-
-  const { toggleLogged } = useAuth();
   const isSubmitting = navigation.state === 'submitting';
-
-  useEffect(() => {
-    if (storage.get('accessToken')) {
-      setRemember(true);
-    } else setRemember(false);
-  }, []);
-
-  useEffect(() => {
-    if (isLogged) navigate('/adverts');
-    toggleLogged(isLogged);
-  }, [isLogged, toggleLogged, navigate]);
+  useRememberUser(isLogged);
 
   return (
     <StyledLogin>
@@ -83,8 +68,8 @@ const Login = () => {
           <input
             type="checkbox"
             name="rememberMe"
-            checked={remember}
-            onChange={() => setRemember((remember) => !remember)}
+            checked={rememberMe}
+            onChange={() => toggleRememberMe(!rememberMe)}
           />
           Remember Me
         </div>
