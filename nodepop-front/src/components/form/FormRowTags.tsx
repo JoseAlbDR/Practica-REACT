@@ -13,7 +13,7 @@ const FormRowTags = ({ tags = undefined }: FormRowTagsProps) => {
     <div className="form-row">
       <label className="form-label">tags</label>
       <fieldset className="form-tags">
-        {renderTags.map((tag: ITags) => (
+        {renderTags?.map((tag: ITags) => (
           <label key={tag}>
             <input
               type="checkbox"
