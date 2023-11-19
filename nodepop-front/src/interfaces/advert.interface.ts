@@ -1,3 +1,4 @@
+import { ISearchParams } from './searchParams.interface';
 import { ITags } from './tags.interface';
 
 export interface IAdvert {
@@ -16,4 +17,5 @@ export interface AdvertProps extends IAdvert {
 export interface AdvertLoaderData {
   adverts: IAdvert[];
   tags: ITags[];
+  params: ISearchParams;
 }
