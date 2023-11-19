@@ -1,7 +1,9 @@
+import { ITags } from './tags.interface';
+
 export interface ISearchParams {
   name: string;
   ['min-price']: number;
   ['max-price']: number;
-  onSale: string;
-  tags: string;
+  type: 'all' | 'On sale' | 'Search';
+  tags: ITags;
 }

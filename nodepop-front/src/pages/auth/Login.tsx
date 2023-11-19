@@ -43,6 +43,7 @@ const Login = () => {
   const isLogged = useActionData() as boolean;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
+
   useRememberUser(isLogged);
 
   return (

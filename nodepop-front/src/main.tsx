@@ -16,10 +16,10 @@ if (accessToken) {
 }
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <>
     <AuthProvider initialLogged={!!accessToken} remember={!!remember}>
       <App />
     </AuthProvider>
     <ToastContainer position="top-center" className={'toast-message'} />
-  </React.StrictMode>
+  </>
 );

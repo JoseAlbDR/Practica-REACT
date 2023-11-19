@@ -1,1 +1,1 @@
-export type ITags = 'motor' | 'work' | 'mobile' | 'lifestyle';
+export type ITags = 'motor' | 'work' | 'mobile' | 'lifestyle' | 'all';

@@ -8,11 +8,11 @@ import SearchContainer from '../../components/search/SearchContainer';
 import { useAdverts } from '../../context/AdvertsContext';
 
 const AllAdverts = () => {
-  const { adverts } = useAdverts();
+  const { adverts, isFirstAdvert } = useAdverts();
 
   return (
     <Wrapper>
-      {adverts.length === 0 ? (
+      {isFirstAdvert ? (
         <h2>
           Currently there are no Adverts, do you want to{' '}
           <Link to="new" className="create-link">
@@ -22,9 +22,14 @@ const AllAdverts = () => {
       ) : (
         <div className="adverts">
           <SearchContainer />
-          {adverts.map((advert) => {
-            return <Advert key={advert.id} {...advert} />;
-          })}
+
+          {adverts.length > 0 ? (
+            adverts.map((advert) => {
+              return <Advert key={advert.id} {...advert} />;
+            })
+          ) : (
+            <p className="alert">No Adverts Found</p>
+          )}
         </div>
       )}
     </Wrapper>

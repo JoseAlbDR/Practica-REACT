@@ -1,13 +1,12 @@
-import { useLoaderData } from 'react-router-dom';
-
 import { ITags } from '../../interfaces/tags.interface';
+import { useAdverts } from '../../context/AdvertsContext';
 
 interface FormRowTagsProps {
   tags?: ITags[] | undefined;
 }
 
 const FormRowTags = ({ tags = undefined }: FormRowTagsProps) => {
-  const renderTags = useLoaderData() as ITags[];
+  const { tags: renderTags } = useAdverts();
 
   return (
     <div className="form-row">

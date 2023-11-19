@@ -16,18 +16,7 @@ import {
 
 import Wrapper from './styles/CreateAdvertWrapper';
 
-import { getTags, createAdvert } from './service';
-
-export const loader = async () => {
-  try {
-    const tags = await getTags();
-    return tags;
-  } catch (error) {
-    console.log(error);
-    toast.error('Error Loading Tags');
-    throw new Error('Error Loading Tags');
-  }
-};
+import { createAdvert } from './service';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;

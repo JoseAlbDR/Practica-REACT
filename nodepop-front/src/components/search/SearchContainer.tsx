@@ -46,9 +46,9 @@ const SearchContainer = () => {
             />
             <FormSearchPrices onChange={submit} defaultValue={[min, max]} />
             <FormRowSelect
-              name="onSale"
+              name="type"
               types={['all', 'On sale', 'Search']}
-              selected={params.onSale}
+              selected={params.type}
               onChange={submit}
             />
             <FormRowSelect

@@ -7,8 +7,9 @@ export const useRememberUser = (isLogged: boolean) => {
   const { toggleLogged } = useAuth();
 
   useEffect(() => {
-    if (isLogged) navigate('/adverts');
+    console.log('useEffect');
     toggleLogged(isLogged);
+    if (isLogged) navigate('/adverts');
   }, [isLogged, navigate, toggleLogged]);
 
   return { isLogged };
