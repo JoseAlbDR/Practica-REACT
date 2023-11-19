@@ -3,8 +3,7 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-self: flex-end;
-
+  flex: 1;
   svg {
     color: var(--text-secondary-color);
   }
@@ -19,6 +18,10 @@ const Wrapper = styled.div`
   .advert-text {
     text-transform: capitalize;
     letter-spacing: var(--letter-spacing);
+  }
+
+  button {
+    align-self: flex-end;
   }
 `;
 

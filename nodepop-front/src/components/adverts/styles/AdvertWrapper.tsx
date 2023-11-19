@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 300px;
+
   background: rgb(153, 246, 228);
   background: radial-gradient(
     circle,
@@ -12,6 +13,7 @@ const Wrapper = styled.div`
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   /* grid-template-rows: 1fr auto; */
   box-shadow: var(--shadow-2);
   transition: var(--transition);
@@ -27,8 +29,8 @@ const Wrapper = styled.div`
     flex-direction: column;
     justify-content: space-between;
     margin: 1rem;
-    height: 100%;
-    gap: 1rem;
+    flex: 1;
+    gap: 0.5rem;
   }
 
   .content-header {
@@ -67,6 +69,7 @@ const Wrapper = styled.div`
     gap: 1rem;
     text-align: center;
     text-transform: uppercase;
+    height: 100%;
 
     .title {
       text-transform: uppercase;

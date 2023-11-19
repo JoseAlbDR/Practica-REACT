@@ -61,32 +61,30 @@ const Advert = ({
         <h2 className="title">{name}</h2>
         <AdvertInfo icon={<FaMoneyBill />} text={price + '€'} />
         <AdvertTags tags={tags} />
-        {type === 'detail' ? (
-          <Modal>
-            <Modal.Open opens="delete">
-              <button className="btn btn-block danger-btn">
-                Delete Advert
-              </button>
-            </Modal.Open>
-            <Modal.Window name="delete">
-              <ConfirmDelete
-                type="delete"
-                resourceName="advert"
-                onConfirm={() => handleDeleteAdvert(id)}
-              />
-            </Modal.Window>
-          </Modal>
-        ) : (
-          <button
-            className="btn btn-block"
-            onClick={() => {
-              navigate(id);
-            }}
-          >
-            See Detail
-          </button>
-        )}
       </div>
+      {type === 'detail' ? (
+        <Modal>
+          <Modal.Open opens="delete">
+            <button className="btn btn-block danger-btn">Delete Advert</button>
+          </Modal.Open>
+          <Modal.Window name="delete">
+            <ConfirmDelete
+              type="delete"
+              resourceName="advert"
+              onConfirm={() => handleDeleteAdvert(id)}
+            />
+          </Modal.Window>
+        </Modal>
+      ) : (
+        <button
+          className="btn btn-block"
+          onClick={() => {
+            navigate(id);
+          }}
+        >
+          See Detail
+        </button>
+      )}
     </Wrapper>
   );
 };
