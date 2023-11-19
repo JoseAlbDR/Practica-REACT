@@ -2,7 +2,13 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   width: 300px;
-  background: var(--background-secondary-color);
+  background: rgb(153, 246, 228);
+  background: radial-gradient(
+    circle,
+    rgba(153, 246, 228, 1) 0%,
+    rgba(204, 251, 241, 0.5298494397759104) 48%,
+    rgba(240, 253, 250, 1) 100%
+  );
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;

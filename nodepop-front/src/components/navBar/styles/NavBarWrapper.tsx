@@ -2,7 +2,13 @@ import styled from 'styled-components';
 
 const Wrapper = styled.nav`
   height: var(--nav-height);
-  background: var(--background-secondary-color);
+  background: rgb(240, 253, 250);
+  background: linear-gradient(
+    90deg,
+    rgba(240, 253, 250, 1) 0%,
+    rgba(204, 251, 241, 1) 48%,
+    rgba(240, 253, 250, 1) 100%
+  );
   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
@@ -12,6 +18,18 @@ const Wrapper = styled.nav`
   width: 100vw;
   position: sticky;
   top: 0;
+
+  .active {
+    background: var(--primary-500);
+    color: var(--white);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
 
   .nav-center {
     display: flex;
@@ -36,6 +54,10 @@ const Wrapper = styled.nav`
 
   .menu-btn {
     text-align: center;
+
+    &:hover {
+      color: var(--grey-100);
+    }
   }
 
   @media (width > 425px) {

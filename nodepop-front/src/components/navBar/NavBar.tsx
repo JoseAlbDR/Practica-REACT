@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import Wrapper from './styles/NavbarWrapper';
 import { Logo } from '..';
@@ -9,15 +9,13 @@ import { logout } from '../../pages/auth/service';
 import { useUser } from '../../context/UserContext';
 import Modal from '../shared/Modal';
 import ConfirmLogout from '../shared/ConfirmModal';
+import NavButton from '../shared/NavButton';
 
 const NavBar = () => {
-  const { isLogged, toggleLogged } = useAuth();
+  const { toggleLogged } = useAuth();
   const { user } = useUser();
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const currentLocation = location.pathname.split('/').at(-1);
 
   const handleLogout = async () => {
     try {
@@ -36,37 +34,22 @@ const NavBar = () => {
       <div className="nav-center">
         <ul className="nav-items">
           <Logo />
-          {!isLogged ? (
-            <>
-              <Link to="/login" className="btn menu-btn">
-                Login
-              </Link>
-              <Link to="/signin" className="btn menu-btn">
-                Sign Up
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link
-                to={`${currentLocation === 'new' ? '/adverts' : 'new'}`}
-                className="btn menu-btn"
-              >
-                {currentLocation === 'new' ? 'Advert List' : 'Create Advert'}
-              </Link>
-              <Modal>
-                <Modal.Open opens="logout">
-                  <button className="btn btn-hipster menu-btn">Logout</button>
-                </Modal.Open>
-                <Modal.Window name="logout">
-                  <ConfirmLogout
-                    type="logout"
-                    resourceName=""
-                    onConfirm={handleLogout}
-                  />
-                </Modal.Window>
-              </Modal>
-            </>
-          )}
+          <div className="nav-links">
+            <NavButton to="/adverts" name="All Adverts" />
+            <NavButton to="/adverts/new" name="New Advert" />
+            <Modal>
+              <Modal.Open opens="logout">
+                <button className="btn btn-hipster menu-btn">Logout</button>
+              </Modal.Open>
+              <Modal.Window name="logout">
+                <ConfirmLogout
+                  type="logout"
+                  resourceName=""
+                  onConfirm={handleLogout}
+                />
+              </Modal.Window>
+            </Modal>
+          </div>
         </ul>
       </div>
     </Wrapper>
