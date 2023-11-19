@@ -1,39 +1,14 @@
-import { Link, LoaderFunctionArgs } from 'react-router-dom';
-import { useLoaderData } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { AxiosError } from 'axios';
+import { Link } from 'react-router-dom';
 
 import Wrapper from './styles/AllAdvertsWrapper';
 
-import { AdvertLoaderData } from '../../interfaces/advert.interface';
 import { Advert } from '../../components';
-import { getAllAdverts, getTags } from './service';
+
 import SearchContainer from '../../components/search/SearchContainer';
-
-export const loader = async (data: LoaderFunctionArgs) => {
-  const { request } = data;
-
-  const params = Object.fromEntries([
-    ...new URL(request.url).searchParams.entries(),
-  ]);
-
-  try {
-    const adverts = await getAllAdverts();
-    const tags = await getTags();
-
-    return { adverts, tags, params };
-  } catch (error) {
-    console.log(error);
-    if (error instanceof AxiosError) {
-      if (error?.response?.status === 401) return;
-    }
-    toast.error('Error loading adverts, try again later');
-    throw new Error('Error loading adverts');
-  }
-};
+import { useAdverts } from '../../context/AdvertsContext';
 
 const AllAdverts = () => {
-  const { adverts } = useLoaderData() as AdvertLoaderData;
+  const { adverts } = useAdverts();
 
   return (
     <Wrapper>

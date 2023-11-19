@@ -1,22 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Link,
-  Form,
-  useNavigation,
-  useSubmit,
-  useLoaderData,
-} from 'react-router-dom';
+import { Link, Form, useNavigation, useSubmit } from 'react-router-dom';
 import { FormRow, FormRowSelect } from '..';
 
 import StyledSearchContainer from './styles/StyledSearchContainer';
 import FormSearchPrices from '../form/FormSearchPrices';
-import { AdvertLoaderData } from '../../interfaces/advert.interface';
-import { getMinMaxPrice } from '../../utils/getMinMaxPrice';
+
 import { changePriceUrl } from '../../utils/changePriceUrl';
+import { useAdverts } from '../../context/AdvertsContext';
 
 const SearchContainer = () => {
-  const { adverts, tags } = useLoaderData() as AdvertLoaderData;
-  const { min, max } = getMinMaxPrice(adverts);
+  const { tags, min, max, params } = useAdverts();
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
@@ -25,7 +18,7 @@ const SearchContainer = () => {
 
   const debounce = (onChange: (e: any) => void) => {
     let timeout: NodeJS.Timeout | undefined;
-    return (e: { currentTarget: { form: any } }) => {
+    return (e: { currentTarget: { form: unknown } }) => {
       const form = e.currentTarget.form;
       clearTimeout(timeout);
       timeout = setTimeout(() => {
@@ -48,20 +41,20 @@ const SearchContainer = () => {
               type="search"
               name="name"
               labelText="name"
-              defaultValue=""
+              defaultValue={params.name}
               disabled={isSubmitting}
             />
             <FormSearchPrices onChange={submit} defaultValue={[min, max]} />
             <FormRowSelect
               name="onSale"
               types={['all', 'On sale', 'Search']}
-              // selected={onSale}
+              selected={params.onSale}
               onChange={submit}
             />
             <FormRowSelect
               name="tags"
               types={['all', ...tags]}
-              // selected={searchTags}
+              selected={params.tags}
               onChange={submit}
             />
             <Link className="btn btn-block form-btn" to={`/adverts`}>
