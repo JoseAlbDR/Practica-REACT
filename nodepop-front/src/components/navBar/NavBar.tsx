@@ -1,33 +1,14 @@
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
-
 import Wrapper from './styles/NavbarWrapper';
 import { Logo } from '..';
 
 import { useAuth } from '../../context/AuthContext';
-import { logout } from '../../pages/auth/service';
-import { useUser } from '../../context/UserContext';
+
 import Modal from '../shared/Modal';
 import ConfirmLogout from '../shared/ConfirmModal';
 import NavButton from '../shared/NavButton';
 
 const NavBar = () => {
-  const { toggleLogged } = useAuth();
-  const { user } = useUser();
-
-  const navigate = useNavigate();
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      toggleLogged(false);
-      toast.success(`User ${user?.name} successfully logged out`);
-      navigate('/login');
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  };
+  const { logoutUser } = useAuth();
 
   return (
     <Wrapper>
@@ -45,7 +26,7 @@ const NavBar = () => {
                 <ConfirmLogout
                   type="logout"
                   resourceName=""
-                  onConfirm={handleLogout}
+                  onConfirm={logoutUser}
                 />
               </Modal.Window>
             </Modal>
