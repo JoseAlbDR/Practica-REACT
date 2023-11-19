@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Wrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: end;
   flex: 1;
   svg {
     color: var(--text-secondary-color);
