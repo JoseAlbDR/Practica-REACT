@@ -1,4 +1,5 @@
 import { SubmitFunction } from 'react-router-dom';
+import { changePriceUrl } from '../../utils/changePriceUrl';
 
 interface IFormSelectProps {
   name: string;
@@ -10,8 +11,8 @@ const FormRowSelect = ({
   name,
   types,
   selected = '',
-}: // onChange = () => {},
-IFormSelectProps) => {
+  onChange = () => {},
+}: IFormSelectProps) => {
   return (
     <div className="form-row">
       <label className="form-label" htmlFor={name}>
@@ -22,10 +23,10 @@ IFormSelectProps) => {
         id={name}
         className="form-input"
         defaultValue={selected}
-        // onChange={(e) => {
-        //   if (e.currentTarget.form) changePriceUrl(e.currentTarget.form);
-        //   return onChange(e.currentTarget.form);
-        // }}
+        onChange={(e) => {
+          if (e.currentTarget.form) changePriceUrl(e.currentTarget.form);
+          return onChange(e.currentTarget.form);
+        }}
       >
         {types.map((type) => (
           <option key={type} value={type}>

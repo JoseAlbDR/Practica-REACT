@@ -12,3 +12,8 @@ export interface IAdvert {
 export interface AdvertProps extends IAdvert {
   type?: string;
 }
+
+export interface AdvertLoaderData {
+  adverts: IAdvert[];
+  tags: ITags[];
+}

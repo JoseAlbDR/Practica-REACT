@@ -1,18 +1,27 @@
-import { Link } from 'react-router-dom';
+import { Link, LoaderFunctionArgs } from 'react-router-dom';
 import { useLoaderData } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AxiosError } from 'axios';
 
 import Wrapper from './styles/AllAdvertsWrapper';
 
-import { IAdvert } from '../../interfaces/advert.interface';
+import { AdvertLoaderData } from '../../interfaces/advert.interface';
 import { Advert } from '../../components';
-import { getAllAdverts } from './service';
+import { getAllAdverts, getTags } from './service';
+import SearchContainer from '../../components/search/SearchContainer';
 
-export const loader = async () => {
+export const loader = async (data: LoaderFunctionArgs) => {
+  const { request } = data;
+
+  const params = Object.fromEntries([
+    ...new URL(request.url).searchParams.entries(),
+  ]);
+
   try {
     const adverts = await getAllAdverts();
-    return adverts;
+    const tags = await getTags();
+
+    return { adverts, tags, params };
   } catch (error) {
     console.log(error);
     if (error instanceof AxiosError) {
@@ -24,22 +33,25 @@ export const loader = async () => {
 };
 
 const AllAdverts = () => {
-  const adverts = useLoaderData() as IAdvert[];
+  const { adverts } = useLoaderData() as AdvertLoaderData;
+
   return (
     <Wrapper>
-      {adverts.length === 0 && (
+      {adverts.length === 0 ? (
         <h2>
           Currently there are no Adverts, do you want to{' '}
           <Link to="new" className="create-link">
             Create One?
           </Link>
         </h2>
+      ) : (
+        <div className="adverts">
+          <SearchContainer />
+          {adverts.map((advert) => {
+            return <Advert key={advert.id} {...advert} />;
+          })}
+        </div>
       )}
-      <div className="adverts">
-        {adverts.map((advert) => {
-          return <Advert key={advert.id} {...advert} />;
-        })}
-      </div>
     </Wrapper>
   );
 };
