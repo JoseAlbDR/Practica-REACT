@@ -20,6 +20,7 @@ const Wrapper = styled.section`
     /* align-items: center; */
     justify-content: center;
     gap: 2rem;
+    margin-top: 2rem;
   }
 
   .create-link {
