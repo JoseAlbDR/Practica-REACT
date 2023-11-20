@@ -4,13 +4,11 @@ import { useEffect } from 'react';
 
 export const useRememberUser = (isLogged: boolean) => {
   const navigate = useNavigate();
-  const { toggleLogged } = useAuth();
+  const { initialLogged } = useAuth();
 
   useEffect(() => {
-    console.log('useEffect');
-    toggleLogged(isLogged);
-    if (isLogged) navigate('/adverts');
-  }, [isLogged, navigate, toggleLogged]);
+    if (initialLogged) navigate('/adverts');
+  }, [initialLogged, navigate]);
 
   return { isLogged };
 };
