@@ -8,13 +8,13 @@ import { useRememberUser } from '../../hooks/useRememberUser';
 import { useAuth } from '../../context/AuthContext';
 
 const Landing = () => {
-  const { isLogged } = useAuth();
-  useRememberUser(isLogged);
+  const { initialLogged } = useAuth();
+  useRememberUser(initialLogged);
 
   return (
     <StyledLanding>
       (
-      {!isLogged && (
+      {!initialLogged && (
         <>
           <nav>
             <Logo />
