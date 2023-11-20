@@ -3,7 +3,7 @@ import { FaMoneyBill } from 'react-icons/fa';
 import Wrapper from './styles/AdvertWrapper';
 import onSale from '../../assets/images/sell.svg';
 import search from '../../assets/images/search.svg';
-import errorImg from '../../assets/images/No-Image-Placeholder.svg';
+import errorImg from '../../assets/images/no-image-icon.png';
 import { AdvertInfo, AdvertTags } from '../';
 import { AdvertProps } from '../../interfaces/advert.interface';
 import { SyntheticEvent } from 'react';
@@ -37,7 +37,7 @@ const Advert = ({
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
     console.log('error');
-    event.currentTarget.src = '../../assets/images/No-Image-Placeholder.svg';
+    event.currentTarget.src = '../../assets/images/no-image-icon.png';
   };
 
   return (
