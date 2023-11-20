@@ -1,9 +1,9 @@
-import { useAuth } from '../../context/AuthContext';
-import { Navigate, Outlet, redirect } from 'react-router-dom';
+import { Outlet, redirect } from 'react-router-dom';
 import { getUser } from './service';
 import { toast } from 'react-toastify';
 import { UserProvider } from '../../context/UserContext';
 import { checkRememberMe } from '../../utils';
+import { AxiosError } from 'axios';
 
 export const loader = async () => {
   checkRememberMe();
@@ -12,23 +12,23 @@ export const loader = async () => {
     return user;
   } catch (error) {
     console.log(error);
-    toast.error('Not Authenticated, please signup or login');
+    if (error instanceof AxiosError) {
+      if (error?.response?.status !== 401) {
+        toast.error('There was an error, try again later');
+      } else {
+        toast.error('Unauthenticated, please login again');
+      }
+    }
     return redirect('/login');
   }
 };
 
 const ProtectedRoute = () => {
-  const { isLogged } = useAuth();
-
   return (
     <>
-      {isLogged ? (
-        <UserProvider>
-          <Outlet />
-        </UserProvider>
-      ) : (
-        <Navigate to="/login" />
-      )}
+      <UserProvider>
+        <Outlet />
+      </UserProvider>
     </>
   );
 };
