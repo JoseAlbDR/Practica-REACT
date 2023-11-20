@@ -4,7 +4,7 @@ import {
   ActionFunctionArgs,
   Form,
   Link,
-  useActionData,
+  redirect,
   useNavigation,
 } from 'react-router-dom';
 
@@ -13,7 +13,6 @@ import StyledLogin from './styles/AuthWrapper';
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { login } from './service';
 import { useAuth } from '../../context/AuthContext';
-import { useRememberUser } from '../../hooks/useRememberUser';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -26,7 +25,7 @@ export const action = async (data: ActionFunctionArgs) => {
   try {
     await login({ email, password }, rememberMe);
     toast.success('User Succesfully Logged In');
-    return true;
+    return redirect('/adverts');
   } catch (error) {
     if (error instanceof AxiosError) {
       if (error.response?.data.statusCode === 401)
@@ -34,17 +33,17 @@ export const action = async (data: ActionFunctionArgs) => {
       else toast.error('Ups! There was an error, try again later');
     }
     console.log({ error });
-    return false;
+    return error;
   }
 };
 
 const Login = () => {
   const { rememberMe, toggleRememberMe } = useAuth();
-  const isLogged = useActionData() as boolean;
+
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
 
-  useRememberUser(isLogged);
+  // useRememberUser(true);
 
   return (
     <StyledLogin>
