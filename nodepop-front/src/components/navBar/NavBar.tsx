@@ -4,22 +4,15 @@ import { Logo } from '..';
 import Modal from '../shared/Modal';
 import ConfirmLogout from '../shared/ConfirmModal';
 import NavButton from '../shared/NavButton';
-import { logout } from '../../pages/auth/service';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 const NavBar = () => {
   const navigate = useNavigate();
+  const { onLogout } = useAuth();
 
-  const logoutUser = async () => {
-    try {
-      await logout();
-      toast.success(`User successfully logged out`);
-      navigate('/login');
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
+  const handleLogoutUser = async () => {
+    await onLogout(navigate);
   };
 
   return (
@@ -38,7 +31,7 @@ const NavBar = () => {
                 <ConfirmLogout
                   type="logout"
                   resourceName=""
-                  onConfirm={logoutUser}
+                  onConfirm={handleLogoutUser}
                 />
               </Modal.Window>
             </Modal>
