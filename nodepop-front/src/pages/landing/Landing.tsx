@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import StyledLanding from './LandingWrapper';
+import StyledLanding from './styles/LandingWrapper';
 import main from '../../assets/images/main.svg';
 
 import { Logo, Spinner } from '../../components';
