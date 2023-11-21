@@ -3,7 +3,7 @@ import Slider from '@mui/material/Slider';
 import { useEffect, useState } from 'react';
 import { SubmitFunction, useSearchParams } from 'react-router-dom';
 
-import { changePriceUrl } from '../../utils';
+import { changePriceNameUrl } from '../../utils';
 
 const FormSearchPrices = ({
   onChange,
@@ -48,7 +48,7 @@ const FormSearchPrices = ({
         onChange={handleChange}
         onChangeCommitted={() => {
           const form = document.getElementById('search-form');
-          if (form) changePriceUrl(form as HTMLFormElement);
+          if (form) changePriceNameUrl(form as HTMLFormElement);
           onChange(form as HTMLFormElement);
         }}
         valueLabelDisplay="auto"

@@ -16,7 +16,7 @@ const ItemList = <T,>({
       {items.length > 0 ? (
         items.map(render)
       ) : (
-        <p className="alert">No {itemName} Found</p>
+        <h3 className="alert">No {itemName} Found</h3>
       )}
     </div>
   );

@@ -4,7 +4,7 @@ import { Link, Form, useNavigation, useSubmit } from 'react-router-dom';
 import StyledSearchContainer from './styles/StyledSearchContainer';
 
 import { FormSearchPrices, FormRowSelect, FormRowInput } from '../shared/';
-import { changePriceUrl } from '../../utils';
+import { changePriceNameUrl } from '../../utils';
 import { useAdverts } from '../../context/AdvertsContext';
 import { useTags } from '../../context/TagsContext';
 
@@ -23,6 +23,7 @@ const SearchContainer = () => {
       const form = e.currentTarget.form;
       clearTimeout(timeout);
       timeout = setTimeout(() => {
+        console.log(form);
         onChange(form);
       }, 1000);
     };
@@ -36,7 +37,7 @@ const SearchContainer = () => {
           <div className="form-center">
             <FormRowInput
               onChange={debounce((form) => {
-                if (form) changePriceUrl(form as HTMLFormElement);
+                if (form) changePriceNameUrl(form as HTMLFormElement);
                 submit(form);
               })}
               type="search"

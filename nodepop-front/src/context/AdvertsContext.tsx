@@ -28,7 +28,9 @@ const AdvertsProvider = ({ children }: { children: ReactNode }) => {
 
   if (params.name)
     searchedAdverts = adverts.filter((advert) => {
-      return params.name === 'all' ? advert : advert.name.includes(params.name);
+      return params.name === 'all'
+        ? advert
+        : advert.name.toLowerCase().includes(params.name.toLowerCase());
     });
 
   if (params.type)

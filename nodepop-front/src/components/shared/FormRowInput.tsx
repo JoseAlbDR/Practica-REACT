@@ -20,7 +20,7 @@ const FormRowInput = ({
         name={name}
         defaultValue={defaultValue || ''}
         disabled={disabled}
-        onChange={(e) => onChange(e)}
+        onChange={onChange}
         required
         className="form-input"
       />
