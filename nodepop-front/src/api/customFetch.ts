@@ -1,7 +1,7 @@
 import axios, { AxiosError } from 'axios';
 
 export class CustomAxiosError extends AxiosError {
-  constructor(public status: number, public message: string) {
+  constructor(public message: string, public status?: number) {
     super();
   }
 }
@@ -15,12 +15,17 @@ customFetch.interceptors.response.use(
     console.log(error);
     if (error.response) {
       const customError = new CustomAxiosError(
-        error.response.status,
-        error.response.statusText || 'Unknown error'
+        error.response.statusText || 'Unknown error',
+        error.response.status
       );
       return Promise.reject(customError);
+    } else if (error.message) {
+      const customError = new CustomAxiosError(error.message);
+      return Promise.reject(customError);
     }
-    return Promise.reject(error);
+    return Promise.reject(
+      new CustomAxiosError('Uknown error: ' + error.message)
+    );
   }
 );
 
