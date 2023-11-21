@@ -30,7 +30,7 @@ const SearchContainer = () => {
 
   return (
     <StyledSearchContainer>
-      <div className="dashboard-page">
+      <div className="search-form">
         <Form id="search-form">
           <h4>Search</h4>
           <div className="form-center">

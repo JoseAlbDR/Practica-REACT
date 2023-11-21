@@ -3,29 +3,11 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   width: 100%;
 
-  .close-account-form {
-    margin-top: 2rem;
-    h4 {
-      color: red;
-    }
-
-    button {
-      margin-top: 2rem;
-    }
-  }
-
-  .dashboard-page {
+  .search-form {
     background: var(--background-secondary-color);
     padding: 3rem 2rem 4rem;
     border-radius: var(--border-radius);
-  }
-
-  .update-password-form {
-    margin-top: 2rem;
-
-    .password-rows {
-      display: grid;
-    }
+    box-shadow: var(--shadow-2);
   }
 
   h4 {
@@ -51,19 +33,6 @@ const Wrapper = styled.section`
     justify-content: center;
   }
 
-  .form-tags {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 0.5rem;
-    padding: 1rem;
-    border-radius: var(--border-radius);
-
-    label {
-      text-transform: capitalize;
-    }
-  }
-
   .input-check {
     margin-right: 0.5rem;
     padding-right: 0.5rem;
@@ -82,41 +51,9 @@ const Wrapper = styled.section`
       grid-template-columns: 1fr 1fr;
     }
 
-    .password-rows {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-areas:
-        'old .'
-        'new repeat'
-        'submit .';
-    }
-
-    .old-password {
-      grid-area: old;
-    }
-
-    .new-password {
-      grid-area: new;
-    }
-
-    .repeat-password {
-      grid-area: repeat;
-    }
-
-    .password-button {
-      grid-area: submit;
-    }
-
     @media (width > 1120px) {
       .form-center {
         grid-template-columns: repeat(3, 1fr);
-      }
-
-      .password-rows {
-        grid-template-columns: 1fr 1fr 1fr;
-        grid-template-areas:
-          'old new repeat'
-          'submit . .';
       }
     }
   }
