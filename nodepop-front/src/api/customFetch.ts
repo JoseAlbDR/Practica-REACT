@@ -1,4 +1,10 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
+
+export class CustomAxiosError extends AxiosError {
+  constructor(public status: number, public message: string) {
+    super();
+  }
+}
 
 const url = import.meta.env.VITE_BASE_URL;
 
@@ -6,16 +12,15 @@ const customFetch = axios.create({ baseURL: url });
 customFetch.interceptors.response.use(
   (response) => response.data,
   (error) => {
-    if (error.response) {
-      console.log(error.response);
-      return Promise.reject({
-        message: error.response.statusText,
-        ...error.response,
-        ...error.response.data,
-      });
-    }
     console.log(error);
-    return Promise.reject({ message: error.message });
+    if (error.response) {
+      const customError = new CustomAxiosError(
+        error.response.status,
+        error.response.statusText || 'Unknown error'
+      );
+      return Promise.reject(customError);
+    }
+    return Promise.reject(error);
   }
 );
 
