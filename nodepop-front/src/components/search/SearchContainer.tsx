@@ -7,9 +7,11 @@ import FormSearchPrices from '../form/FormSearchPrices';
 
 import { changePriceUrl } from '../../utils/changePriceUrl';
 import { useAdverts } from '../../context/AdvertsContext';
+import { useTags } from '../../context/TagsContext';
 
 const SearchContainer = () => {
-  const { tags, min, max, params } = useAdverts();
+  const { min, max, params } = useAdverts();
+  const { tags } = useTags();
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';

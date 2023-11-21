@@ -1,12 +1,12 @@
 import { ITags } from '../../interfaces/tags.interface';
-import { useAdverts } from '../../context/AdvertsContext';
+import { useTags } from '../../context/TagsContext';
 
 interface FormRowTagsProps {
   tags?: ITags[] | undefined;
 }
 
 const FormRowTags = ({ tags = undefined }: FormRowTagsProps) => {
-  const { tags: renderTags } = useAdverts();
+  const { tags: renderTags } = useTags();
 
   return (
     <div className="form-row">

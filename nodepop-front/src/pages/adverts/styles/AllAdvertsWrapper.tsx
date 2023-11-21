@@ -3,7 +3,11 @@ import styled from 'styled-components';
 const Wrapper = styled.section`
   width: 100%;
   margin: 0 auto;
-  margin-top: 4rem;
+
+  h1 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
 
   h2 {
     text-transform: none;

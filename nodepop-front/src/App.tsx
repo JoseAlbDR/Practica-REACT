@@ -15,8 +15,9 @@ import { action as createAdvertAction } from './pages/adverts/CreateAdvert';
 
 // Loaders
 import { loader as currentUserLoader } from './components/protected/ProtectedRoute';
-import { loader as advertsLoader } from './pages/layout/AdvertsLayout';
+import { loader as advertsLoader } from './pages/adverts/AllAdverts';
 import { loader as advertDetailLoader } from './pages/adverts/AdvertDetail';
+import { loader as tagsLoader } from './pages/layout/AdvertsLayout';
 
 // Layouts
 import AppLayout from './pages/layout/AppLayout';
@@ -53,11 +54,12 @@ const router = createBrowserRouter([
           {
             path: 'adverts',
             element: <AdvertsLayout />,
-            loader: advertsLoader,
+            loader: tagsLoader,
             children: [
               {
                 index: true,
                 element: <AllAdverts />,
+                loader: advertsLoader,
                 errorElement: <ErrorPage />,
               },
               {

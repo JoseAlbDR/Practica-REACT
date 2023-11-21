@@ -1,16 +1,11 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
 
-import Wrapper from './styles/AllAdvertsWrapper';
-
-import { Advert } from '../../components';
-
-import SearchContainer from '../../components/search/SearchContainer';
-import { useAdverts } from '../../context/AdvertsContext';
 import { getAllAdverts } from './service';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import EmptyAdverts from '../../components/adverts/EmptyAdverts';
-import ItemList from '../../components/shared/ItemList';
+
+import AdvertsPage from './AdvertsPage';
+import { AdvertsProvider } from '../../context/AdvertsContext';
 
 export const loader = async (data: LoaderFunctionArgs) => {
   const { request } = data;
@@ -34,26 +29,10 @@ export const loader = async (data: LoaderFunctionArgs) => {
 };
 
 const AllAdverts = () => {
-  const { adverts, isFirstAdvert } = useAdverts();
-
   return (
-    <Wrapper>
-      {isFirstAdvert ? (
-        <EmptyAdverts />
-      ) : (
-        <>
-          <SearchContainer />
-          <ItemList
-            itemName="adverts"
-            className="adverts"
-            items={adverts}
-            render={(advert) => {
-              return <Advert key={advert.id} {...advert} />;
-            }}
-          />
-        </>
-      )}
-    </Wrapper>
+    <AdvertsProvider>
+      <AdvertsPage />
+    </AdvertsProvider>
   );
 };
 

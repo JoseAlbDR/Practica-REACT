@@ -1,13 +1,11 @@
 import { useLoaderData } from 'react-router-dom';
 import { AdvertLoaderData, IAdvert } from '../interfaces/advert.interface';
 import { ISearchParams } from '../interfaces/searchParams.interface';
-import { ITags } from '../interfaces/tags.interface';
 import { createContext, ReactNode, useContext } from 'react';
 import { getMinMaxPrice } from '../utils/getMinMaxPrice';
 
 interface AdvertsContextValues {
   adverts: IAdvert[];
-  tags: ITags[];
   params: ISearchParams;
   min: number;
   max: number;
@@ -19,7 +17,7 @@ const AdvertsContext = createContext<AdvertsContextValues | undefined>(
 );
 
 const AdvertsProvider = ({ children }: { children: ReactNode }) => {
-  const { adverts, tags, params } = useLoaderData() as AdvertLoaderData;
+  const { adverts, params } = useLoaderData() as AdvertLoaderData;
 
   const isFirstAdvert = adverts.length === 0;
 
@@ -57,7 +55,6 @@ const AdvertsProvider = ({ children }: { children: ReactNode }) => {
     <AdvertsContext.Provider
       value={{
         adverts: searchedAdverts,
-        tags,
         params,
         min,
         max,

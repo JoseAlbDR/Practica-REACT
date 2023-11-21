@@ -1,25 +1,18 @@
-import { LoaderFunctionArgs, Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, useNavigation } from 'react-router-dom';
 
 import Wrapper from './styles/MainLayoutWrapper';
 
 import { NavBar, Spinner } from '../../components';
-import { getAllAdverts, getTags } from '../adverts/service';
+import { getTags } from '../adverts/service';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { AdvertsProvider } from '../../context/AdvertsContext';
+import { TagsProvider } from '../../context/TagsContext';
 
-export const loader = async (data: LoaderFunctionArgs) => {
-  const { request } = data;
-
-  const params = Object.fromEntries([
-    ...new URL(request.url).searchParams.entries(),
-  ]);
-
+export const loader = async () => {
   try {
-    const adverts = await getAllAdverts();
     const tags = await getTags();
 
-    return { adverts, tags, params };
+    return { tags };
   } catch (error) {
     console.log(error);
     if (error instanceof AxiosError) {
@@ -42,9 +35,9 @@ const AdvertsLayout = () => {
           {isLoading ? (
             <Spinner />
           ) : (
-            <AdvertsProvider>
+            <TagsProvider>
               <Outlet />
-            </AdvertsProvider>
+            </TagsProvider>
           )}
         </div>
       </main>
