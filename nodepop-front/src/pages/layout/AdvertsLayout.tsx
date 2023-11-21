@@ -8,13 +8,11 @@ import { TagsProvider } from '../../context/TagsContext';
 import { UserProvider } from '../../context/UserContext';
 import { getUser } from './service';
 import { getTags } from '../adverts/service';
-import { checkRememberMe } from '../../utils';
+
 import { CustomAxiosError } from '../../api/customFetch';
 import { AxiosError } from 'axios';
 
 export const loader = async () => {
-  checkRememberMe();
-
   try {
     const user = await getUser();
     const tags = await getTags();
