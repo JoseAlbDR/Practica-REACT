@@ -5,16 +5,16 @@ import {
   Link,
   redirect,
   useActionData,
-  useNavigation,
 } from 'react-router-dom';
 
 import StyledLogin from './styles/AuthWrapper';
 
 import { Logo, FormRow, SubmitButton } from '../../components';
+import { ErrorComponent } from '../../components/shared/';
 import { login } from './service';
 import { useAuth } from '../../context/AuthContext';
-import ErrorComponent from '../../components/shared/ErrorComponent';
 import { CustomAxiosError } from '../../api/customFetch';
+import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -47,9 +47,7 @@ const Login = () => {
   const isError = useActionData() as CustomAxiosError;
   const errorMessage = isError && getErrorMessage(isError);
 
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === 'submitting';
-
+  const { isSubmitting } = useCustomNavigation();
   // useRememberUser(true);
 
   return (

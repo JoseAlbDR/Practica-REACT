@@ -1,8 +1,9 @@
 import { useLoaderData } from 'react-router-dom';
+import { createContext, ReactNode, useContext } from 'react';
+
 import { AdvertLoaderData, IAdvert } from '../interfaces/advert.interface';
 import { ISearchParams } from '../interfaces/searchParams.interface';
-import { createContext, ReactNode, useContext } from 'react';
-import { getMinMaxPrice } from '../utils/getMinMaxPrice';
+import { getMinMaxPrice } from '../utils/';
 
 interface AdvertsContextValues {
   adverts: IAdvert[];

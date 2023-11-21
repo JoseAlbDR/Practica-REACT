@@ -1,16 +1,16 @@
-import { Link, useNavigation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import StyledLanding from './LandingWrapper';
 import main from '../../assets/images/main.svg';
-import { Logo, Spinner } from '../../components';
 
+import { Logo, Spinner } from '../../components';
 import { useRememberUser } from '../../hooks/useRememberUser';
 import { useAuth } from '../../context/AuthContext';
+import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 
 const Landing = () => {
   const { initialLogged } = useAuth();
-  const navigation = useNavigation();
-  const isLoading = navigation.state === 'loading';
+  const { isLoading } = useCustomNavigation();
 
   useRememberUser(initialLogged);
 

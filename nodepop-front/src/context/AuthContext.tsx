@@ -1,9 +1,9 @@
-import React, { createContext } from 'react';
-import { useState, useContext } from 'react';
-import { storage } from '../utils';
-import { logout } from '../pages/auth/service';
+import React, { createContext, useState, useContext } from 'react';
 import { toast } from 'react-toastify';
 import { NavigateFunction } from 'react-router-dom';
+
+import { storage } from '../utils';
+import { logout } from '../pages/auth/service';
 import { IUser } from '../interfaces/auth.interfaces';
 
 interface AuthContextValues {

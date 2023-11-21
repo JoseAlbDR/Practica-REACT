@@ -1,6 +1,7 @@
-import { useLoaderData } from 'react-router-dom';
-import { ITags } from '../interfaces/tags.interface';
 import { createContext, useContext, ReactNode } from 'react';
+import { useLoaderData } from 'react-router-dom';
+
+import { ITags } from '../interfaces/tags.interface';
 
 interface TagContextValues {
   tags: ITags[];

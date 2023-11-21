@@ -3,7 +3,6 @@ import {
   Form,
   redirect,
   useActionData,
-  useNavigation,
 } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -15,11 +14,11 @@ import {
   FormRowSelect,
   Spinner,
 } from '../../components';
-
 import Wrapper from './styles/CreateAdvertWrapper';
 
 import { createAdvert } from './service';
 import { ITags } from '../../interfaces/tags.interface';
+import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -42,9 +41,7 @@ export const action = async (data: ActionFunctionArgs) => {
 };
 
 const CreateAdvert = () => {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === 'submitting';
-  const isLoading = navigation.state === 'loading';
+  const { isSubmitting, isLoading } = useCustomNavigation();
 
   const formData = useActionData() as FormData;
 

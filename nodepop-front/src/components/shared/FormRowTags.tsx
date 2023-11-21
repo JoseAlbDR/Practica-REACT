@@ -1,6 +1,6 @@
 import { ITags } from '../../interfaces/tags.interface';
 import { useTags } from '../../context/TagsContext';
-import ErrorComponent from '../shared/ErrorComponent';
+import { ErrorComponent } from '.';
 
 interface FormRowTagsProps {
   tags?: ITags[] | undefined;

@@ -1,8 +1,9 @@
+import { toast } from 'react-toastify';
 import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
+
 import customFetch, { CustomAxiosError } from '../../api/customFetch';
 import { Advert } from '../../components';
 import { IAdvert } from '../../interfaces/advert.interface';
-import { toast } from 'react-toastify';
 
 export const loader = async (data: LoaderFunctionArgs) => {
   const {

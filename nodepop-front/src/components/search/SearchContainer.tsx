@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, Form, useNavigation, useSubmit } from 'react-router-dom';
-import { FormRow, FormRowSelect } from '..';
 
 import StyledSearchContainer from './styles/StyledSearchContainer';
-import FormSearchPrices from '../form/FormSearchPrices';
 
-import { changePriceUrl } from '../../utils/changePriceUrl';
+import { FormSearchPrices, FormRowSelect, FormRowInput } from '../shared/';
+import { changePriceUrl } from '../../utils';
 import { useAdverts } from '../../context/AdvertsContext';
 import { useTags } from '../../context/TagsContext';
 
@@ -35,7 +34,7 @@ const SearchContainer = () => {
         <Form id="search-form">
           <h4>Search</h4>
           <div className="form-center">
-            <FormRow
+            <FormRowInput
               onChange={debounce((form) => {
                 if (form) changePriceUrl(form as HTMLFormElement);
                 submit(form);

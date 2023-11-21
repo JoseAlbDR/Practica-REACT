@@ -1,17 +1,12 @@
 import { toast } from 'react-toastify';
-import {
-  ActionFunctionArgs,
-  Form,
-  redirect,
-  useNavigation,
-  Link,
-} from 'react-router-dom';
+import { ActionFunctionArgs, Form, redirect, Link } from 'react-router-dom';
 
 import StyledSignup from './styles/AuthWrapper';
 
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { signup } from './service';
 import { CustomAxiosError } from '../../api/customFetch';
+import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -36,8 +31,7 @@ export const action = async (data: ActionFunctionArgs) => {
 };
 
 const Signup = () => {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === 'submitting';
+  const { isSubmitting } = useCustomNavigation();
 
   return (
     <StyledSignup>

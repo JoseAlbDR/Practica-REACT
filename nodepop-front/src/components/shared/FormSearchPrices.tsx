@@ -2,7 +2,8 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { useEffect, useState } from 'react';
 import { SubmitFunction, useSearchParams } from 'react-router-dom';
-import { changePriceUrl } from '../../utils/changePriceUrl';
+
+import { changePriceUrl } from '../../utils';
 
 const FormSearchPrices = ({
   onChange,

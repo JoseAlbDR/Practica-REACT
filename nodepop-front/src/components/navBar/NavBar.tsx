@@ -1,10 +1,12 @@
 import Wrapper from './styles/NavbarWrapper';
-import { Logo } from '..';
-
-import Modal from '../shared/Modal';
-import ConfirmLogout from '../shared/ConfirmModal';
-import NavButton from '../shared/NavButton';
 import { useNavigate } from 'react-router-dom';
+
+import {
+  Modal,
+  ConfirmModal as ConfirmLogout,
+  NavButton,
+  Logo,
+} from '../shared/';
 import { useAuth } from '../../context/AuthContext';
 import { useUser } from '../../context/UserContext';
 

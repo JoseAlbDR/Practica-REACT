@@ -1,4 +1,4 @@
-interface IFormInputProps {
+interface IFormRowInputProps {
   type: string;
   name: string;
   labelText: string;
@@ -6,13 +6,13 @@ interface IFormInputProps {
   disabled?: boolean;
 }
 
-const FormInput = ({
+const FormRowFileInput = ({
   type,
   name,
   labelText,
   disabled,
   id,
-}: IFormInputProps) => {
+}: IFormRowInputProps) => {
   return (
     <div className="for-row">
       <label htmlFor={name} className="form-label">
@@ -30,4 +30,4 @@ const FormInput = ({
   );
 };
 
-export default FormInput;
+export default FormRowFileInput;

@@ -1,4 +1,4 @@
-import { Outlet, redirect, useNavigation } from 'react-router-dom';
+import { Outlet, redirect } from 'react-router-dom';
 
 import Wrapper from './styles/MainLayoutWrapper';
 
@@ -12,6 +12,7 @@ import { getTags } from '../adverts/service';
 import { CustomAxiosError } from '../../api/customFetch';
 import { AxiosError } from 'axios';
 import { checkAuth } from '../../utils/checkAuth';
+import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 
 export const loader = async () => {
   // Check for token in LS
@@ -38,8 +39,7 @@ export const loader = async () => {
 };
 
 const AdvertsLayout = () => {
-  const navigation = useNavigation();
-  const isLoading = navigation.state === 'loading';
+  const { isLoading } = useCustomNavigation();
 
   return (
     <UserProvider>

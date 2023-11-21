@@ -1,16 +1,15 @@
+import { SyntheticEvent } from 'react';
 import { FaMoneyBill } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 import Wrapper from './styles/AdvertWrapper';
 import onSale from '../../assets/images/sell.svg';
 import search from '../../assets/images/search.svg';
 import errorImg from '../../assets/images/no-image-icon.png';
-import { AdvertInfo, AdvertTags } from '../';
-import { AdvertProps } from '../../interfaces/advert.interface';
-import { SyntheticEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
 
-import ConfirmDelete from '../shared/ConfirmModal';
-import Modal from '../shared/Modal';
+import { AdvertInfo, AdvertTags } from '../';
+import { ConfirmModal as ConfirmDelete, Modal } from '../shared/';
+import { AdvertProps } from '../../interfaces/advert.interface';
 import { deleteAdvert } from './service';
 
 const Advert = ({
@@ -25,7 +24,6 @@ const Advert = ({
   const navigate = useNavigate();
 
   const handleDeleteAdvert = async (id: string) => {
-    console.log('Delete');
     try {
       await deleteAdvert(id);
       navigate('/adverts');

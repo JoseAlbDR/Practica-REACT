@@ -1,7 +1,7 @@
-import { createContext, useContext } from 'react';
-import { IUser } from '../interfaces/auth.interfaces';
-import { ReactNode } from 'react';
+import { createContext, useContext, ReactNode } from 'react';
 import { useLoaderData } from 'react-router-dom';
+
+import { IUser } from '../interfaces/auth.interfaces';
 
 interface UserContextValues {
   user: IUser;

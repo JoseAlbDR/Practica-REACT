@@ -1,9 +1,7 @@
 import Wrapper from './styles/AllAdvertsWrapper';
 import { useAdverts } from '../../context/AdvertsContext';
-import SearchContainer from '../../components/search/SearchContainer';
-import ItemList from '../../components/shared/ItemList';
-import EmptyAdverts from '../../components/adverts/EmptyAdverts';
-import { Advert } from '../../components';
+import { SearchContainer, EmptyAdverts, Advert } from '../../components/';
+import { ItemList } from '../../components/shared';
 
 const AdvertsPage = () => {
   const { adverts, isFirstAdvert } = useAdverts();

@@ -1,6 +1,6 @@
 import { IFormRowProps } from '../../interfaces/formRow.interface';
 
-const FormRow = ({
+const FormRowInput = ({
   type,
   name,
   labelText,
@@ -28,4 +28,4 @@ const FormRow = ({
   );
 };
 
-export default FormRow;
+export default FormRowInput;

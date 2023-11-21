@@ -1,7 +1,8 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
-import AdvertsPage from './AdvertsPage';
-import { getAllAdverts } from './service';
 
+import AdvertsPage from './AdvertsPage';
+
+import { getAllAdverts } from './service';
 import { AdvertsProvider } from '../../context/AdvertsContext';
 
 export const loader = async (data: LoaderFunctionArgs) => {
