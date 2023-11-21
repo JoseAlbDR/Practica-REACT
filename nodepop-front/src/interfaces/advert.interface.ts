@@ -17,4 +17,5 @@ export interface AdvertProps extends IAdvert {
 export interface AdvertLoaderData {
   adverts: IAdvert[];
   params: ISearchParams;
+  tags: ITags[];
 }

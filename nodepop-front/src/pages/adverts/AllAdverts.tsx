@@ -1,10 +1,7 @@
 import { LoaderFunctionArgs } from 'react-router-dom';
-
-import { getAllAdverts } from './service';
-import { AxiosError } from 'axios';
-import { toast } from 'react-toastify';
-
 import AdvertsPage from './AdvertsPage';
+import { getAllAdverts } from './service';
+
 import { AdvertsProvider } from '../../context/AdvertsContext';
 
 export const loader = async (data: LoaderFunctionArgs) => {
@@ -16,18 +13,12 @@ export const loader = async (data: LoaderFunctionArgs) => {
 
   try {
     const adverts = await getAllAdverts();
-
     return { adverts, params };
   } catch (error) {
     console.log(error);
-    if (error instanceof AxiosError) {
-      if (error?.response?.status === 401) return;
-    }
-    toast.error('Error loading adverts, try again later');
-    throw new Error('Error loading adverts');
+    throw error;
   }
 };
-
 const AllAdverts = () => {
   return (
     <AdvertsProvider>

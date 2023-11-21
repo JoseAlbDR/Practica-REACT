@@ -11,7 +11,7 @@ import StyledSignup from './styles/AuthWrapper';
 
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { signup } from './service';
-import { CustomAxiosError } from '../../interfaces/error.interfaces';
+import { CustomAxiosError } from '../../api/customFetch';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -27,7 +27,10 @@ export const action = async (data: ActionFunctionArgs) => {
     toast.success('User Succesfully Created');
     return redirect('/login');
   } catch (error) {
-    toast.error((error as CustomAxiosError).message);
+    if (error instanceof CustomAxiosError) {
+      if (error.status === 500) toast.error('Try with another credentials');
+      else toast.error(error.message);
+    }
     return error;
   }
 };

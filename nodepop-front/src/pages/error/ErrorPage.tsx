@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useRouteError } from 'react-router-dom';
 
 import notFound from '../../assets/images/not-found.svg';
-import errorImage from '../../assets/images/error.svg';
+import errorImage from '../../assets/images/error_page.svg';
 import { getError } from '../../utils/getError';
 
 const StyledErrorPage = styled.main<{ $type: string }>`
@@ -43,15 +43,12 @@ const ErrorPage = () => {
   const error = useRouteError();
   const currentError = getError(error);
 
-  console.log(error);
-  console.log(currentError);
-
   if (currentError.status && currentError.status === 404) {
     return (
       <StyledErrorPage $type="notfound">
         <div>
-          <img src={notFound} alt="not found" className="img notfound-img" />
-          <h3>{currentError.msg}</h3>
+          <img src={notFound} alt="not found" className="img" />
+          <h3>{currentError.message}</h3>
           <p>We can't seem to find the page you are looking for</p>
           <Link to="/"> Bring me back Home</Link>
         </div>
@@ -61,9 +58,9 @@ const ErrorPage = () => {
   return (
     <StyledErrorPage $type="error">
       <div>
-        <img src={errorImage} alt="not found" className="img notfound-img" />
-        <h3>Something went wrong</h3>
-        <p>{currentError.msg}</p>
+        <img src={errorImage} alt="error" className="img" />
+        <h3>{currentError.message}</h3>
+        <p>There was an error, try again later</p>
         <Link to="/">Bring me Home</Link>
       </div>
     </StyledErrorPage>
