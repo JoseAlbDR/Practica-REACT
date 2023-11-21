@@ -6,13 +6,15 @@ import ConfirmLogout from '../shared/ConfirmModal';
 import NavButton from '../shared/NavButton';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useUser } from '../../context/UserContext';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const { onLogout } = useAuth();
+  const { user } = useUser();
 
   const handleLogoutUser = async () => {
-    await onLogout(navigate);
+    await onLogout(navigate, user);
   };
 
   return (

@@ -4,12 +4,13 @@ import { storage } from '../utils';
 import { logout } from '../pages/auth/service';
 import { toast } from 'react-toastify';
 import { NavigateFunction } from 'react-router-dom';
+import { IUser } from '../interfaces/auth.interfaces';
 
 interface AuthContextValues {
   rememberMe: boolean;
   initialLogged: boolean;
   toggleRememberMe: (value: boolean) => void;
-  onLogout: (navigate: NavigateFunction) => Promise<void>;
+  onLogout: (navigate: NavigateFunction, user: IUser) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValues | undefined>(undefined);
@@ -25,10 +26,10 @@ const AuthProvider = ({
 }): JSX.Element => {
   const [rememberMe, setRememberMe] = useState<boolean>(remember);
 
-  const onLogout = async (navigate: NavigateFunction) => {
+  const onLogout = async (navigate: NavigateFunction, user: IUser) => {
     try {
       await logout();
-      toast.success(`User successfully logged out`);
+      toast.success(`User ${user.name} successfully logged out`);
       navigate('/login');
     } catch (error) {
       console.log(error);
