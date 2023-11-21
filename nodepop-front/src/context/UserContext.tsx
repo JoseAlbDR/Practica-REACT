@@ -10,7 +10,7 @@ interface UserContextValues {
 const UserContext = createContext<UserContextValues | undefined>(undefined);
 
 const UserProvider = ({ children }: { children: ReactNode }): JSX.Element => {
-  const user = useLoaderData() as IUser;
+  const { user } = useLoaderData() as { user: IUser };
 
   return (
     <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>

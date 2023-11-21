@@ -1,25 +1,37 @@
-import { Outlet, useNavigation } from 'react-router-dom';
+import { Outlet, redirect, useNavigation } from 'react-router-dom';
 
 import Wrapper from './styles/MainLayoutWrapper';
 
 import { NavBar, Spinner } from '../../components';
-import { getTags } from '../adverts/service';
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { TagsProvider } from '../../context/TagsContext';
+import { UserProvider } from '../../context/UserContext';
+import { getUser } from './service';
+import { getTags } from '../adverts/service';
+import { checkRememberMe } from '../../utils';
+import { CustomAxiosError } from '../../api/customFetch';
+import { AxiosError } from 'axios';
 
 export const loader = async () => {
-  try {
-    const tags = await getTags();
+  checkRememberMe();
 
-    return { tags };
+  try {
+    const user = await getUser();
+    const tags = await getTags();
+    return { user, tags };
   } catch (error) {
-    console.log(error);
-    if (error instanceof AxiosError) {
-      if (error?.response?.status === 401) return;
+    console.log({ error });
+    if (error instanceof CustomAxiosError && error.status === 401) {
+      toast.error(error.message);
     }
-    toast.error('Error loading adverts, try again later');
-    throw new Error('Error loading adverts');
+    if (error instanceof AxiosError) {
+      if (error.code === 'ERR_NETWORK') {
+        throw error;
+      } else {
+        toast.error(error?.response?.data?.msg);
+      }
+    }
+    return redirect('/login');
   }
 };
 
@@ -28,20 +40,22 @@ const AdvertsLayout = () => {
   const isLoading = navigation.state === 'loading';
 
   return (
-    <Wrapper>
-      <main className="main">
-        <NavBar />
-        <div className="main-page">
-          {isLoading ? (
-            <Spinner />
-          ) : (
-            <TagsProvider>
-              <Outlet />
-            </TagsProvider>
-          )}
-        </div>
-      </main>
-    </Wrapper>
+    <UserProvider>
+      <Wrapper>
+        <main className="main">
+          <NavBar />
+          <div className="main-page">
+            {isLoading ? (
+              <Spinner />
+            ) : (
+              <TagsProvider>
+                <Outlet />
+              </TagsProvider>
+            )}
+          </div>
+        </main>
+      </Wrapper>
+    </UserProvider>
   );
 };
 

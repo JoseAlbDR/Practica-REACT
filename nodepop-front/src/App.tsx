@@ -14,15 +14,13 @@ import { action as loginAction } from './pages/auth/Login';
 import { action as createAdvertAction } from './pages/adverts/CreateAdvert';
 
 // Loaders
-import { loader as currentUserLoader } from './components/protected/ProtectedRoute';
+import { loader as currentUserLoader } from './pages/layout/AdvertsLayout';
 import { loader as advertsLoader } from './pages/adverts/AllAdverts';
 import { loader as advertDetailLoader } from './pages/adverts/AdvertDetail';
-import { loader as tagsLoader } from './pages/layout/AdvertsLayout';
 
 // Layouts
 import AppLayout from './pages/layout/AppLayout';
 import AdvertsLayout from './pages/layout/AdvertsLayout';
-import ProtectedRoute from './components/protected/ProtectedRoute';
 import AdvertDetail from './pages/adverts/AdvertDetail';
 
 const router = createBrowserRouter([
@@ -48,33 +46,27 @@ const router = createBrowserRouter([
       },
       // Protected routes
       {
-        element: <ProtectedRoute />,
+        path: 'adverts',
+        element: <AdvertsLayout />,
         loader: currentUserLoader,
         children: [
           {
-            path: 'adverts',
-            element: <AdvertsLayout />,
-            loader: tagsLoader,
-            children: [
-              {
-                index: true,
-                element: <AllAdverts />,
-                loader: advertsLoader,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: 'new',
-                element: <CreateAdvert />,
-                action: createAdvertAction,
-                errorElement: <ErrorPage />,
-              },
-              {
-                path: ':id',
-                element: <AdvertDetail />,
-                loader: advertDetailLoader,
-                errorElement: <ErrorPage />,
-              },
-            ],
+            index: true,
+            element: <AllAdverts />,
+            loader: advertsLoader,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: 'new',
+            element: <CreateAdvert />,
+            action: createAdvertAction,
+            errorElement: <ErrorPage />,
+          },
+          {
+            path: ':id',
+            element: <AdvertDetail />,
+            loader: advertDetailLoader,
+            errorElement: <ErrorPage />,
           },
         ],
       },

@@ -56,6 +56,7 @@ const AdvertsProvider = ({ children }: { children: ReactNode }) => {
       value={{
         adverts: searchedAdverts,
         params,
+
         min,
         max,
         isFirstAdvert,
