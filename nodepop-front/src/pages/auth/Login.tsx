@@ -13,8 +13,8 @@ import StyledLogin from './styles/AuthWrapper';
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { login } from './service';
 import { useAuth } from '../../context/AuthContext';
-import { CustomAxiosError } from '../../interfaces/error.interfaces';
 import ErrorComponent from '../../components/shared/ErrorComponent';
+import { CustomAxiosError } from '../../api/customFetch';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -29,8 +29,9 @@ export const action = async (data: ActionFunctionArgs) => {
     toast.success('User Succesfully Logged In');
     return redirect('/adverts');
   } catch (error) {
-    toast.error((error as CustomAxiosError).message);
-    console.log({ error });
+    if (error instanceof CustomAxiosError) {
+      toast.error(error.message);
+    }
     return error;
   }
 };
@@ -54,8 +55,8 @@ const Login = () => {
   return (
     <StyledLogin>
       <Form method="post" className="form">
-        <Logo />
         {isError && <ErrorComponent message={errorMessage} />}
+        <Logo />
         <h4>Login</h4>
         <FormRow
           type="email"
