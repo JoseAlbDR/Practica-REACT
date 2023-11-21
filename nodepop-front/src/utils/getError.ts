@@ -1,25 +1,24 @@
 import { isRouteErrorResponse } from 'react-router-dom';
 import { IError } from '../interfaces/error.interfaces';
-import { AxiosError } from 'axios';
+import { CustomAxiosError } from '../api/customFetch';
 
 export const getError = (error: unknown): IError => {
-  console.log(error instanceof AxiosError);
+  console.log(error);
   if (isRouteErrorResponse(error)) {
     return {
-      msg: error.statusText,
+      message: error.statusText,
       status: error.status,
     };
-  } else if (error instanceof AxiosError) {
+  } else if (error instanceof CustomAxiosError) {
     return {
-      msg: 'Advert not found!',
-      status: error.response?.status,
+      message: 'Advert not found!',
+      status: error.status,
     };
   } else if (error instanceof Error) {
-    return { msg: error.message };
+    return { message: error.message };
   } else if (typeof error === 'string') {
-    return { msg: error };
+    return { message: error };
   } else {
-    console.log(error);
-    return { msg: 'Unknown error' };
+    return { message: 'Unknown error' };
   }
 };
