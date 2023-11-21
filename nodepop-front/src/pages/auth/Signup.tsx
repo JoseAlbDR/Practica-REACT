@@ -1,4 +1,3 @@
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import {
   ActionFunctionArgs,
@@ -12,6 +11,7 @@ import StyledSignup from './styles/AuthWrapper';
 
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { signup } from './service';
+import { CustomAxiosError } from '../../interfaces/error.interfaces';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -27,13 +27,7 @@ export const action = async (data: ActionFunctionArgs) => {
     toast.success('User Succesfully Created');
     return redirect('/login');
   } catch (error) {
-    if (error instanceof AxiosError) {
-      console.log(error);
-      toast.error(
-        'There was an error, try with another user name or try again later'
-      );
-    }
-    console.log({ error });
+    toast.error((error as CustomAxiosError).message);
     return error;
   }
 };

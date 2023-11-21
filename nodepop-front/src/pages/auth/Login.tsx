@@ -1,10 +1,10 @@
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import {
   ActionFunctionArgs,
   Form,
   Link,
   redirect,
+  useActionData,
   useNavigation,
 } from 'react-router-dom';
 
@@ -13,6 +13,8 @@ import StyledLogin from './styles/AuthWrapper';
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { login } from './service';
 import { useAuth } from '../../context/AuthContext';
+import { CustomAxiosError } from '../../interfaces/error.interfaces';
+import ErrorComponent from '../../components/shared/ErrorComponent';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -27,18 +29,22 @@ export const action = async (data: ActionFunctionArgs) => {
     toast.success('User Succesfully Logged In');
     return redirect('/adverts');
   } catch (error) {
-    if (error instanceof AxiosError) {
-      if (error.response?.data.statusCode === 401)
-        toast.error('Wrong Username or Password');
-      else toast.error('Ups! There was an error, try again later');
-    }
+    toast.error((error as CustomAxiosError).message);
     console.log({ error });
     return error;
   }
 };
 
+const getErrorMessage = (isError: CustomAxiosError) => {
+  return isError.message === 'Unauthorized'
+    ? 'Wrong username/password'
+    : isError.message;
+};
+
 const Login = () => {
   const { rememberMe, toggleRememberMe } = useAuth();
+  const isError = useActionData() as CustomAxiosError;
+  const errorMessage = isError && getErrorMessage(isError);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
@@ -49,6 +55,7 @@ const Login = () => {
     <StyledLogin>
       <Form method="post" className="form">
         <Logo />
+        {isError && <ErrorComponent message={errorMessage} />}
         <h4>Login</h4>
         <FormRow
           type="email"

@@ -1,9 +1,11 @@
-import { Outlet, redirect } from 'react-router-dom';
+import { Outlet, redirect, useLoaderData } from 'react-router-dom';
 import { getUser } from './service';
 import { toast } from 'react-toastify';
 import { UserProvider } from '../../context/UserContext';
 import { checkRememberMe } from '../../utils';
-import { AxiosError } from 'axios';
+
+import { CustomAxiosError } from '../../interfaces/error.interfaces';
+import { IUser } from '../../interfaces/auth.interfaces';
 
 export const loader = async () => {
   checkRememberMe();
@@ -12,23 +14,21 @@ export const loader = async () => {
     return user;
   } catch (error) {
     console.log(error);
-    if (error instanceof AxiosError) {
-      if (error?.response?.status !== 401) {
-        toast.error('There was an error, try again later');
-      } else {
-        toast.error('Unauthenticated, please login again');
-      }
-    }
+    toast.error((error as CustomAxiosError).message);
     return redirect('/login');
   }
 };
 
 const ProtectedRoute = () => {
+  const user = useLoaderData() as IUser;
+  console.log(user);
   return (
     <>
-      <UserProvider>
-        <Outlet />
-      </UserProvider>
+      {user && (
+        <UserProvider>
+          <Outlet />
+        </UserProvider>
+      )}
     </>
   );
 };
