@@ -39,50 +39,57 @@ const Advert = ({
   };
 
   return (
-    <Wrapper>
-      <img
-        src={photo || errorImg}
-        alt={`${name} image`}
-        onError={handleImageError}
-        className="img"
-      />
-      <div className="content">
-        <div className="content-header">
-          <div className={`status ${sale ? 'on-sale' : 'search'}`}>
-            {sale ? 'on-sale' : 'search'}
-            <img
-              src={sale ? onSale : search}
-              alt={sale ? 'on-sale' : 'search'}
-            />
-          </div>
-        </div>
-        <h2 className="title">{name}</h2>
-        <AdvertInfo icon={<FaMoneyBill />} text={price + '€'} />
-        <AdvertTags tags={tags} />
-      </div>
-      {type === 'detail' ? (
-        <Modal>
-          <Modal.Open opens="delete">
-            <button className="btn btn-block danger-btn">Delete Advert</button>
-          </Modal.Open>
-          <Modal.Window name="delete">
-            <ConfirmDelete
-              type="delete"
-              resourceName="advert"
-              onConfirm={() => handleDeleteAdvert(id)}
-            />
-          </Modal.Window>
-        </Modal>
-      ) : (
-        <button
-          className="btn btn-block"
-          onClick={() => {
-            navigate(id);
-          }}
-        >
-          See Detail
-        </button>
+    <Wrapper $type={type}>
+      {type === 'detail' && (
+        <img
+          src={photo || errorImg}
+          alt={`${name} image`}
+          onError={handleImageError}
+          className="img"
+        />
       )}
+
+      <div className="content">
+        <div className="content-info">
+          <h2 className="title">{name}</h2>
+          <div className="content-header">
+            <div className={`status ${sale ? 'on-sale' : 'search'}`}>
+              {sale ? 'on-sale' : 'search'}
+              <img
+                src={sale ? onSale : search}
+                alt={sale ? 'on-sale' : 'search'}
+              />
+            </div>
+          </div>
+          <AdvertInfo icon={<FaMoneyBill />} text={price + '€'} />
+          <AdvertTags tags={tags} />
+        </div>
+        {type === 'detail' ? (
+          <Modal>
+            <Modal.Open opens="delete">
+              <button className="btn btn-block danger-btn">
+                Delete Advert
+              </button>
+            </Modal.Open>
+            <Modal.Window name="delete">
+              <ConfirmDelete
+                type="delete"
+                resourceName="advert"
+                onConfirm={() => handleDeleteAdvert(id)}
+              />
+            </Modal.Window>
+          </Modal>
+        ) : (
+          <button
+            className="btn btn-block"
+            onClick={() => {
+              navigate(id);
+            }}
+          >
+            See Detail
+          </button>
+        )}
+      </div>
     </Wrapper>
   );
 };

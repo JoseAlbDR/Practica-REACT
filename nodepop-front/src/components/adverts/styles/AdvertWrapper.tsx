@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
-  width: 300px;
+interface WrapperProps {
+  $type: string;
+}
 
+const Wrapper = styled.div<WrapperProps>`
+  width: 300px;
   background: rgb(153, 246, 228);
   background: radial-gradient(
     circle,
@@ -20,7 +23,7 @@ const Wrapper = styled.div`
   color: inherit;
 
   .img {
-    min-height: 30vh;
+    width: 100%;
     border-radius: var(--border-radius);
   }
 
@@ -31,9 +34,18 @@ const Wrapper = styled.div`
     margin: 1rem;
     flex: 1;
     gap: 0.5rem;
+
+    .btn {
+      height: 2.5rem;
+    }
+  }
+
+  .content-info {
+    gap: 1rem;
   }
 
   .content-header {
+    flex: 1;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -42,6 +54,7 @@ const Wrapper = styled.div`
 
   .on-sale,
   .search {
+    flex: 1;
     width: 100%;
     display: flex;
     align-items: center;
@@ -59,10 +72,12 @@ const Wrapper = styled.div`
   }
 
   .price {
+    flex: 1;
     align-self: flex-end;
   }
 
   .categories {
+    flex: 1;
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -100,49 +115,34 @@ const Wrapper = styled.div`
     }
   }
 
-  .btn-contact,
-  .btn-delete {
-    width: 80%;
-    margin: 0 auto;
-    padding: 0.5rem;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-end;
-    svg {
-      color: #fff;
-    }
-  }
-
-  .btn-delete {
-    color: var(--red-dark);
-    background: var(--red-light);
-    font-weight: bold;
-  }
-
-  .btn-delete:hover {
-    color: var(--white);
-    background: var(--red-dark);
-  }
-
-  .update-delete-btn {
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5em;
-  }
-
   h2 {
     font-weight: bold;
     text-transform: uppercase;
-    align-self: flex-start;
+    align-self: center;
     font-size: 2rem;
+    width: 100%;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--primary-500);
   }
 
   h3 {
     font-size: 1.2rem;
+  }
+
+  @media (width > 768px) {
+    width: ${(props) => (props.$type === 'detail' ? '90%' : '300px;')};
+    flex-direction: ${(props) => (props.$type === 'detail' ? 'row' : 'column')};
+
+    .content-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .img {
+      width: 50%;
+    }
   }
 `;
 
