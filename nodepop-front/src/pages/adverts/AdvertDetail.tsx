@@ -14,7 +14,7 @@ export const loader = async (data: LoaderFunctionArgs) => {
     return advert;
   } catch (error) {
     if (error instanceof CustomAxiosError && error.status === 404) {
-      toast.error('Error loading advert, try again later');
+      toast.info('Advert not found!');
       throw error;
     }
     return error;

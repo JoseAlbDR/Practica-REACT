@@ -62,6 +62,8 @@ const ErrorPage = () => {
         <h3>{currentError.message}</h3>
         <p>There was an error, try again later</p>
         <Link to="/">Bring me Home</Link>
+        <span> or </span>
+        <Link to="/login">Login</Link>
       </div>
     </StyledErrorPage>
   );

@@ -11,8 +11,12 @@ import { getTags } from '../adverts/service';
 
 import { CustomAxiosError } from '../../api/customFetch';
 import { AxiosError } from 'axios';
+import { checkAuth } from '../../utils/checkAuth';
 
 export const loader = async () => {
+  // Check for token in LS
+  checkAuth();
+
   try {
     const user = await getUser();
     const tags = await getTags();

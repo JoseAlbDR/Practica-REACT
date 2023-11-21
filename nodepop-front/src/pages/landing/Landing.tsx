@@ -1,19 +1,23 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigation } from 'react-router-dom';
 
 import StyledLanding from './LandingWrapper';
 import main from '../../assets/images/main.svg';
-import { Logo } from '../../components';
+import { Logo, Spinner } from '../../components';
 
 import { useRememberUser } from '../../hooks/useRememberUser';
 import { useAuth } from '../../context/AuthContext';
 
 const Landing = () => {
   const { initialLogged } = useAuth();
+  const navigation = useNavigation();
+  const isLoading = navigation.state === 'loading';
+
   useRememberUser(initialLogged);
+
+  if (isLoading) return <Spinner />;
 
   return (
     <StyledLanding>
-      (
       {!initialLogged && (
         <>
           <nav>
@@ -41,7 +45,6 @@ const Landing = () => {
           </div>
         </>
       )}
-      )
     </StyledLanding>
   );
 };
