@@ -1,9 +1,10 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
 
 // Pages
 import ErrorPage from './pages/error/ErrorPage';
 import Signup from './pages/auth/Signup';
-import Login from './pages/auth/Login';
+const Login = lazy(() => import('./pages/auth/Login'));
 import Landing from './pages/landing/Landing';
 import AllAdverts from './pages/adverts/AllAdverts';
 import CreateAdvert from './pages/adverts/CreateAdvert';
@@ -22,6 +23,7 @@ import { loader as advertDetailLoader } from './pages/adverts/AdvertDetail';
 import AppLayout from './pages/layout/AppLayout';
 import AdvertsLayout from './pages/layout/AdvertsLayout';
 import AdvertDetail from './pages/adverts/AdvertDetail';
+import { Spinner } from './components';
 
 const router = createBrowserRouter([
   // Public Routes
@@ -41,7 +43,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: <Login />,
+        element: (
+          <Suspense fallback={<Spinner />}>
+            <Login />
+          </Suspense>
+        ),
         action: loginAction,
       },
       // Protected routes
