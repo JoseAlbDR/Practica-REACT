@@ -1,14 +1,9 @@
 import { ClickAwayListener } from '@mui/material';
-import {
-  cloneElement,
-  createContext,
-  useContext,
-  useState,
-  ReactElement,
-} from 'react';
+import { createContext, useContext, useState, ReactElement } from 'react';
 import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
+import { ReactNode } from 'react';
 
 const StyledModal = styled.div`
   position: fixed;
@@ -19,7 +14,6 @@ const StyledModal = styled.div`
   border-radius: var(--border-radius);
   box-shadow: var(--shadow-3);
   padding: 3.2rem 4rem;
-  transition: all 0.5s;
 `;
 
 const Overlay = styled.div`
@@ -31,7 +25,6 @@ const Overlay = styled.div`
   background-color: var(--backdrop-color);
   backdrop-filter: blur(4px);
   z-index: 1000;
-  transition: all 0.5s;
 `;
 
 const Button = styled.button`
@@ -40,7 +33,6 @@ const Button = styled.button`
   padding: 0.4rem;
   border-radius: var(--border-radius);
   transform: translateX(0.8rem);
-  transition: all 0.2s;
   position: absolute;
   top: 1.2rem;
   right: 1.9rem;
@@ -85,23 +77,24 @@ const Modal = ({ children }: { children: ReactElement[] }) => {
 };
 
 // 3 Create child components to help implementing the common tasks
-const Open = ({
-  children,
+export const Open = ({
+  render,
   opens: opensWindowName,
 }: {
-  children: ReactElement;
+  render: (openModal: () => void) => ReactNode;
   opens: string;
 }) => {
   const { open } = useContext(ModalContext);
 
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
+  return render(() => open(opensWindowName));
+  // return cloneElement(children, { onClick: () => open(opensWindowName) });
 };
 
-const Window = ({
-  children,
+export const Window = ({
+  render,
   name,
 }: {
-  children: ReactElement;
+  render: (closeModal: () => void) => ReactNode;
   name: string;
 }) => {
   const { openName, close } = useContext(ModalContext);
@@ -117,7 +110,7 @@ const Window = ({
           <Button onClick={close}>
             <HiXMark />
           </Button>
-          <div>{cloneElement(children, { onCloseModal: close })}</div>
+          {render(() => close())}
         </StyledModal>
       </ClickAwayListener>
     </Overlay>,
@@ -125,9 +118,5 @@ const Window = ({
     document.body
   );
 };
-
-// 4 Add  child components as properties to the parent component
-Modal.Open = Open;
-Modal.Window = Window;
 
 export default Modal;

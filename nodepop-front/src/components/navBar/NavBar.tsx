@@ -9,6 +9,7 @@ import {
 } from '../shared/';
 import { useAuth } from '../../context/AuthContext';
 import { useUser } from '../../context/UserContext';
+import { Open, Window } from '../shared/Modal';
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -28,16 +29,28 @@ const NavBar = () => {
             <NavButton to="/adverts" name="All Adverts" />
             <NavButton to="/adverts/new" name="New Advert" />
             <Modal>
-              <Modal.Open opens="logout">
-                <button className="btn btn-hipster menu-btn">Logout</button>
-              </Modal.Open>
-              <Modal.Window name="logout">
-                <ConfirmLogout
-                  type="logout"
-                  resourceName=""
-                  onConfirm={handleLogoutUser}
-                />
-              </Modal.Window>
+              <Open
+                opens="logout"
+                render={(openModal) => (
+                  <button
+                    className="btn btn-hipster menu-btn"
+                    onClick={openModal}
+                  >
+                    Logout
+                  </button>
+                )}
+              />
+              <Window
+                name="logout"
+                render={(closeModal) => (
+                  <ConfirmLogout
+                    type="logout"
+                    resourceName=""
+                    onCloseModal={closeModal}
+                    onConfirm={handleLogoutUser}
+                  />
+                )}
+              ></Window>
             </Modal>
           </div>
         </ul>
