@@ -23,7 +23,7 @@ import { loader as advertDetailLoader } from './pages/adverts/AdvertDetail';
 import AppLayout from './pages/layout/AppLayout';
 import AdvertsLayout from './pages/layout/AdvertsLayout';
 import AdvertDetail from './pages/adverts/AdvertDetail';
-import { Spinner } from './components';
+import { Skeleton } from '@mui/material';
 
 const router = createBrowserRouter([
   // Public Routes
@@ -44,7 +44,11 @@ const router = createBrowserRouter([
       {
         path: 'login',
         element: (
-          <Suspense fallback={<Spinner />}>
+          <Suspense
+            fallback={
+              <Skeleton variant="rectangular" width={210} height={118} />
+            }
+          >
             <Login />
           </Suspense>
         ),

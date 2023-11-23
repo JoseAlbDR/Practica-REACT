@@ -1,9 +1,14 @@
 import { ClickAwayListener } from '@mui/material';
-import { createContext, useContext, useState, ReactElement } from 'react';
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactElement,
+  ReactNode,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { HiXMark } from 'react-icons/hi2';
 import styled from 'styled-components';
-import { ReactNode } from 'react';
 
 const StyledModal = styled.div`
   position: fixed;
