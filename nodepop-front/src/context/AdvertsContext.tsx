@@ -26,11 +26,11 @@ const AdvertsProvider = ({ children }: { children: ReactNode }) => {
 
   let searchedAdverts = [...adverts];
 
-  if (params.name)
+  if (params.productName)
     searchedAdverts = adverts.filter((advert) => {
-      return params.name === 'all'
+      return params.productName === 'all'
         ? advert
-        : advert.name.toLowerCase().includes(params.name.toLowerCase());
+        : advert.name.toLowerCase().includes(params.productName.toLowerCase());
     });
 
   if (params.type)
@@ -59,7 +59,6 @@ const AdvertsProvider = ({ children }: { children: ReactNode }) => {
       value={{
         adverts: searchedAdverts,
         params,
-
         min,
         max,
         isFirstAdvert,

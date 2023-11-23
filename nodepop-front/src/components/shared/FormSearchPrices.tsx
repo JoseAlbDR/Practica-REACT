@@ -1,14 +1,16 @@
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, RefObject } from 'react';
 import { SubmitFunction, useSearchParams } from 'react-router-dom';
 
 import { changePriceNameUrl } from '../../utils';
 
 const FormSearchPrices = ({
+  formRef,
   onChange,
   defaultValue,
 }: {
+  formRef: RefObject<HTMLFormElement>;
   onChange: SubmitFunction;
   defaultValue: [number, number];
 }) => {
@@ -48,7 +50,7 @@ const FormSearchPrices = ({
         onChange={handleChange}
         onChangeCommitted={() => {
           const form = document.getElementById('search-form');
-          if (form) changePriceNameUrl(form as HTMLFormElement);
+          if (form) changePriceNameUrl(formRef);
           onChange(form as HTMLFormElement);
         }}
         valueLabelDisplay="auto"

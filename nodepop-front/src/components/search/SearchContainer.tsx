@@ -7,10 +7,12 @@ import { FormSearchPrices, FormRowSelect, FormRowInput } from '../shared/';
 import { changePriceNameUrl } from '../../utils';
 import { useAdverts } from '../../context/AdvertsContext';
 import { useTags } from '../../context/TagsContext';
+import { useRef } from 'react';
 
 const SearchContainer = () => {
   const { min, max, params } = useAdverts();
   const { tags } = useTags();
+  const formRef = useRef<HTMLFormElement>(null);
 
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
@@ -23,7 +25,6 @@ const SearchContainer = () => {
       const form = e.currentTarget.form;
       clearTimeout(timeout);
       timeout = setTimeout(() => {
-        console.log(form);
         onChange(form);
       }, 1000);
     };
@@ -32,31 +33,37 @@ const SearchContainer = () => {
   return (
     <StyledSearchContainer>
       <div className="search-form">
-        <Form id="search-form">
+        <Form id="search-form" ref={formRef}>
           <h4>Search</h4>
           <div className="form-center">
             <FormRowInput
               onChange={debounce((form) => {
-                if (form) changePriceNameUrl(form as HTMLFormElement);
+                if (form) changePriceNameUrl(formRef);
                 submit(form);
               })}
               type="search"
-              name="name"
+              name="productName"
               labelText="name"
-              defaultValue={params.name}
+              defaultValue={params.productName}
               disabled={isSubmitting}
             />
-            <FormSearchPrices onChange={submit} defaultValue={[min, max]} />
+            <FormSearchPrices
+              onChange={submit}
+              formRef={formRef}
+              defaultValue={[min, max]}
+            />
             <FormRowSelect
               name="type"
               types={['all', 'On sale', 'Search']}
               selected={params.type}
+              formRef={formRef}
               onChange={submit}
             />
             <FormRowSelect
               name="tags"
               types={['all', ...tags]}
               selected={params.tags}
+              formRef={formRef}
               onChange={submit}
             />
             <Link className="btn btn-block form-btn" to={`/adverts`}>

@@ -18,7 +18,7 @@ const FormRowInput = ({
         id={name}
         min={type === 'number' ? 0 : ''}
         name={name}
-        defaultValue={defaultValue || ''}
+        defaultValue={defaultValue || 'All'}
         disabled={disabled}
         onChange={onChange}
         required

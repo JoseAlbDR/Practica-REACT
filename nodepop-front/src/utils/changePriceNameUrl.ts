@@ -1,9 +1,14 @@
-export const changePriceNameUrl = (form: HTMLFormElement) => {
-  const minPrice = form.querySelector('input[data-index="0"]');
-  const maxPrice = form.querySelector('input[data-index="1"]');
-  const name = form.querySelector('#name');
+export const changePriceNameUrl = (
+  formRef?: React.RefObject<HTMLFormElement>
+) => {
+  const nameInput = formRef?.current?.productName;
+  const priceInputs = formRef?.current?.price as NodeListOf<HTMLInputElement>;
 
-  if (name?.getAttribute('value') === '') name.setAttribute('value', 'All');
+  const minPrice = Array.from(priceInputs).at(0);
+  const maxPrice = Array.from(priceInputs).at(1);
+
+  if (nameInput)
+    nameInput.value = nameInput?.value === '' ? 'all' : nameInput?.value;
 
   if (minPrice && maxPrice) {
     minPrice.setAttribute('name', 'min-price');
