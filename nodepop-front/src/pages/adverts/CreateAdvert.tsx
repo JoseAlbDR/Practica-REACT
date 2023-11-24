@@ -19,6 +19,8 @@ import Wrapper from './styles/CreateAdvertWrapper';
 import { createAdvert } from './service';
 import { ITags } from '../../interfaces/tags.interface';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
+import { CustomAxiosError } from '../../api/customFetch';
+import { AxiosError } from 'axios';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -36,7 +38,12 @@ export const action = async (data: ActionFunctionArgs) => {
     return redirect('/adverts');
   } catch (error) {
     console.log(error);
-    throw error;
+    if (error instanceof CustomAxiosError || error instanceof AxiosError) {
+      toast.error('Error creating Advert, try again later');
+      return null;
+    }
+    toast.error('There was an error, try again later');
+    return redirect('/adverts');
   }
 };
 
@@ -68,8 +75,9 @@ const CreateAdvert = () => {
             name="sale"
             types={['on sale', 'search']}
             selected={sale || ''}
+            disabled={isSubmitting}
           />
-          <FormRowTags tags={tags} />
+          <FormRowTags tags={tags} disabled={isSubmitting} />
           <FormRowInput
             type="number"
             name="price"

@@ -4,9 +4,10 @@ import { ErrorComponent } from '.';
 
 interface FormRowTagsProps {
   tags?: ITags[] | undefined;
+  disabled?: boolean;
 }
 
-const FormRowTags = ({ tags = undefined }: FormRowTagsProps) => {
+const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
   const { tags: renderTags } = useTags();
 
   return (
@@ -23,6 +24,7 @@ const FormRowTags = ({ tags = undefined }: FormRowTagsProps) => {
               name="tags"
               value={tag}
               className="input-check"
+              disabled={disabled}
               defaultChecked={tags && tags.includes(tag)}
             />
             {tag}

@@ -8,6 +8,7 @@ interface IFormSelectProps {
   selected?: string;
   onChange?: SubmitFunction;
   formRef?: RefObject<HTMLFormElement>;
+  disabled?: boolean;
 }
 const FormRowSelect = ({
   name,
@@ -15,6 +16,7 @@ const FormRowSelect = ({
   selected = '',
   formRef,
   onChange = () => {},
+  disabled,
 }: IFormSelectProps) => {
   return (
     <div className="form-row">
@@ -32,7 +34,7 @@ const FormRowSelect = ({
         }}
       >
         {types.map((type) => (
-          <option key={type} value={type}>
+          <option key={type} value={type} disabled={disabled}>
             {type}
           </option>
         ))}
