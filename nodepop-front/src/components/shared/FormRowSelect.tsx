@@ -7,7 +7,7 @@ interface IFormSelectProps {
   types: string[];
   selected?: string;
   onChange?: SubmitFunction;
-  formRef: RefObject<HTMLFormElement>;
+  formRef?: RefObject<HTMLFormElement>;
 }
 const FormRowSelect = ({
   name,
