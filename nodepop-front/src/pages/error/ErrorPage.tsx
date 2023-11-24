@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useRouteError } from 'react-router-dom';
 
 import notFound from '../../assets/images/not-found.svg';
@@ -49,6 +49,7 @@ const StyledErrorPage = styled.main<{ $type: string }>`
 const ErrorPage = () => {
   const error = useRouteError();
   const currentError = getError(error);
+  const navigate = useNavigate();
 
   if (currentError.status && currentError.status === 404) {
     return (
@@ -57,7 +58,9 @@ const ErrorPage = () => {
           <img src={notFound} alt="not found" className="img" />
           <h3>{currentError.message}</h3>
           <p>We can't seem to find the page you are looking for</p>
-          <Link to="/"> Bring me back Home</Link>
+          <button className="btn btn-hipster" onClick={() => navigate(-1)}>
+            Bring me back
+          </button>
         </div>
       </StyledErrorPage>
     );
@@ -68,7 +71,9 @@ const ErrorPage = () => {
         <img src={errorImage} alt="error" className="img" />
         <h3>{currentError.message}</h3>
         <p>There was an error, try again later</p>
-        <Link to="/">Bring me Home</Link>
+        <button className="btn btn-hipster" onClick={() => navigate(-1)}>
+          Bring me back
+        </button>
         <span> or </span>
         <Link to="/login">Login</Link>
       </div>
