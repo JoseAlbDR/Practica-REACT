@@ -76,6 +76,7 @@ const Login = () => {
             type="checkbox"
             name="rememberMe"
             checked={rememberMe}
+            disabled={isSubmitting}
             onChange={() => toggleRememberMe(!rememberMe)}
           />
           Remember Me
