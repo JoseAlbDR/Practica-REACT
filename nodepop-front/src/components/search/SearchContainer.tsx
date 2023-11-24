@@ -19,6 +19,11 @@ const SearchContainer = () => {
 
   const submit = useSubmit();
 
+  const selectText = (e: React.MouseEvent<HTMLInputElement>) => {
+    (e.target as HTMLInputElement).focus();
+    (e.target as HTMLInputElement).select();
+  };
+
   const debounce = (onChange: (e: any) => void) => {
     let timeout: NodeJS.Timeout | undefined;
     return (e: { currentTarget: { form: unknown } }) => {
@@ -46,6 +51,7 @@ const SearchContainer = () => {
               labelText="name"
               defaultValue={params.productName}
               disabled={isSubmitting}
+              onClick={selectText}
             />
             <FormSearchPrices
               onChange={submit}

@@ -7,6 +7,7 @@ const FormRowInput = ({
   defaultValue,
   disabled,
   onChange = () => {},
+  onClick = () => {},
 }: IFormRowProps) => {
   return (
     <div className="form-row">
@@ -21,6 +22,7 @@ const FormRowInput = ({
         defaultValue={defaultValue || 'All'}
         disabled={disabled}
         onChange={onChange}
+        onClick={onClick}
         required
         className="form-input"
       />
