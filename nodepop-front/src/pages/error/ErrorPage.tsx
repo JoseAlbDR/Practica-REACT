@@ -14,10 +14,17 @@ const StyledErrorPage = styled.main<{ $type: string }>`
   align-items: center;
   justify-content: center;
 
+  .error-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   img {
     width: 90vw;
 
-    max-width: ${(props) => (props.$type === 'error' ? '300px' : '600px')};
+    max-width: ${(props) => (props.$type === 'error' ? '400px' : '600px')};
     margin-bottom: 2rem;
     margin-top: -3rem;
   }
@@ -46,7 +53,7 @@ const ErrorPage = () => {
   if (currentError.status && currentError.status === 404) {
     return (
       <StyledErrorPage $type="notfound">
-        <div>
+        <div className="error-page">
           <img src={notFound} alt="not found" className="img" />
           <h3>{currentError.message}</h3>
           <p>We can't seem to find the page you are looking for</p>
@@ -57,7 +64,7 @@ const ErrorPage = () => {
   }
   return (
     <StyledErrorPage $type="error">
-      <div>
+      <div className="error-page">
         <img src={errorImage} alt="error" className="img" />
         <h3>{currentError.message}</h3>
         <p>There was an error, try again later</p>

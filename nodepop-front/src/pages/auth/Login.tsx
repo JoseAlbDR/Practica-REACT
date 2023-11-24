@@ -6,11 +6,9 @@ import {
   redirect,
   useActionData,
 } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
 
 import StyledLogin from './styles/AuthWrapper';
-
-const Logo = lazy(() => import('../../components/shared/Logo'));
+import { Logo } from '../../components/';
 
 import { FormRow, SubmitButton } from '../../components';
 import { ErrorComponent } from '../../components/shared/';
@@ -18,7 +16,6 @@ import { login } from './service';
 import { useAuth } from '../../context/AuthContext';
 import { CustomAxiosError } from '../../api/customFetch';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
-import { Skeleton } from '@mui/material';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -58,9 +55,7 @@ const Login = () => {
     <StyledLogin>
       <Form method="post" className="form">
         {isError && <ErrorComponent message={errorMessage} />}
-        <Suspense fallback={<Skeleton variant="circular" />}>
-          <Logo />
-        </Suspense>
+        <Logo />
         <h4>Login</h4>
         <FormRow
           type="email"
