@@ -82,7 +82,7 @@ const Modal = ({ children }: { children: ReactElement[] }) => {
 };
 
 // 3 Create child components to help implementing the common tasks
-export const Open = ({
+const Open = ({
   render,
   opens: opensWindowName,
 }: {
@@ -95,7 +95,7 @@ export const Open = ({
   // return cloneElement(children, { onClick: () => open(opensWindowName) });
 };
 
-export const Window = ({
+const Window = ({
   render,
   name,
 }: {
@@ -123,5 +123,8 @@ export const Window = ({
     document.body
   );
 };
+
+Modal.Open = Open;
+Modal.Window = Window;
 
 export default Modal;

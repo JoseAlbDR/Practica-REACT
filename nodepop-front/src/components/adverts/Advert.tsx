@@ -11,7 +11,6 @@ import { AdvertInfo, AdvertTags } from '../';
 import { ConfirmModal as ConfirmDelete, Modal } from '../shared/';
 import { AdvertProps } from '../../interfaces/advert.interface';
 import { deleteAdvert } from './service';
-import { Open, Window } from '../shared/Modal';
 
 const Advert = ({
   name,
@@ -67,7 +66,7 @@ const Advert = ({
         </div>
         {type === 'detail' ? (
           <Modal>
-            <Open
+            <Modal.Open
               opens="delete"
               render={(openModal) => (
                 <button
@@ -78,7 +77,7 @@ const Advert = ({
                 </button>
               )}
             />
-            <Window
+            <Modal.Window
               name="delete"
               render={(closeModal) => (
                 <ConfirmDelete
