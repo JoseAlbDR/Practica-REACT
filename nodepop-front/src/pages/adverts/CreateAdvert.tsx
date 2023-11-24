@@ -7,13 +7,13 @@ import {
 import { toast } from 'react-toastify';
 
 import {
-  FormRow,
+  FormRowInput,
   SubmitButton,
   FormRowTags,
-  FormInput,
+  FormRowFileInput,
   FormRowSelect,
   Spinner,
-} from '../../components';
+} from '../../components/shared';
 import Wrapper from './styles/CreateAdvertWrapper';
 
 import { createAdvert } from './service';
@@ -57,7 +57,7 @@ const CreateAdvert = () => {
       ) : (
         <Form method="post" className="form" encType="multipart/form-data">
           <h4>New Advert</h4>
-          <FormRow
+          <FormRowInput
             type="text"
             name="name"
             labelText="name"
@@ -70,14 +70,14 @@ const CreateAdvert = () => {
             selected={sale || ''}
           />
           <FormRowTags tags={tags} />
-          <FormRow
+          <FormRowInput
             type="number"
             name="price"
             labelText="price"
             defaultValue={price || '0'}
             disabled={isSubmitting}
           />
-          <FormInput
+          <FormRowFileInput
             labelText="select an image file (max 0.5MB)"
             type="file"
             id="image"

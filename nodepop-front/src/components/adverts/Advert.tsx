@@ -11,6 +11,8 @@ import { AdvertInfo, AdvertTags } from '../';
 import { ConfirmModal as ConfirmDelete, Modal } from '../shared/';
 import { AdvertProps } from '../../interfaces/advert.interface';
 import { deleteAdvert } from './service';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const Advert = ({
   name,
@@ -21,15 +23,20 @@ const Advert = ({
   id,
   type = '',
 }: AdvertProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleDeleteAdvert = async (id: string) => {
     try {
+      setIsLoading(true);
       await deleteAdvert(id);
       navigate('/adverts');
     } catch (error) {
       console.log(error);
+      toast.error('There was an error deleting the Advert, try again later');
       throw error;
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -81,6 +88,7 @@ const Advert = ({
               name="delete"
               render={(closeModal) => (
                 <ConfirmDelete
+                  isLoading={isLoading}
                   type="delete"
                   resourceName="advert"
                   onCloseModal={closeModal}

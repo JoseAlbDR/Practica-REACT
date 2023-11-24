@@ -5,7 +5,7 @@ const Spinner = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        height: '50vh',
+        // height: '50vh',
       }}
     >
       <div className="loading"></div>
