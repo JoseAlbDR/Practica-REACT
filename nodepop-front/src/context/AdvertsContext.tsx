@@ -28,7 +28,7 @@ const AdvertsProvider = ({ children }: { children: ReactNode }) => {
 
   if (params.productName)
     searchedAdverts = adverts.filter((advert) => {
-      return params.productName === 'all'
+      return params.productName.toLowerCase() === 'all'
         ? advert
         : advert.name.toLowerCase().includes(params.productName.toLowerCase());
     });
