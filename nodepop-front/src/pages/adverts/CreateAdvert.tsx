@@ -28,7 +28,9 @@ export const action = async (data: ActionFunctionArgs) => {
   const tags = formData.getAll('tags');
 
   if (tags.length === 0) {
+    console.log('asdf');
     toast.error('Select at least one tag!');
+    console.log(formData);
     return formData;
   }
 
@@ -43,7 +45,7 @@ export const action = async (data: ActionFunctionArgs) => {
       return null;
     }
     toast.error('There was an error, try again later');
-    return redirect('/adverts');
+    return null;
   }
 };
 
@@ -56,6 +58,8 @@ const CreateAdvert = () => {
   const sale = formData?.get('sale') as string;
   const price = formData?.get('price') as string;
   const tags = formData?.getAll('tags') as ITags[];
+
+  console.log(name, sale, price);
 
   return (
     <Wrapper>
