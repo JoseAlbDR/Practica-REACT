@@ -81,27 +81,25 @@ const Modal = ({ children }: { children: ReactElement[] }) => {
   );
 };
 
-// 3 Create child components to help implementing the common tasks
-const Open = ({
-  render,
-  opens: opensWindowName,
-}: {
+interface OpenProps {
   render: (openModal: () => void) => ReactNode;
   opens: string;
-}) => {
+}
+
+// 3 Create child components to help implementing the common tasks
+const Open = ({ render, opens: opensWindowName }: OpenProps) => {
   const { open } = useContext(ModalContext);
 
   return render(() => open(opensWindowName));
   // return cloneElement(children, { onClick: () => open(opensWindowName) });
 };
 
-const Window = ({
-  render,
-  name,
-}: {
+interface WindowProps {
   render: (closeModal: () => void) => ReactNode;
   name: string;
-}) => {
+}
+
+const Window = ({ render, name }: WindowProps) => {
   const { openName, close } = useContext(ModalContext);
   // const modalRef = useCloseModal(close);
 
