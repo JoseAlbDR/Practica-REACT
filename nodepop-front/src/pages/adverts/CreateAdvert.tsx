@@ -23,6 +23,14 @@ import { CustomAxiosError } from '../../api/customFetch';
 import { AxiosError } from 'axios';
 import { ReactNode } from 'react';
 
+interface CreateAdvertProps {
+  title?: string;
+  data?:
+    | { name: string; sale: string; price: number; tags: ITags[] }
+    | undefined;
+  cancelButton?: ReactNode | undefined;
+}
+
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
   const formData = await request.formData();
@@ -53,13 +61,7 @@ const CreateAdvert = ({
   title = 'Create Advert',
   data = undefined,
   cancelButton = undefined,
-}: {
-  title?: string;
-  data?:
-    | { name: string; sale: string; price: number; tags: ITags[] }
-    | undefined;
-  cancelButton?: ReactNode | undefined;
-}) => {
+}: CreateAdvertProps) => {
   const { isSubmitting, isLoading } = useCustomNavigation();
 
   const formData = useActionData() as FormData;
