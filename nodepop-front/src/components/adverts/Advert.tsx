@@ -13,6 +13,7 @@ import { AdvertProps } from '../../interfaces/advert.interface';
 import { deleteAdvert } from './service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import CreateAdvert from '../../pages/adverts/CreateAdvert';
 
 const Advert = ({
   name,
@@ -30,6 +31,7 @@ const Advert = ({
     try {
       setIsLoading(true);
       await deleteAdvert(id);
+      toast.success('Advert deleted successfully');
       navigate('/adverts');
     } catch (error) {
       console.log(error);
@@ -72,31 +74,69 @@ const Advert = ({
           <AdvertTags tags={tags} />
         </div>
         {type === 'detail' ? (
-          <Modal>
-            <Modal.Open
-              opens="delete"
-              render={(openModal) => (
-                <button
-                  className="btn btn-block danger-btn"
-                  onClick={openModal}
-                >
-                  Delete Advert
-                </button>
-              )}
-            />
-            <Modal.Window
-              name="delete"
-              render={(closeModal) => (
-                <ConfirmDelete
-                  isLoading={isLoading}
-                  type="delete"
-                  resourceName="advert"
-                  onCloseModal={closeModal}
-                  onConfirm={() => handleDeleteAdvert(id)}
-                />
-              )}
-            />
-          </Modal>
+          <div>
+            <Modal>
+              <Modal.Open
+                opens="update"
+                render={(openModal) => (
+                  <button
+                    className="btn btn-block"
+                    onClick={openModal}
+                    disabled
+                  >
+                    Update Advert (COMING SOON...)
+                  </button>
+                )}
+              />
+              <Modal.Window
+                name="update"
+                render={(closeModal) => (
+                  <CreateAdvert
+                    title="Update Advert (COMING SOON...)"
+                    data={{
+                      name,
+                      sale: sale ? 'On sale' : 'Search',
+                      price,
+                      tags,
+                    }}
+                    cancelButton={
+                      <button
+                        className="btn btn-block danger-btn"
+                        onClick={closeModal}
+                      >
+                        Cancel
+                      </button>
+                    }
+                  />
+                )}
+              />
+            </Modal>
+            <Modal>
+              <Modal.Open
+                opens="delete"
+                render={(openModal) => (
+                  <button
+                    className="btn btn-block danger-btn"
+                    onClick={openModal}
+                  >
+                    Delete Advert
+                  </button>
+                )}
+              />
+              <Modal.Window
+                name="delete"
+                render={(closeModal) => (
+                  <ConfirmDelete
+                    isLoading={isLoading}
+                    type="delete"
+                    resourceName="advert"
+                    onCloseModal={closeModal}
+                    onConfirm={() => handleDeleteAdvert(id)}
+                  />
+                )}
+              />
+            </Modal>
+          </div>
         ) : (
           <button
             className="btn btn-block"

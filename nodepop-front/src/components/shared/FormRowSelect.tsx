@@ -21,7 +21,7 @@ const FormRowSelect = ({
   return (
     <div className="form-row">
       <label className="form-label" htmlFor={name}>
-        {name === 'onSale' ? 'type' : name}
+        {name === 'sale' ? 'type' : name}
       </label>
       <select
         name={name === 'category' ? 'tags' : name}

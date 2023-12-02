@@ -7,7 +7,7 @@ interface ConfirmModalProps {
   disabled?: boolean;
   onCloseModal?: () => void;
   type: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const ConfirmModal = ({

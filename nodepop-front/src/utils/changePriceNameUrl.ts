@@ -4,8 +4,12 @@ export const changePriceNameUrl = (
   const nameInput = formRef?.current?.productName;
   const priceInputs = formRef?.current?.price as NodeListOf<HTMLInputElement>;
 
-  const minPrice = Array.from(priceInputs).at(0);
-  const maxPrice = Array.from(priceInputs).at(1);
+  let minPrice, maxPrice;
+
+  if (priceInputs) {
+    minPrice = Array.from(priceInputs).at(0);
+    maxPrice = Array.from(priceInputs).at(1);
+  }
 
   if (nameInput)
     nameInput.value = nameInput?.value === '' ? 'all' : nameInput?.value;

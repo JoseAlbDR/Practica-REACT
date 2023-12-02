@@ -21,6 +21,7 @@ import { ITags } from '../../interfaces/tags.interface';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 import { CustomAxiosError } from '../../api/customFetch';
 import { AxiosError } from 'axios';
+import { ReactNode } from 'react';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -28,7 +29,6 @@ export const action = async (data: ActionFunctionArgs) => {
   const tags = formData.getAll('tags');
 
   if (tags.length === 0) {
-    console.log('asdf');
     toast.error('Select at least one tag!');
     console.log(formData);
     return formData;
@@ -49,7 +49,17 @@ export const action = async (data: ActionFunctionArgs) => {
   }
 };
 
-const CreateAdvert = () => {
+const CreateAdvert = ({
+  title = 'Create Advert',
+  data = undefined,
+  cancelButton = undefined,
+}: {
+  title?: string;
+  data?:
+    | { name: string; sale: string; price: number; tags: ITags[] }
+    | undefined;
+  cancelButton?: ReactNode | undefined;
+}) => {
   const { isSubmitting, isLoading } = useCustomNavigation();
 
   const formData = useActionData() as FormData;
@@ -59,26 +69,24 @@ const CreateAdvert = () => {
   const price = formData?.get('price') as string;
   const tags = formData?.getAll('tags') as ITags[];
 
-  console.log(name, sale, price);
-
   return (
     <Wrapper>
       {isLoading ? (
         <Spinner />
       ) : (
         <Form method="post" className="form" encType="multipart/form-data">
-          <h4>New Advert</h4>
+          <h4>{title}</h4>
           <FormRowInput
             type="text"
             name="name"
             labelText="name"
-            defaultValue={name || ''}
+            defaultValue={name || data?.name || ''}
             disabled={isSubmitting}
           />
           <FormRowSelect
             name="sale"
             types={['on sale', 'search']}
-            selected={sale || ''}
+            selected={sale || data?.sale || ''}
             disabled={isSubmitting}
           />
           <FormRowTags tags={tags} disabled={isSubmitting} />
@@ -86,7 +94,7 @@ const CreateAdvert = () => {
             type="number"
             name="price"
             labelText="price"
-            defaultValue={price || '0'}
+            defaultValue={price || String(data?.price) || '0'}
             disabled={isSubmitting}
           />
           <FormRowFileInput
@@ -96,6 +104,7 @@ const CreateAdvert = () => {
             name="photo"
           />
           <SubmitButton formBtn />
+          {cancelButton}
         </Form>
       )}
     </Wrapper>

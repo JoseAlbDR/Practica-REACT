@@ -5,15 +5,17 @@ import { SubmitFunction, useSearchParams } from 'react-router-dom';
 
 import { changePriceNameUrl } from '../../utils';
 
+interface FormSearchPricesProps {
+  formRef: RefObject<HTMLFormElement>;
+  onChange: SubmitFunction;
+  defaultValue: [number, number];
+}
+
 const FormSearchPrices = ({
   formRef,
   onChange,
   defaultValue,
-}: {
-  formRef: RefObject<HTMLFormElement>;
-  onChange: SubmitFunction;
-  defaultValue: [number, number];
-}) => {
+}: FormSearchPricesProps) => {
   const [value, setValue] = useState<[number, number]>(defaultValue);
 
   const [searchParams] = useSearchParams();
