@@ -1,16 +1,18 @@
 type RenderFunction<T> = (item: T) => JSX.Element;
 
+interface ItemListProps<T> {
+  itemName: string;
+  items: T[];
+  render: RenderFunction<T>;
+  className: string;
+}
+
 const ItemList = <T,>({
   itemName,
   items,
   render,
   className,
-}: {
-  itemName: string;
-  items: T[];
-  render: RenderFunction<T>;
-  className: string;
-}) => {
+}: ItemListProps<T>) => {
   return (
     <div className={className}>
       {items.length > 0 ? (
