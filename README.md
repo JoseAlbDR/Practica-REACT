@@ -47,8 +47,8 @@ Se implementan rutas públicas y protegidas, como las relacionadas con la autent
 Para ejecutar este proyecto localmente:
 
 1. Clona el repositorio: `git clone https://github.com/JoseAlbDR/Practica-REACT.git`
-2. Instala las dependencias: `npm install` o `yarn install`
-3. Inicia el servidor de desarrollo: `npm start` o `yarn start`
+2. Instala las dependencias: `npm install`
+3. Inicia el servidor de desarrollo: `npm run dev`
 
 ## Dependencias Principales
 
