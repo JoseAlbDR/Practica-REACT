@@ -4,7 +4,10 @@ import { UnknownAction } from 'redux';
 import { types } from './types';
 
 const initialState: ReduxState = {
-  auth: false,
+  auth: {
+    isLoggedIn: false,
+    rememberMe: false,
+  },
   adverts: {
     loaded: false,
     data: [],
@@ -18,9 +21,9 @@ const initialState: ReduxState = {
 export function auth(state = initialState.auth, action: UnknownAction) {
   switch (action.type) {
     case types.AUTH_LOGIN_SUCCESS:
-      return true;
+      return { ...state, isLoggedIn: true };
     case types.AUTH_LOGOUT:
-      return false;
+      return { ...state, isLoggedIn: false };
     default:
       return state;
   }

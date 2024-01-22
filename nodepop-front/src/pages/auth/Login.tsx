@@ -3,7 +3,6 @@ import {
   ActionFunctionArgs,
   Form,
   Link,
-  redirect,
   useActionData,
 } from 'react-router-dom';
 
@@ -12,10 +11,14 @@ import { Logo } from '../../components/';
 
 import { FormRow, SubmitButton } from '../../components';
 import { ErrorComponent } from '../../components/shared/';
-import { login } from './service';
+
 import { useAuth } from '../../context/AuthContext';
 import { CustomAxiosError } from '../../api/customFetch';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
+import { store } from '../../main';
+import { authLogin } from '../../store/actions';
+import { useSelector } from 'react-redux';
+import { getAuth, getUi } from '../../store/selectors';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -26,9 +29,8 @@ export const action = async (data: ActionFunctionArgs) => {
   const rememberMe = formData.get('rememberMe') ? true : false;
 
   try {
-    await login({ email, password }, rememberMe);
-    toast.success('User Succesfully Logged In');
-    return redirect('/adverts');
+    store.dispatch(authLogin({ email, password }, rememberMe));
+    return null;
   } catch (error) {
     if (error instanceof CustomAxiosError) {
       toast.error(error.message);
@@ -44,8 +46,10 @@ const getErrorMessage = (isError: CustomAxiosError) => {
 };
 
 const Login = () => {
-  const { rememberMe, toggleRememberMe } = useAuth();
   const isError = useActionData() as CustomAxiosError;
+
+  const { isLoading } = useCustomNavigation();
+  const { isLoggedIn, rememberMe } = useSelector(getAuth);
   const errorMessage = isError && getErrorMessage(isError);
 
   const { isSubmitting } = useCustomNavigation();
@@ -61,26 +65,26 @@ const Login = () => {
           type="email"
           name="email"
           labelText="email"
-          defaultValue="yusepah@gmail.com"
-          disabled={isSubmitting}
+          defaultValue="test@test.com"
+          disabled={isLoading}
         ></FormRow>
         <FormRow
           type="password"
           name="password"
           labelText="password"
-          defaultValue="mekieros"
-          disabled={isSubmitting}
+          defaultValue="test"
+          disabled={isLoading}
         ></FormRow>
-        <div className="check-form-row">
+        {/* <div className="check-form-row">
           <input
             type="checkbox"
             name="rememberMe"
             checked={rememberMe}
             disabled={isSubmitting}
-            onChange={() => toggleRememberMe(!rememberMe)}
+            // onChange={() => toggleRememberMe(!rememberMe)}
           />
           Remember Me
-        </div>
+        </div> */}
         <SubmitButton formBtn />
         <p>
           Not a Member Yet?

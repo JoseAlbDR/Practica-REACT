@@ -1,9 +1,14 @@
 import { IAdvert } from './advert.interface';
 
 export interface ReduxState {
-  auth: boolean;
+  auth: Auth;
   adverts?: Adverts;
   ui?: Ui;
+}
+
+interface Auth {
+  isLoggedIn: boolean;
+  rememberMe: boolean;
 }
 
 interface Adverts {
@@ -11,7 +16,7 @@ interface Adverts {
   data: IAdvert[];
 }
 
-interface Ui {
+export interface Ui {
   isFetching: boolean;
   error: string | null;
 }

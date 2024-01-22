@@ -1,5 +1,4 @@
 import Wrapper from './styles/NavbarWrapper';
-import { useNavigate } from 'react-router-dom';
 
 import {
   Modal,
@@ -7,16 +6,16 @@ import {
   NavButton,
   Logo,
 } from '../shared/';
-import { useAuth } from '../../context/AuthContext';
-import { useUser } from '../../context/UserContext';
+import { useDispatch } from 'react-redux';
+import { authLogout } from '../../store/actions';
+import { toast } from 'react-toastify';
 
 const NavBar = () => {
-  const navigate = useNavigate();
-  const { onLogout } = useAuth();
-  const { user } = useUser();
+  const dispatch = useDispatch();
 
   const handleLogoutUser = async () => {
-    await onLogout(navigate, user);
+    toast.success('User logged out');
+    dispatch(authLogout());
   };
 
   return (
