@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { lazy, Suspense } from 'react';
+import { Skeleton } from '@mui/material';
 
 // Pages
 import ErrorPage from './pages/error/ErrorPage';
@@ -23,9 +24,8 @@ import { loader as advertDetailLoader } from './pages/adverts/AdvertDetail';
 import AppLayout from './pages/layout/AppLayout';
 import AdvertsLayout from './pages/layout/AdvertsLayout';
 import AdvertDetail from './pages/adverts/AdvertDetail';
-import { Skeleton } from '@mui/material';
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
   // Public Routes
   {
     path: '/',
@@ -89,3 +89,16 @@ function App() {
 }
 
 export default App;
+
+//   <Routes>
+//     <Route path="/signup" element={<Signup />} />
+//     <Route path="/login" element={<Login />} />
+//     <Route path="/adverts" element={<AdvertsLayout />}>
+//       <Route path=":id" element={<AdvertDetail />} />
+//       <Route path="new" element={<CreateAdvert />} />
+//     </Route>
+//     <Route path="/" element={<Navigate to="/adverts" />} />
+//     <Route path="/404" element={<ErrorPage />} />
+//     <Route path="*" element={<Navigate to="/404" />} />
+//   </Routes>
+// );

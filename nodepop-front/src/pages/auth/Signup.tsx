@@ -42,28 +42,28 @@ const Signup = () => {
           type="email"
           name="email"
           labelText="email"
-          defaultValue="yusepah@gmail.com"
+          defaultValue="test@test.com"
           disabled={isSubmitting}
         ></FormRow>
         <FormRow
           type="text"
           name="username"
           labelText="user name"
-          defaultValue="yusep"
+          defaultValue="test"
           disabled={isSubmitting}
         ></FormRow>
         <FormRow
           type="password"
           name="password"
           labelText="password"
-          defaultValue="mekieros"
+          defaultValue="test"
           disabled={isSubmitting}
         ></FormRow>
         <FormRow
           type="text"
           name="name"
           labelText="name"
-          defaultValue="J.Alberto"
+          defaultValue="test"
           disabled={isSubmitting}
         ></FormRow>
         <SubmitButton formBtn />

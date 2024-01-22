@@ -38,7 +38,6 @@ export const action = async (data: ActionFunctionArgs) => {
 
   if (tags.length === 0) {
     toast.error('Select at least one tag!');
-    console.log(formData);
     return formData;
   }
 

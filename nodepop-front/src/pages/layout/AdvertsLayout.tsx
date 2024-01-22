@@ -2,7 +2,7 @@ import { Outlet, redirect } from 'react-router-dom';
 
 import Wrapper from './styles/MainLayoutWrapper';
 
-import { NavBar, Spinner } from '../../components';
+import { Navbar, Spinner } from '../../components';
 import { toast } from 'react-toastify';
 import { TagsProvider } from '../../context/TagsContext';
 import { UserProvider } from '../../context/UserContext';
@@ -45,7 +45,7 @@ const AdvertsLayout = () => {
     <UserProvider>
       <Wrapper>
         <main className="main">
-          <NavBar />
+          <Navbar />
           <div className="main-page">
             {isLoading ? (
               <Spinner />

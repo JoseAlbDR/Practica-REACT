@@ -7,7 +7,7 @@ export { default as FormRow } from './shared/FormRowInput';
 export { default as FormRowSelect } from './shared/FormRowSelect';
 export { default as FormRowTags } from './shared/FormRowTags';
 export { default as Logo } from './shared/Logo';
-export { default as NavBar } from './navbar/Navbar';
+export { default as Navbar } from './navbar/Navbar';
 export { default as Spinner } from './shared/Spinner';
 export { default as SubmitButton } from './shared/SubmitButton';
 export { default as SearchContainer } from './search/SearchContainer';
