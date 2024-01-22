@@ -12,13 +12,12 @@ import { Logo } from '../../components/';
 import { FormRow, SubmitButton } from '../../components';
 import { ErrorComponent } from '../../components/shared/';
 
-import { useAuth } from '../../context/AuthContext';
 import { CustomAxiosError } from '../../api/customFetch';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 import { store } from '../../main';
-import { authLogin } from '../../store/actions';
-import { useSelector } from 'react-redux';
-import { getAuth, getUi } from '../../store/selectors';
+import { authLogin, authRememberMe } from '../../store/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAuth } from '../../store/selectors';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -48,12 +47,15 @@ const getErrorMessage = (isError: CustomAxiosError) => {
 const Login = () => {
   const isError = useActionData() as CustomAxiosError;
 
+  const dispatch = useDispatch();
+
   const { isLoading } = useCustomNavigation();
-  const { isLoggedIn, rememberMe } = useSelector(getAuth);
+  const { rememberMe } = useSelector(getAuth);
   const errorMessage = isError && getErrorMessage(isError);
 
-  const { isSubmitting } = useCustomNavigation();
-  // useRememberUser(true);
+  const handleRememberMe = () => {
+    dispatch(authRememberMe());
+  };
 
   return (
     <StyledLogin>
@@ -75,16 +77,16 @@ const Login = () => {
           defaultValue="test"
           disabled={isLoading}
         ></FormRow>
-        {/* <div className="check-form-row">
+        <div className="check-form-row">
           <input
             type="checkbox"
             name="rememberMe"
             checked={rememberMe}
-            disabled={isSubmitting}
-            // onChange={() => toggleRememberMe(!rememberMe)}
+            disabled={isLoading}
+            onChange={handleRememberMe}
           />
           Remember Me
-        </div> */}
+        </div>
         <SubmitButton formBtn />
         <p>
           Not a Member Yet?

@@ -1,4 +1,4 @@
-import { Dispatch, UnknownAction } from 'redux';
+import { Dispatch } from 'redux';
 import { types } from './types';
 import { ILogin } from '../interfaces/auth.interfaces';
 import type { Router } from '@remix-run/router';
@@ -16,12 +16,12 @@ interface Api {
 
 interface Auth {
   login: (user: ILogin, remember: boolean) => Promise<void>;
-  logout: (state: boolean | undefined, action: UnknownAction) => boolean;
+  logout: () => Promise<void>;
 }
 
-interface Payload {
+export interface Payload {
   api: Api;
-  router: Router;
+  router?: Router;
 }
 
 export const authLoginRequest = () => ({
@@ -48,9 +48,8 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
       dispatch(authLoginRequest());
       await auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
-      console.log({ router });
       toast.success('User logged in successfully');
-      router.navigate('/adverts');
+      router!.navigate('/adverts');
     } catch (error) {
       dispatch(authLoginFailure(error));
       throw error;
@@ -58,6 +57,22 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
   };
 }
 
-export const authLogout = () => ({
-  type: types.AUTH_LOGOUT,
-});
+export const authRememberMe = () => {
+  return {
+    type: types.AUTH_REMEMBER_ME,
+  };
+};
+
+export const authLogout =
+  () =>
+  (
+    _dispatch: Dispatch,
+    _getState: () => ReduxState,
+    { api: { auth }, router }: Payload
+  ) => {
+    auth.logout();
+    router!.navigate('/login');
+    return {
+      type: types.AUTH_REMEMBER_ME,
+    };
+  };

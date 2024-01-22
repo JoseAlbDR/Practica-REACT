@@ -19,11 +19,10 @@ export const login = async (user: ILogin, remember: boolean) => {
 
   if (remember) {
     storage.set('accessToken', accessToken);
-    storage.set('rememberUser', remember.toString());
   }
 };
 
-export const logout = async () => {
+export const logout = () => {
   removeAuthorizationHeader();
   storage.remove('accessToken');
 };
