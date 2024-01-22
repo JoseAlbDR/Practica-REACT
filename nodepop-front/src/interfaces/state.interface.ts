@@ -1,9 +1,10 @@
 import { IAdvert } from './advert.interface';
+import { ITags } from './tags.interface';
 
 export interface ReduxState {
   auth: Auth;
-  adverts?: Adverts;
-  ui?: Ui;
+  adverts: Adverts;
+  tags: ITags[];
 }
 
 interface Auth {

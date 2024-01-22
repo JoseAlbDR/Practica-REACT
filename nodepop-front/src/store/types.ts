@@ -18,5 +18,7 @@ export const types = {
   ADVERTS_LOADED_REQUEST: 'adverts/loaded/request',
   ADVERTS_LOADED_SUCCESS: 'adverts/loaded/success',
 
+  ADVERTS_LOAD_TAGS: 'adverts/load/tags',
+
   ADVERT_CREATED: 'advert/created',
 };

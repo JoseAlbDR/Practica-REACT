@@ -1,6 +1,7 @@
 import { ITags } from '../../interfaces/tags.interface';
-import { useTags } from '../../context/TagsContext';
 import { ErrorComponent } from '.';
+import { useSelector } from 'react-redux';
+import { getTags } from '../../store/selectors';
 
 interface FormRowTagsProps {
   tags?: ITags[] | undefined;
@@ -8,7 +9,7 @@ interface FormRowTagsProps {
 }
 
 const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
-  const { tags: renderTags } = useTags();
+  const renderTags = useSelector(getTags);
 
   return (
     <div className="form-row">

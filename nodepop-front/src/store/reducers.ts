@@ -12,10 +12,7 @@ const initialState: ReduxState = {
     loaded: false,
     data: [],
   },
-  ui: {
-    isFetching: false,
-    error: null,
-  },
+  tags: [],
 };
 
 export function auth(state = initialState.auth, action: UnknownAction) {
@@ -26,6 +23,15 @@ export function auth(state = initialState.auth, action: UnknownAction) {
       return { ...state, isLoggedIn: false };
     case types.AUTH_REMEMBER_ME:
       return { ...state, rememberMe: state.rememberMe ? false : true };
+    default:
+      return state;
+  }
+}
+
+export function tags(state = initialState.tags, action: UnknownAction) {
+  switch (action.type) {
+    case types.ADVERTS_LOAD_TAGS:
+      return action.payload;
     default:
       return state;
   }

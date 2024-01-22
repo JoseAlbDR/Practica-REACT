@@ -38,6 +38,7 @@ import AdvertDetail from './pages/adverts/AdvertDetail';
 
 import type { Router } from '@remix-run/router';
 import RequireAuth from './pages/auth/RequireAuth.tsx';
+import { ReduxState } from './interfaces/state.interface.ts';
 
 const accessToken = storage.get('accessToken');
 const remember = storage.get('rememberUser');
@@ -109,10 +110,19 @@ if (accessToken) {
   setAuthorizationHeader(accessToken);
 }
 
-export const store = configureStore(
-  { auth: { isLoggedIn: !!accessToken, rememberMe: !!remember } },
-  { router }
-);
+const initialState: ReduxState = {
+  auth: {
+    isLoggedIn: !!accessToken,
+    rememberMe: !!remember,
+  },
+  adverts: {
+    loaded: false,
+    data: [],
+  },
+  tags: [],
+};
+
+export const store = configureStore({ ...initialState }, { router });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>

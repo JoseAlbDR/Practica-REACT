@@ -7,7 +7,7 @@ import {
   Logo,
 } from '../shared/';
 import { useDispatch } from 'react-redux';
-import { authLogout } from '../../store/actions';
+import { loginOut } from '../../store/actions';
 import { toast } from 'react-toastify';
 
 const NavBar = () => {
@@ -15,7 +15,7 @@ const NavBar = () => {
 
   const handleLogoutUser = async () => {
     toast.success('User logged out');
-    dispatch(authLogout());
+    dispatch(loginOut());
   };
 
   return (

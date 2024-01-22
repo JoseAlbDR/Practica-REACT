@@ -4,6 +4,9 @@ import { ILogin } from '../interfaces/auth.interfaces';
 import type { Router } from '@remix-run/router';
 import { ReduxState } from '../interfaces/state.interface';
 import { toast } from 'react-toastify';
+import { IAdvert } from '../interfaces/advert.interface';
+import { AxiosPromise } from 'axios';
+import { ITags } from '../interfaces/tags.interface';
 
 export interface Credentials {
   email: string;
@@ -12,6 +15,13 @@ export interface Credentials {
 
 interface Api {
   auth: Auth;
+  adverts: Adverts;
+}
+
+interface Adverts {
+  createAdvert: (advert: FormData) => Promise<void>;
+  getAllAdverts: () => AxiosPromise<IAdvert[]>;
+  getTags: () => Promise<ITags[]>;
 }
 
 interface Auth {
@@ -45,7 +55,6 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
     { api: { auth }, router }: Payload
   ) {
     try {
-      dispatch(authLoginRequest());
       await auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
       toast.success('User logged in successfully');
@@ -62,17 +71,38 @@ export const authRememberMe = () => {
     type: types.AUTH_REMEMBER_ME,
   };
 };
+export const authLogout = () => ({
+  type: types.AUTH_LOGOUT,
+});
 
-export const authLogout =
-  () =>
+export function loginOut() {
   (
-    _dispatch: Dispatch,
+    dispatch: Dispatch,
     _getState: () => ReduxState,
     { api: { auth }, router }: Payload
   ) => {
     auth.logout();
     router!.navigate('/login');
-    return {
-      type: types.AUTH_REMEMBER_ME,
-    };
+    dispatch(authLogout());
   };
+}
+
+export const tagsLoadedSuccess = (tags: ITags[]) => ({
+  type: types.ADVERTS_LOAD_TAGS,
+  payload: tags,
+});
+
+export function advertsLoadTags() {
+  return async (
+    dispatch: Dispatch,
+    getState: () => ReduxState,
+    { api: { adverts } }: Payload
+  ) => {
+    try {
+      const tags = await adverts.getTags();
+      dispatch(tagsLoadedSuccess(tags));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}

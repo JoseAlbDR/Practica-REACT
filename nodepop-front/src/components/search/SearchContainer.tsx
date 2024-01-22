@@ -6,12 +6,15 @@ import StyledSearchContainer from './styles/StyledSearchContainer';
 import { FormSearchPrices, FormRowSelect, FormRowInput } from '../shared/';
 import { changePriceNameUrl } from '../../utils';
 import { useAdverts } from '../../context/AdvertsContext';
-import { useTags } from '../../context/TagsContext';
+
 import { useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { getTags } from '../../store/selectors';
 
 const SearchContainer = () => {
   const { min, max, params } = useAdverts();
-  const { tags } = useTags();
+  const tags = useSelector(getTags);
+
   const formRef = useRef<HTMLFormElement>(null);
 
   const navigation = useNavigation();
@@ -67,7 +70,7 @@ const SearchContainer = () => {
             />
             <FormRowSelect
               name="tags"
-              types={['all', ...tags]}
+              types={['all', String(...tags)]}
               selected={params.tags}
               formRef={formRef}
               onChange={submit}
