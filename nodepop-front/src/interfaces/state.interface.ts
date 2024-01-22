@@ -5,16 +5,18 @@ export interface ReduxState {
   auth: Auth;
   adverts: Adverts;
   tags: ITags[];
+  ui: Ui;
 }
 
-interface Auth {
+export interface Auth {
   isLoggedIn: boolean;
   rememberMe: boolean;
 }
 
-interface Adverts {
+export interface Adverts {
   loaded: boolean;
   data: IAdvert[];
+  params: { [key: string]: string };
 }
 
 export interface Ui {

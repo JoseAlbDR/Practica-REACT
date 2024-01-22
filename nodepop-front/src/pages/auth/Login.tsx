@@ -1,59 +1,38 @@
-import { toast } from 'react-toastify';
-import {
-  ActionFunctionArgs,
-  Form,
-  Link,
-  redirect,
-  useActionData,
-} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import StyledLogin from './styles/AuthWrapper';
 import { Logo } from '../../components/';
 
 import { FormRow, SubmitButton } from '../../components';
-import { ErrorComponent } from '../../components/shared/';
 
-import { CustomAxiosError } from '../../api/customFetch';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 import { authLogin, authRememberMe } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuth } from '../../store/selectors';
-import { Dispatch } from 'redux';
-
-export const action =
-  (store: { dispatch: Dispatch }) => async (data: ActionFunctionArgs) => {
-    const { request } = data;
-    const formData = await request.formData();
-
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
-    const rememberMe = formData.get('rememberMe') ? true : false;
-
-    try {
-      store.dispatch(authLogin({ email, password }, rememberMe));
-      return redirect('/adverts');
-    } catch (error) {
-      if (error instanceof CustomAxiosError) {
-        toast.error(error.message);
-      }
-      return error;
-    }
-  };
-
-const getErrorMessage = (isError: CustomAxiosError) => {
-  return isError.message === 'Unauthorized'
-    ? 'Wrong username/password'
-    : isError.message;
-};
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 const Login = () => {
-  const isError = useActionData() as CustomAxiosError;
+  const [credentials, setCredentials] = useState({
+    username: '',
+    password: '',
+  });
 
   const dispatch = useDispatch();
 
   const { isLoading } = useCustomNavigation();
   const { rememberMe } = useSelector(getAuth);
-  const errorMessage = isError && getErrorMessage(isError);
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setCredentials((currentCredentials) => ({
+      ...currentCredentials,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault();
+    dispatch(authLogin(credentials, rememberMe));
+  };
 
   const handleRememberMe = () => {
     dispatch(authRememberMe());
@@ -61,22 +40,23 @@ const Login = () => {
 
   return (
     <StyledLogin>
-      <Form method="post" className="form">
-        {isError && <ErrorComponent message={errorMessage} />}
+      <form onSubmit={handleSubmit} className="form">
         <Logo />
         <h4>Login</h4>
         <FormRow
           type="email"
           name="email"
           labelText="email"
-          defaultValue="test@test.com"
+          defaultValue=""
+          onChange={handleChange}
           disabled={isLoading}
         ></FormRow>
         <FormRow
           type="password"
           name="password"
           labelText="password"
-          defaultValue="test"
+          defaultValue=""
+          onChange={handleChange}
           disabled={isLoading}
         ></FormRow>
         <div className="check-form-row">
@@ -101,7 +81,7 @@ const Login = () => {
             Landing Page
           </Link>
         </p>
-      </Form>
+      </form>
     </StyledLogin>
   );
 };

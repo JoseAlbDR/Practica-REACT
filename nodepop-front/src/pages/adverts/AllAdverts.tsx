@@ -1,31 +1,23 @@
-import { LoaderFunctionArgs } from 'react-router-dom';
-
 import AdvertsPage from './AdvertsPage';
 
-import { getAllAdverts } from './service';
-import { AdvertsProvider } from '../../context/AdvertsContext';
+import { loadAdverts, loadTags } from '../../store/actions';
 
-export const loader = async (data: LoaderFunctionArgs) => {
-  const { request } = data;
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIsLoaded } from '../../store/selectors';
 
-  const params = Object.fromEntries([
-    ...new URL(request.url).searchParams.entries(),
-  ]);
-
-  try {
-    const adverts = await getAllAdverts();
-    return { adverts, params };
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-};
 const AllAdverts = () => {
-  return (
-    <AdvertsProvider>
-      <AdvertsPage />
-    </AdvertsProvider>
-  );
+  const dispatch = useDispatch();
+
+  const isLoaded = useSelector(getIsLoaded);
+
+  useEffect(() => {
+    if (isLoaded) return;
+    dispatch(loadAdverts());
+    dispatch(loadTags());
+  }, [dispatch, isLoaded]);
+
+  return <AdvertsPage />;
 };
 
 export default AllAdverts;

@@ -9,6 +9,7 @@ export class CustomAxiosError extends AxiosError {
 const url = import.meta.env.VITE_BASE_URL;
 
 const customFetch = axios.create({ baseURL: url });
+
 customFetch.interceptors.response.use(
   (response) => response.data,
   (error) => {

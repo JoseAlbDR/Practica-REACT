@@ -21,4 +21,6 @@ export const types = {
   ADVERTS_LOAD_TAGS: 'adverts/load/tags',
 
   ADVERT_CREATED: 'advert/created',
+
+  UI_RESET_ERROR: 'ui/reset_error',
 };

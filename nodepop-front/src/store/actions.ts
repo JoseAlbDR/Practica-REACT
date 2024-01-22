@@ -5,7 +5,7 @@ import type { Router } from '@remix-run/router';
 import { ReduxState } from '../interfaces/state.interface';
 import { toast } from 'react-toastify';
 import { IAdvert } from '../interfaces/advert.interface';
-import { AxiosPromise } from 'axios';
+
 import { ITags } from '../interfaces/tags.interface';
 
 export interface Credentials {
@@ -20,7 +20,7 @@ interface Api {
 
 interface Adverts {
   createAdvert: (advert: FormData) => Promise<void>;
-  getAllAdverts: () => AxiosPromise<IAdvert[]>;
+  getAllAdverts: () => Promise<IAdvert[]>;
   getTags: () => Promise<ITags[]>;
 }
 
@@ -52,13 +52,15 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
   return async function (
     dispatch: Dispatch,
     _getState: () => ReduxState,
-    { api: { auth } }: Payload
+    { api: { auth }, router }: Payload
   ) {
     try {
       await auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
       toast.success('User logged in successfully');
+      router?.navigate('/adverts');
     } catch (error) {
+      console.log({ error });
       dispatch(authLoginFailure(error));
       throw error;
     }
@@ -90,7 +92,7 @@ export const tagsLoadedSuccess = (tags: ITags[]) => ({
   payload: tags,
 });
 
-export function advertsLoadTags() {
+export function loadTags() {
   return async (
     dispatch: Dispatch,
     getState: () => ReduxState,
@@ -99,6 +101,35 @@ export function advertsLoadTags() {
     try {
       const tags = await adverts.getTags();
       dispatch(tagsLoadedSuccess(tags));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+export const advertsLoadedSuccess = (
+  adverts: IAdvert[],
+  params: { [key: string]: string }
+) => ({
+  type: types.ADVERTS_LOADED_SUCCESS,
+  adverts,
+  params,
+});
+
+export const advertsLoadedRequest = () => ({
+  type: types.ADVERTS_LOADED_REQUEST,
+});
+
+export function loadAdverts() {
+  return async (
+    dispatch: Dispatch,
+    getState: () => ReduxState,
+    { api: { adverts } }: Payload
+  ) => {
+    try {
+      dispatch(advertsLoadedRequest());
+      const data = await adverts.getAllAdverts();
+      dispatch(advertsLoadedSuccess(data, {}));
     } catch (error) {
       console.log(error);
     }
