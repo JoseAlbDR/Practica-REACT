@@ -3,6 +3,7 @@ import {
   ActionFunctionArgs,
   Form,
   Link,
+  redirect,
   useActionData,
 } from 'react-router-dom';
 
@@ -14,29 +15,30 @@ import { ErrorComponent } from '../../components/shared/';
 
 import { CustomAxiosError } from '../../api/customFetch';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
-import { store } from '../../main';
 import { authLogin, authRememberMe } from '../../store/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAuth } from '../../store/selectors';
+import { Dispatch } from 'redux';
 
-export const action = async (data: ActionFunctionArgs) => {
-  const { request } = data;
-  const formData = await request.formData();
+export const action =
+  (store: { dispatch: Dispatch }) => async (data: ActionFunctionArgs) => {
+    const { request } = data;
+    const formData = await request.formData();
 
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const rememberMe = formData.get('rememberMe') ? true : false;
+    const email = formData.get('email') as string;
+    const password = formData.get('password') as string;
+    const rememberMe = formData.get('rememberMe') ? true : false;
 
-  try {
-    store.dispatch(authLogin({ email, password }, rememberMe));
-    return null;
-  } catch (error) {
-    if (error instanceof CustomAxiosError) {
-      toast.error(error.message);
+    try {
+      store.dispatch(authLogin({ email, password }, rememberMe));
+      return redirect('/adverts');
+    } catch (error) {
+      if (error instanceof CustomAxiosError) {
+        toast.error(error.message);
+      }
+      return error;
     }
-    return error;
-  }
-};
+  };
 
 const getErrorMessage = (isError: CustomAxiosError) => {
   return isError.message === 'Unauthorized'

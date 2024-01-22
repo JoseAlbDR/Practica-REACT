@@ -51,14 +51,13 @@ export const authLoginFailure = (error: unknown) => ({
 export function authLogin(credentials: Credentials, rememberMe: boolean) {
   return async function (
     dispatch: Dispatch,
-    getState: () => ReduxState,
-    { api: { auth }, router }: Payload
+    _getState: () => ReduxState,
+    { api: { auth } }: Payload
   ) {
     try {
       await auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
       toast.success('User logged in successfully');
-      router!.navigate('/adverts');
     } catch (error) {
       dispatch(authLoginFailure(error));
       throw error;
@@ -76,13 +75,12 @@ export const authLogout = () => ({
 });
 
 export function loginOut() {
-  (
+  return (
     dispatch: Dispatch,
     _getState: () => ReduxState,
-    { api: { auth }, router }: Payload
+    { api: { auth } }: Payload
   ) => {
     auth.logout();
-    router!.navigate('/login');
     dispatch(authLogout());
   };
 }

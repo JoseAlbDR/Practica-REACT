@@ -10,24 +10,22 @@ import configureStore from './store/index.ts';
 
 import { Provider } from 'react-redux';
 import { createBrowserRouter } from 'react-router-dom';
-import { lazy, Suspense } from 'react';
-import { Skeleton } from '@mui/material';
 
 // Pages
 import ErrorPage from './pages/error/ErrorPage';
 import Signup from './pages/auth/Signup';
-const Login = lazy(() => import('./pages/auth/Login'));
+
 import Landing from './pages/landing/Landing';
 import AllAdverts from './pages/adverts/AllAdverts';
 import CreateAdvert from './pages/adverts/CreateAdvert';
 
 // Actions
 import { action as signupAction } from './pages/auth/Signup';
-import { action as loginAction } from './pages/auth/Login';
+import Login, { action as loginAction } from './pages/auth/Login';
 import { action as createAdvertAction } from './pages/adverts/CreateAdvert';
 
 // Loaders
-import { loader as currentUserLoader } from './pages/layout/AdvertsLayout';
+import { loader as tagsLoader } from './pages/layout/AdvertsLayout';
 import { loader as advertsLoader } from './pages/adverts/AllAdverts';
 import { loader as advertDetailLoader } from './pages/adverts/AdvertDetail';
 
@@ -42,6 +40,20 @@ import { ReduxState } from './interfaces/state.interface.ts';
 
 const accessToken = storage.get('accessToken');
 const remember = storage.get('rememberUser');
+
+const initialState: ReduxState = {
+  auth: {
+    isLoggedIn: !!accessToken,
+    rememberMe: !!remember,
+  },
+  adverts: {
+    loaded: false,
+    data: [],
+  },
+  tags: [],
+};
+
+export const store = configureStore({ ...initialState });
 
 const router: Router = createBrowserRouter([
   // Public Routes
@@ -61,16 +73,8 @@ const router: Router = createBrowserRouter([
       },
       {
         path: 'login',
-        element: (
-          <Suspense
-            fallback={
-              <Skeleton variant="rectangular" width={210} height={118} />
-            }
-          >
-            <Login />
-          </Suspense>
-        ),
-        action: loginAction,
+        element: <Login />,
+        action: loginAction(store),
       },
       // Protected routes
       {
@@ -80,7 +84,7 @@ const router: Router = createBrowserRouter([
             <AdvertsLayout />
           </RequireAuth>
         ),
-        loader: currentUserLoader,
+        loader: tagsLoader(store),
         children: [
           {
             index: true,
@@ -109,20 +113,6 @@ const router: Router = createBrowserRouter([
 if (accessToken) {
   setAuthorizationHeader(accessToken);
 }
-
-const initialState: ReduxState = {
-  auth: {
-    isLoggedIn: !!accessToken,
-    rememberMe: !!remember,
-  },
-  adverts: {
-    loaded: false,
-    data: [],
-  },
-  tags: [],
-};
-
-export const store = configureStore({ ...initialState }, { router });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>

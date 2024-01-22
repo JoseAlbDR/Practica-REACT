@@ -9,13 +9,16 @@ import {
 import { useDispatch } from 'react-redux';
 import { loginOut } from '../../store/actions';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogoutUser = async () => {
     toast.success('User logged out');
     dispatch(loginOut());
+    navigate('/login');
   };
 
   return (

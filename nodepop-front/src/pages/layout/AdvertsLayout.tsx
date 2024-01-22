@@ -5,21 +5,17 @@ import Wrapper from './styles/MainLayoutWrapper';
 import { Navbar, Spinner } from '../../components';
 import { toast } from 'react-toastify';
 
-import { UserProvider } from '../../context/UserContext';
-import { getUser } from './service';
-import { getTags } from '../adverts/service';
-
 import { CustomAxiosError } from '../../api/customFetch';
 import { AxiosError } from 'axios';
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 import { checkAuth } from '../../utils/checkAuth';
-import { store } from '../../main';
-import { advertsLoadTags } from '../../store/actions';
 
-export const loader = async () => {
+import { advertsLoadTags } from '../../store/actions';
+import { Dispatch } from 'redux';
+
+export const loader = (store: { dispatch: Dispatch }) => async () => {
   checkAuth();
   try {
-    // const user = await getUser();
     store.dispatch(advertsLoadTags());
 
     return null;
@@ -43,16 +39,12 @@ const AdvertsLayout = () => {
   const { isLoading } = useCustomNavigation();
 
   return (
-    <UserProvider>
-      <Wrapper>
-        <main className="main">
-          <Navbar />
-          <div className="main-page">
-            {isLoading ? <Spinner /> : <Outlet />}
-          </div>
-        </main>
-      </Wrapper>
-    </UserProvider>
+    <Wrapper>
+      <main className="main">
+        <Navbar />
+        <div className="main-page">{isLoading ? <Spinner /> : <Outlet />}</div>
+      </main>
+    </Wrapper>
   );
 };
 

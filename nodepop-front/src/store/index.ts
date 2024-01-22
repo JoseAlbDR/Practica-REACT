@@ -10,13 +10,9 @@ import { composeWithDevTools } from '@redux-devtools/extension';
 import { ReduxState } from '../interfaces/state.interface';
 
 const composeEnhancers = composeWithDevTools({ actionCreators });
-import type { Router } from '@remix-run/router';
 
-export default function configureStore(
-  initialState: ReduxState,
-  { router }: { router: Router }
-) {
-  const middleware = [withExtraArgument({ api: { auth, adverts }, router })];
+export default function configureStore(initialState: ReduxState) {
+  const middleware = [withExtraArgument({ api: { auth, adverts } })];
   const store = createStore(
     combineReducers(reducers),
     initialState,

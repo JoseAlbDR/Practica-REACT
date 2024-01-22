@@ -11,6 +11,8 @@ interface FormRowTagsProps {
 const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
   const renderTags = useSelector(getTags);
 
+  console.log(renderTags);
+
   return (
     <div className="form-row">
       <label className="form-label">tags</label>
