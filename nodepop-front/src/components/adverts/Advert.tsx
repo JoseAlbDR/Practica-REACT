@@ -10,12 +10,11 @@ import errorImg from '../../assets/images/no-image-icon.png';
 import { AdvertInfo, AdvertTags } from '../';
 import { ConfirmModal as ConfirmDelete, Modal } from '../shared/';
 import { AdvertProps } from '../../interfaces/advert.interface';
-import { deleteAdvert } from './service';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
 import CreateAdvert from '../../pages/adverts/CreateAdvert';
-import { advertDetailLoaded } from '../../store/actions';
+import { advertDetail, deleteAdvert } from '../../store/actions';
 import { useAppDispatch } from '../../main';
+import { getUi } from '../../store/selectors';
+import { useSelector } from 'react-redux';
 
 const Advert = ({
   name,
@@ -27,22 +26,11 @@ const Advert = ({
   type = '',
 }: AdvertProps) => {
   const dispatch = useAppDispatch();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isFetching } = useSelector(getUi);
   const navigate = useNavigate();
 
-  const handleDeleteAdvert = async (id: string) => {
-    try {
-      setIsLoading(true);
-      await deleteAdvert(id);
-      toast.success('Advert deleted successfully');
-      navigate('/adverts');
-    } catch (error) {
-      console.log(error);
-      toast.error('There was an error deleting the Advert, try again later');
-      throw error;
-    } finally {
-      setIsLoading(false);
-    }
+  const handleDeleteAdvert = async () => {
+    dispatch(deleteAdvert(id!));
   };
 
   const handleImageError = (event: SyntheticEvent<HTMLImageElement>) => {
@@ -130,11 +118,11 @@ const Advert = ({
                 name="delete"
                 render={(closeModal) => (
                   <ConfirmDelete
-                    isLoading={isLoading}
+                    isLoading={isFetching}
                     type="delete"
                     resourceName="advert"
                     onCloseModal={closeModal}
-                    onConfirm={() => handleDeleteAdvert(id!)}
+                    onConfirm={handleDeleteAdvert}
                   />
                 )}
               />
@@ -144,9 +132,7 @@ const Advert = ({
           <button
             className="btn btn-block"
             onClick={() => {
-              dispatch(
-                advertDetailLoaded({ name, sale, price, tags, photo, id })
-              );
+              dispatch(advertDetail(id!));
               navigate(id!);
             }}
           >

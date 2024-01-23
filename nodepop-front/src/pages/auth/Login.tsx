@@ -5,10 +5,9 @@ import { Logo } from '../../components/';
 
 import { FormRow, SubmitButton } from '../../components';
 
-import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 import { authLogin, authRememberMe } from '../../store/actions';
 import { useSelector } from 'react-redux';
-import { getAuth } from '../../store/selectors';
+import { getAuth, getUi } from '../../store/selectors';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../main';
 
@@ -20,8 +19,7 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  const { isLoading } = useCustomNavigation();
+  const { isFetching } = useSelector(getUi);
   const { rememberMe, isLoggedIn } = useSelector(getAuth);
 
   useEffect(() => {
@@ -55,7 +53,7 @@ const Login = () => {
           labelText="email"
           defaultValue=""
           onChange={handleChange}
-          disabled={isLoading}
+          disabled={isFetching}
         ></FormRow>
         <FormRow
           type="password"
@@ -63,14 +61,14 @@ const Login = () => {
           labelText="password"
           defaultValue=""
           onChange={handleChange}
-          disabled={isLoading}
+          disabled={isFetching}
         ></FormRow>
         <div className="check-form-row">
           <input
             type="checkbox"
             name="rememberMe"
             checked={rememberMe}
-            disabled={isLoading}
+            disabled={isFetching}
             onChange={handleRememberMe}
           />
           Remember Me

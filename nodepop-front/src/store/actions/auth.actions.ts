@@ -10,6 +10,7 @@ import {
 } from './action.interfaces';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../../main';
+import { failureAction } from './failure.action';
 
 export const authLoginRequest = () => ({
   type: types.AUTH_LOGIN_REQUEST,
@@ -19,11 +20,8 @@ export const authLoginSuccess = () => ({
   type: types.AUTH_LOGIN_SUCCESS,
 });
 
-export const authLoginFailure = (error: unknown) => ({
-  type: types.AUTH_LOGIN_FAILURE,
-  error: true,
-  payload: error,
-});
+export const authLoginFailure = (error: unknown) =>
+  failureAction({ type: types.AUTH_LOGIN_FAILURE, error });
 
 export const authLogout = () => ({
   type: types.AUTH_LOGOUT,

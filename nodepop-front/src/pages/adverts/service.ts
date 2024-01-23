@@ -25,3 +25,15 @@ export const getTags = async (): Promise<ITags[]> => {
     resolve(tags);
   });
 };
+
+export const deleteAdvert = async (id: string) => {
+  await customFetch.delete(`/v1/adverts/${id}`);
+};
+
+export const getAdvert = async (id: string): Promise<IAdvert> => {
+  const advert = (await customFetch.get(`/v1/adverts/${id}`)) as IAdvert;
+
+  return new Promise((resolve) => {
+    resolve(advert);
+  });
+};

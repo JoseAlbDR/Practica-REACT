@@ -23,6 +23,8 @@ export interface Adverts {
   createAdvert: (advert: FormData) => Promise<IAdvert>;
   getAllAdverts: () => Promise<IAdvert[]>;
   getTags: () => Promise<ITags[]>;
+  deleteAdvert: (id: string) => Promise<void>;
+  getAdvert: (id: string) => Promise<IAdvert>;
 }
 
 export interface Payload {

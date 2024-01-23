@@ -14,3 +14,6 @@ export const getUi = (state: ReduxState) => state.ui;
 
 export const getAdvertDetail = (state: ReduxState) =>
   state.adverts.advertDetail;
+
+export const getAdvert = (id: string) => (state: ReduxState) =>
+  getAdverts(state).find((advert) => advert.id === id);

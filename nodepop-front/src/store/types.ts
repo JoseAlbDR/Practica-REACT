@@ -19,11 +19,19 @@ export const types = {
   ADVERTS_LOADED_SUCCESS: 'adverts/loaded/success',
   ADVERTS_LOADED_FAILURE: 'adverts/loaded/failure',
 
+  ADVERTS_DELETED_REQUEST: 'adverts/deleted/request',
+  ADVERTS_DELETED_SUCCESS: 'adverts/deleted/success',
+  ADVERTS_DELETED_FAILURE: 'adverts/deleted/failure',
+
   ADVERTS_LOADED_TAGS: 'adverts/load/tags',
 
   ADVERT_CREATED_REQUEST: 'advert/created/request',
   ADVERT_CREATED_SUCCESS: 'advert/created/success',
   ADVERT_CREATED_FAILURE: 'advert/created/failure',
+
+  ADVERT_DETAIL_REQUEST: 'adverts/detail/request',
+  ADVERT_DETAIL_SUCCESS: 'adverts/detail/success',
+  ADVERT_DETAIL_FAILURE: 'adverts/detail/failure',
   ADVERT_DETAIL_LOADED: 'adverts/detail/loaded',
 
   UI_RESET_ERROR: 'ui/reset_error',

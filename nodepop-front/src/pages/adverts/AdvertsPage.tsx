@@ -1,13 +1,16 @@
 import Wrapper from './styles/AllAdvertsWrapper';
 import { EmptyAdverts, Advert } from '../../components/';
-import { ItemList } from '../../components/shared';
+import { ItemList, Spinner } from '../../components/shared';
 import { useSelector } from 'react-redux';
-import { getAdverts } from '../../store/selectors';
+import { getAdverts, getUi } from '../../store/selectors';
 
 const AdvertsPage = () => {
   const adverts = useSelector(getAdverts);
+  const { isFetching } = useSelector(getUi);
 
   const isFirstAdvert = adverts.length === 0;
+
+  if (isFetching) return <Spinner />;
 
   return (
     <Wrapper>

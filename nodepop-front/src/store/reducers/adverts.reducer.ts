@@ -8,13 +8,17 @@ export function adverts(state = initialState.adverts, action: UnknownAction) {
       return {
         ...state,
         loaded: true,
-        data: action.adverts,
-        params: action.params,
+        data: action.payload,
       };
-    case types.ADVERT_DETAIL_LOADED:
+    case types.ADVERT_DETAIL_SUCCESS:
       return {
         ...state,
         advertDetail: action.payload,
+      };
+    case types.ADVERTS_DELETED_SUCCESS:
+      return {
+        ...state,
+        advertDetail: null,
       };
     default:
       return state;
