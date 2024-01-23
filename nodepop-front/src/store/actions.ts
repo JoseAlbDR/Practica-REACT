@@ -7,13 +7,15 @@ import { toast } from 'react-toastify';
 import { IAdvert } from '../interfaces/advert.interface';
 
 import { ITags } from '../interfaces/tags.interface';
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from '../main';
 
 export interface Credentials {
-  email: string;
+  username: string;
   password: string;
 }
 
-interface Api {
+export interface Api {
   auth: Auth;
   adverts: Adverts;
 }
@@ -26,7 +28,7 @@ interface Adverts {
 
 interface Auth {
   login: (user: ILogin, remember: boolean) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: () => void;
 }
 
 export interface Payload {
@@ -60,7 +62,6 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
       toast.success('User logged in successfully');
       router?.navigate('/adverts');
     } catch (error) {
-      console.log({ error });
       dispatch(authLoginFailure(error));
       throw error;
     }
@@ -76,12 +77,21 @@ export const authLogout = () => ({
   type: types.AUTH_LOGOUT,
 });
 
-export function loginOut() {
-  return (
-    dispatch: Dispatch,
-    _getState: () => ReduxState,
-    { api: { auth } }: Payload
-  ) => {
+type AuthLogoutAction = {
+  type: typeof types.AUTH_LOGOUT;
+};
+
+type PayloadType = {
+  api: Api;
+};
+
+export function loginOut(): ThunkAction<
+  void,
+  RootState,
+  PayloadType,
+  AuthLogoutAction
+> {
+  return (dispatch, _getState, { api: { auth } }) => {
     auth.logout();
     dispatch(authLogout());
   };

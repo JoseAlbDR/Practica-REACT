@@ -1,7 +1,6 @@
-import { AxiosPromise } from 'axios';
-
 import customFetch from '../../api/customFetch';
 import { IAdvert } from '../../interfaces/advert.interface';
+import { ITags } from '../../interfaces/tags.interface';
 
 export const createAdvert = async (advert: FormData) => {
   const sale = advert.get('sale');
@@ -13,12 +12,16 @@ export const createAdvert = async (advert: FormData) => {
   await customFetch.post('/v1/adverts', advert);
 };
 
-export const getAllAdverts = async (): AxiosPromise<IAdvert[]> => {
-  const adverts = await customFetch.get('/v1/adverts');
-  return adverts;
+export const getAllAdverts = async (): Promise<IAdvert[]> => {
+  const adverts = (await customFetch.get('/v1/adverts')) as IAdvert[];
+  return new Promise((resolve) => {
+    resolve(adverts);
+  });
 };
 
-export const getTags = async () => {
-  const tags = await customFetch.get('/v1/adverts/tags');
-  return tags;
+export const getTags = async (): Promise<ITags[]> => {
+  const tags = (await customFetch.get('/v1/adverts/tags')) as ITags[];
+  return new Promise((resolve) => {
+    resolve(tags);
+  });
 };

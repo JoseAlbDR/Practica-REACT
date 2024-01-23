@@ -7,7 +7,12 @@ import { storage } from './utils/storage.ts';
 import { setAuthorizationHeader } from './api/customFetch.ts';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import configureStore from './store/index.ts';
-import { Provider } from 'react-redux';
+import {
+  Provider,
+  TypedUseSelectorHook,
+  useDispatch,
+  useSelector,
+} from 'react-redux';
 
 const accessToken = storage.get('accessToken');
 
@@ -25,6 +30,13 @@ export const store = configureStore(
   },
   { router }
 );
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+type DispatchFunc = () => AppDispatch;
+export const useAppDispatch: DispatchFunc = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <>

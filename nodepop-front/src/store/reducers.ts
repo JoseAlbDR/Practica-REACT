@@ -1,6 +1,6 @@
 import { ReduxState } from '../interfaces/state.interface';
 
-import { UnknownAction, Action } from 'redux';
+import { UnknownAction } from 'redux';
 import { types } from './types';
 
 const initialState: ReduxState = {
@@ -20,7 +20,7 @@ const initialState: ReduxState = {
   },
 };
 
-export function auth(state = initialState.auth, action: Action) {
+export function auth(state = initialState.auth, action: UnknownAction) {
   switch (action.type) {
     case types.AUTH_LOGIN_SUCCESS:
       return { ...state, isLoggedIn: true };

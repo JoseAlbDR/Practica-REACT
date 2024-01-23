@@ -6,13 +6,14 @@ import {
   NavButton,
   Logo,
 } from '../shared/';
-import { useDispatch } from 'react-redux';
+
 import { loginOut } from '../../store/actions';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '../../main';
 
 const NavBar = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const handleLogoutUser = async () => {

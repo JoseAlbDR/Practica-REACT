@@ -7,9 +7,10 @@ import { FormRow, SubmitButton } from '../../components';
 
 import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 import { authLogin, authRememberMe } from '../../store/actions';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { getAuth } from '../../store/selectors';
 import { ChangeEvent, FormEvent, useState } from 'react';
+import { useAppDispatch } from '../../main';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -17,7 +18,7 @@ const Login = () => {
     password: '',
   });
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { isLoading } = useCustomNavigation();
   const { rememberMe } = useSelector(getAuth);
