@@ -1,6 +1,7 @@
 import { IFormRowProps } from '../../interfaces/formRow.interface';
 
 const FormRowInput = ({
+  required,
   type,
   name,
   labelText,
@@ -21,7 +22,7 @@ const FormRowInput = ({
         disabled={disabled}
         onChange={onChange}
         onClick={onClick}
-        required
+        required={required}
         className="form-input"
       />
     </div>

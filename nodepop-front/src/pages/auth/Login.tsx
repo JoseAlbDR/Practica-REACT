@@ -53,6 +53,7 @@ const Login = () => {
         <Logo />
         <h4>Login</h4>
         <FormRow
+          required
           type="email"
           name="email"
           labelText="email"
@@ -61,6 +62,7 @@ const Login = () => {
           disabled={isFetching}
         ></FormRow>
         <FormRow
+          required
           type="password"
           name="password"
           labelText="password"

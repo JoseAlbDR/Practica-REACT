@@ -5,6 +5,7 @@ import AllAdverts from './pages/adverts/AllAdverts';
 import AdvertDetail from './pages/adverts/AdvertDetail';
 import CreateAdvert from './pages/adverts/CreateAdvert';
 import RequireAuth from './pages/auth/RequireAuth';
+import ErrorPage from './pages/error/ErrorPage';
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
         <Route path="new" element={<CreateAdvert />} />
       </Route>
       <Route path="/" element={<Navigate to="/adverts" />} />
-      <Route path="/404" element={<div>404 | Not Found</div>} />
+      <Route path="/404" element={<ErrorPage />} />
       <Route path="*" element={<Navigate to="/404" />} />
     </Routes>
   );

@@ -25,6 +25,19 @@ const Wrapper = styled.section`
     margin-bottom: 0;
   }
 
+  .form-tags {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+
+    label {
+      text-transform: capitalize;
+    }
+  }
+
   .form-btn {
     align-self: end;
     height: 35px;

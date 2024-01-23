@@ -66,7 +66,7 @@ export function advertDetail(id: string) {
       const advert = await adverts.getAdvert(id);
       dispatch(advertDetailSuccess(advert));
     } catch (err) {
-      dispatch(advertsCreatedFailure(err));
+      dispatch(advertDetailFailure(err));
     }
   };
 }

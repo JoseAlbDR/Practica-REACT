@@ -1,4 +1,5 @@
 export interface IFormRowProps {
+  required: boolean;
   type: string;
   name: string;
   labelText: string;

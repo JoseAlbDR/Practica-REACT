@@ -25,6 +25,7 @@ export default function configureStore(
     api: { auth, adverts },
     router,
   });
+
   const store = createStore(
     combineReducers(reducers),
     preloadedState,

@@ -4,11 +4,14 @@ import { loadAdverts, loadTags } from '../../store/actions';
 
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { getIsLoaded } from '../../store/selectors';
+import { getIsLoaded, getUi } from '../../store/selectors';
 import { useAppDispatch } from '../../main';
+import ErrorPage from '../error/ErrorPage';
 
 const AllAdverts = () => {
   const dispatch = useAppDispatch();
+
+  const { error } = useSelector(getUi);
 
   const isLoaded = useSelector(getIsLoaded);
 
@@ -18,6 +21,7 @@ const AllAdverts = () => {
     dispatch(loadTags());
   }, [dispatch, isLoaded]);
 
+  if (error) return <ErrorPage />;
   return <AdvertsPage />;
 };
 

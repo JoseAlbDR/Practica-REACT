@@ -3,6 +3,8 @@ import { IError } from '../interfaces/error.interfaces';
 import { CustomAxiosError } from '../api/customFetch';
 
 export const getError = (error: unknown): IError => {
+  console.log({ error });
+
   if (isRouteErrorResponse(error)) {
     return {
       message: error.statusText,

@@ -6,13 +6,11 @@ import { SubmitFunction, useSearchParams } from 'react-router-dom';
 import { changePriceNameUrl } from '../../utils';
 
 interface FormSearchPricesProps {
-  formRef: RefObject<HTMLFormElement>;
   onChange: SubmitFunction;
   defaultValue: [number, number];
 }
 
 const FormSearchPrices = ({
-  formRef,
   onChange,
   defaultValue,
 }: FormSearchPricesProps) => {
@@ -50,11 +48,11 @@ const FormSearchPrices = ({
         step={1}
         name="price"
         onChange={handleChange}
-        onChangeCommitted={() => {
-          const form = document.getElementById('search-form');
-          if (form) changePriceNameUrl(formRef);
-          onChange(form as HTMLFormElement);
-        }}
+        // onChangeCommitted={() => {
+        //   const form = document.getElementById('search-form');
+        //   if (form) changePriceNameUrl(formRef);
+        //   onChange(form as HTMLFormElement);
+        // }}
         valueLabelDisplay="auto"
         sx={{ marginLeft: 1, color: '#8b5cf6' }}
       />

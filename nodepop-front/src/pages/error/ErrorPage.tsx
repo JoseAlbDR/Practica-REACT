@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { useRouteError } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import notFound from '../../assets/images/not-found.svg';
-import errorImage from '../../assets/images/error_page.svg';
+
 import { getError } from '../../utils/getError';
+import { useSelector } from 'react-redux';
+import { getUi } from '../../store/selectors';
 
 const StyledErrorPage = styled.main<{ $type: string }>`
   min-height: 100vh;
@@ -47,35 +48,19 @@ const StyledErrorPage = styled.main<{ $type: string }>`
 `;
 
 const ErrorPage = () => {
-  const error = useRouteError();
+  const { error } = useSelector(getUi);
   const currentError = getError(error);
   const navigate = useNavigate();
 
-  if (currentError.status && currentError.status === 404) {
-    return (
-      <StyledErrorPage $type="notfound">
-        <div className="error-page">
-          <img src={notFound} alt="not found" className="img" />
-          <h3>{currentError.message}</h3>
-          <p>We can't seem to find the page you are looking for</p>
-          <button className="btn btn-hipster" onClick={() => navigate(-1)}>
-            Bring me back
-          </button>
-        </div>
-      </StyledErrorPage>
-    );
-  }
   return (
-    <StyledErrorPage $type="error">
+    <StyledErrorPage $type="notfound">
       <div className="error-page">
-        <img src={errorImage} alt="error" className="img" />
+        <img src={notFound} alt="not found" className="img" />
         <h3>{currentError.message}</h3>
-        <p>There was an error, try again later</p>
-        <button className="btn btn-hipster" onClick={() => navigate(-1)}>
+        <p>We can't seem to find the page you are looking for</p>
+        <button className="btn btn-hipster" onClick={() => navigate('/')}>
           Bring me back
         </button>
-        <span> or </span>
-        <Link to="/login">Login</Link>
       </div>
     </StyledErrorPage>
   );

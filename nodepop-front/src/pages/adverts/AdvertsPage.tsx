@@ -3,6 +3,7 @@ import { EmptyAdverts, Advert } from '../../components/';
 import { ItemList, Spinner } from '../../components/shared';
 import { useSelector } from 'react-redux';
 import { getAdverts, getUi } from '../../store/selectors';
+import SearchContainer from '../../components/search/SearchContainer';
 
 const AdvertsPage = () => {
   const adverts = useSelector(getAdverts);
@@ -15,7 +16,7 @@ const AdvertsPage = () => {
   return (
     <Wrapper>
       <h1>Adverts</h1>
-      {/* <SearchContainer /> */}
+      <SearchContainer />
       {isFirstAdvert ? (
         <EmptyAdverts />
       ) : (

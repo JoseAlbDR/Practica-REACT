@@ -1,88 +1,66 @@
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { Link, Form, useNavigation, useSubmit } from 'react-router-dom';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link } from 'react-router-dom';
 
-// import StyledSearchContainer from './styles/StyledSearchContainer';
+import StyledSearchContainer from './styles/StyledSearchContainer';
 
-// import { FormSearchPrices, FormRowSelect, FormRowInput } from '../shared/';
-// import { changePriceNameUrl } from '../../utils';
-// import { useAdverts } from '../../context/AdvertsContext';
+import {
+  FormSearchPrices,
+  FormRowSelect,
+  FormRowInput,
+  FormRowTags,
+} from '../shared/';
 
-// import { useRef } from 'react';
-// import { useSelector } from 'react-redux';
-// import { getTags } from '../../store/selectors';
+import { useSelector } from 'react-redux';
+import { getAdverts, getTags, getUi } from '../../store/selectors';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../main';
+import { loadTags } from '../../store/actions';
 
-// const SearchContainer = () => {
-//   const { min, max, params } = useAdverts();
-//   const tags = useSelector(getTags);
+const SearchContainer = () => {
+  const tags = useSelector(getTags);
+  // const adverts = useSelector(getAdverts);
+  const { isFetching } = useSelector(getUi);
+  const dispatch = useAppDispatch();
 
-//   const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (tags.length > 0) return;
 
-//   const navigation = useNavigation();
-//   const isSubmitting = navigation.state === 'submitting';
+    dispatch(loadTags());
+  }, [tags, dispatch]);
 
-//   const submit = useSubmit();
+  console.log({ tags });
 
-//   const selectText = (e: React.MouseEvent<HTMLInputElement>) => {
-//     (e.target as HTMLInputElement).focus();
-//     (e.target as HTMLInputElement).select();
-//   };
+  return (
+    <StyledSearchContainer>
+      <div className="search-form">
+        <form id="search-form">
+          <h4>Search</h4>
+          <div className="form-center">
+            <FormRowInput
+              required={false}
+              onChange={() => {}}
+              type="search"
+              name="productName"
+              labelText="name"
+              defaultValue=""
+              disabled={isFetching}
+            />
+            <FormSearchPrices onChange={() => {}} defaultValue={[0, 1000]} />
+            <FormRowSelect
+              name="type"
+              types={['all', 'On sale', 'Search']}
+              selected={''}
+              onChange={() => {}}
+            />
+            <FormRowTags tags={tags} disabled={isFetching} />
+            <Link className="btn btn-block form-btn" to={`/adverts`}>
+              Reset Search Values
+            </Link>
+          </div>
+        </form>
+      </div>
+    </StyledSearchContainer>
+  );
+};
 
-//   const debounce = (onChange: (e: any) => void) => {
-//     let timeout: NodeJS.Timeout | undefined;
-//     return (e: { currentTarget: { form: unknown } }) => {
-//       const form = e.currentTarget.form;
-//       clearTimeout(timeout);
-//       timeout = setTimeout(() => {
-//         onChange(form);
-//       }, 1000);
-//     };
-//   };
-
-//   return (
-//     <StyledSearchContainer>
-//       <div className="search-form">
-//         <Form id="search-form" ref={formRef}>
-//           <h4>Search</h4>
-//           <div className="form-center">
-//             <FormRowInput
-//               onChange={debounce((form) => {
-//                 if (form) changePriceNameUrl(formRef);
-//                 submit(form);
-//               })}
-//               type="search"
-//               name="productName"
-//               labelText="name"
-//               defaultValue={params.productName}
-//               disabled={isSubmitting}
-//               onClick={selectText}
-//             />
-//             <FormSearchPrices
-//               onChange={submit}
-//               formRef={formRef}
-//               defaultValue={[min, max]}
-//             />
-//             <FormRowSelect
-//               name="type"
-//               types={['all', 'On sale', 'Search']}
-//               selected={params.type}
-//               formRef={formRef}
-//               onChange={submit}
-//             />
-//             <FormRowSelect
-//               name="tags"
-//               types={['all', String(...tags)]}
-//               selected={params.tags}
-//               formRef={formRef}
-//               onChange={submit}
-//             />
-//             <Link className="btn btn-block form-btn" to={`/adverts`}>
-//               Reset Search Values
-//             </Link>
-//           </div>
-//         </Form>
-//       </div>
-//     </StyledSearchContainer>
-//   );
-// };
-
-// export default SearchContainer;
+export default SearchContainer;

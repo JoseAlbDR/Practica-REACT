@@ -10,11 +10,12 @@ import Wrapper from './styles/CreateAdvertWrapper';
 
 import { ITags } from '../../interfaces/tags.interface';
 
-import { FormEvent, ReactNode, useEffect } from 'react';
-import { getTags, getUi } from '../../store/selectors';
+import { FormEvent, ReactNode } from 'react';
+import { getUi } from '../../store/selectors';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../main';
-import { createAdvert, loadTags } from '../../store/actions';
+import { createAdvert } from '../../store/actions';
+import ErrorPage from '../error/ErrorPage';
 
 interface CreateAdvertProps {
   title?: string;
@@ -29,14 +30,9 @@ const CreateAdvert = ({
   cancelButton = undefined,
 }: CreateAdvertProps) => {
   const dispatch = useAppDispatch();
-  const { isFetching } = useSelector(getUi);
-  const tags = useSelector(getTags);
+  const { isFetching, error } = useSelector(getUi);
 
-  useEffect(() => {
-    if (tags.length > 0) return;
-
-    dispatch(loadTags());
-  }, [tags, dispatch]);
+  const tags: ITags[] = ['lifestyle', 'mobile', 'motor', 'work'];
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,6 +41,8 @@ const CreateAdvert = ({
 
     dispatch(createAdvert(formData));
   };
+
+  if (error) return <ErrorPage />;
 
   return (
     <Wrapper>
@@ -58,6 +56,7 @@ const CreateAdvert = ({
         >
           <h4>{title}</h4>
           <FormRowInput
+            required
             type="text"
             name="name"
             labelText="name"
@@ -70,6 +69,7 @@ const CreateAdvert = ({
           />
           <FormRowTags tags={tags} disabled={isFetching} />
           <FormRowInput
+            required
             type="number"
             name="price"
             labelText="price"
