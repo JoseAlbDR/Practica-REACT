@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import StyledLogin from './styles/AuthWrapper';
 import { Logo } from '../../components/';
@@ -9,7 +9,7 @@ import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 import { authLogin, authRememberMe } from '../../store/actions';
 import { useSelector } from 'react-redux';
 import { getAuth } from '../../store/selectors';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../main';
 
 const Login = () => {
@@ -18,10 +18,15 @@ const Login = () => {
     password: '',
   });
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   const { isLoading } = useCustomNavigation();
-  const { rememberMe } = useSelector(getAuth);
+  const { rememberMe, isLoggedIn } = useSelector(getAuth);
+
+  useEffect(() => {
+    if (isLoggedIn) navigate('/adverts');
+  }, [isLoggedIn, navigate]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCredentials((currentCredentials) => ({
