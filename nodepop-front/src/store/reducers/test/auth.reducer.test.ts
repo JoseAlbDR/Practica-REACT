@@ -35,6 +35,13 @@ describe('auth.reducer.ts', () => {
       isLoggedIn: state.isLoggedIn,
       rememberMe: !state.rememberMe,
     });
+
+    state.rememberMe = true;
+
+    expect(auth(state, action)).toEqual({
+      isLoggedIn: state.isLoggedIn,
+      rememberMe: !state.rememberMe,
+    });
   });
 
   test("Should manage 'ANY' actions", () => {
