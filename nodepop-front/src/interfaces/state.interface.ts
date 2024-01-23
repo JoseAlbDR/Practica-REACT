@@ -17,6 +17,7 @@ export interface Adverts {
   loaded: boolean;
   data: IAdvert[];
   params: { [key: string]: string };
+  advertDetail: IAdvert | null;
 }
 
 export interface Ui {

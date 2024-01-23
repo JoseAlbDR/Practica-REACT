@@ -2,14 +2,14 @@ import customFetch from '../../api/customFetch';
 import { IAdvert } from '../../interfaces/advert.interface';
 import { ITags } from '../../interfaces/tags.interface';
 
-export const createAdvert = async (advert: FormData) => {
+export const createAdvert = async (advert: FormData): Promise<IAdvert> => {
   const sale = advert.get('sale');
 
   const forSale = sale === 'on sale' ? 'true' : 'false';
 
   advert.set('sale', forSale);
-
-  await customFetch.post('/v1/adverts', advert);
+  const newAdvert = (await customFetch.post('/v1/adverts', advert)) as IAdvert;
+  return new Promise((resolve) => resolve(newAdvert));
 };
 
 export const getAllAdverts = async (): Promise<IAdvert[]> => {

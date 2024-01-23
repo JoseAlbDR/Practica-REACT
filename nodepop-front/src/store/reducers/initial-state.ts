@@ -9,6 +9,7 @@ export const initialState: ReduxState = {
     loaded: false,
     data: [],
     params: {},
+    advertDetail: null,
   },
   tags: [],
   ui: {

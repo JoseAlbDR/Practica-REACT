@@ -36,6 +36,7 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
     { api: { auth }, router }: Payload
   ) {
     try {
+      dispatch(authLoginRequest());
       await auth.login(credentials, rememberMe);
       dispatch(authLoginSuccess());
       toast.success('User logged in successfully');

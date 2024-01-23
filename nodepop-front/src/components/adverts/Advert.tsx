@@ -14,6 +14,8 @@ import { deleteAdvert } from './service';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import CreateAdvert from '../../pages/adverts/CreateAdvert';
+import { advertDetailLoaded } from '../../store/actions';
+import { useAppDispatch } from '../../main';
 
 const Advert = ({
   name,
@@ -24,6 +26,7 @@ const Advert = ({
   id,
   type = '',
 }: AdvertProps) => {
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -131,7 +134,7 @@ const Advert = ({
                     type="delete"
                     resourceName="advert"
                     onCloseModal={closeModal}
-                    onConfirm={() => handleDeleteAdvert(id)}
+                    onConfirm={() => handleDeleteAdvert(id!)}
                   />
                 )}
               />
@@ -141,7 +144,10 @@ const Advert = ({
           <button
             className="btn btn-block"
             onClick={() => {
-              navigate(id);
+              dispatch(
+                advertDetailLoaded({ name, sale, price, tags, photo, id })
+              );
+              navigate(id!);
             }}
           >
             See Detail

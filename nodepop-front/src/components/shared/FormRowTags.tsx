@@ -11,8 +11,6 @@ interface FormRowTagsProps {
 const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
   const renderTags = useSelector(getTags);
 
-  console.log(renderTags);
-
   return (
     <div className="form-row">
       <label className="form-label">tags</label>
@@ -28,7 +26,7 @@ const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
               value={tag}
               className="input-check"
               disabled={disabled}
-              defaultChecked={tags && tags.includes(tag)}
+              // defaultChecked={tags && tags.includes(tag)}
             />
             {tag}
           </label>

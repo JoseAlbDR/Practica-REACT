@@ -7,7 +7,7 @@ export interface IAdvert {
   price: number;
   tags: ITags[];
   photo: string;
-  id: string;
+  id?: string;
 }
 
 export interface AdvertProps extends IAdvert {

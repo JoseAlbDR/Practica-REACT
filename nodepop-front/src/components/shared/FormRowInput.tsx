@@ -4,7 +4,6 @@ const FormRowInput = ({
   type,
   name,
   labelText,
-  defaultValue,
   disabled,
   onChange = () => {},
   onClick = () => {},
@@ -19,7 +18,6 @@ const FormRowInput = ({
         id={name}
         min={type === 'number' ? 0 : ''}
         name={name}
-        defaultValue={defaultValue}
         disabled={disabled}
         onChange={onChange}
         onClick={onClick}

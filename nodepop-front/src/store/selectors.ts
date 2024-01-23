@@ -11,3 +11,6 @@ export const getIsLoaded = (state: ReduxState) => state.adverts.loaded;
 export const getParams = (state: ReduxState) => state.adverts.params;
 
 export const getUi = (state: ReduxState) => state.ui;
+
+export const getAdvertDetail = (state: ReduxState) =>
+  state.adverts.advertDetail;

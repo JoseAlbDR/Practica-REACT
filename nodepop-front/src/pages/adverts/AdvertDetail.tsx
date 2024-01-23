@@ -1,31 +1,12 @@
-import { toast } from 'react-toastify';
-import { LoaderFunctionArgs, useLoaderData } from 'react-router-dom';
-
-import customFetch, { CustomAxiosError } from '../../api/customFetch';
 import { Advert } from '../../components';
-import { IAdvert } from '../../interfaces/advert.interface';
 
-export const loader = async (data: LoaderFunctionArgs) => {
-  const {
-    params: { id },
-  } = data;
-
-  try {
-    const advert = await customFetch.get(`/v1/adverts/${id}`);
-    return advert;
-  } catch (error) {
-    if (error instanceof CustomAxiosError && error.status === 404) {
-      toast.info('Advert not found!');
-      throw error;
-    }
-    return error;
-  }
-};
+import { useSelector } from 'react-redux';
+import { getAdvertDetail } from '../../store/selectors';
 
 const AdvertDetail = () => {
-  const advert = useLoaderData() as IAdvert;
+  const advert = useSelector(getAdvertDetail);
 
-  return <Advert type="detail" {...advert} />;
+  return <Advert type="detail" {...advert!} />;
 };
 
 export default AdvertDetail;

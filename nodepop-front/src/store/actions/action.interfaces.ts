@@ -20,7 +20,7 @@ export interface Api {
 }
 
 export interface Adverts {
-  createAdvert: (advert: FormData) => Promise<void>;
+  createAdvert: (advert: FormData) => Promise<IAdvert>;
   getAllAdverts: () => Promise<IAdvert[]>;
   getTags: () => Promise<ITags[]>;
 }

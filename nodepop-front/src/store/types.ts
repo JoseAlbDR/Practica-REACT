@@ -22,8 +22,9 @@ export const types = {
   ADVERTS_LOADED_TAGS: 'adverts/load/tags',
 
   ADVERT_CREATED_REQUEST: 'advert/created/request',
-  ADVERT_CREATED_SUCESS: 'advert/created/success',
+  ADVERT_CREATED_SUCCESS: 'advert/created/success',
   ADVERT_CREATED_FAILURE: 'advert/created/failure',
+  ADVERT_DETAIL_LOADED: 'adverts/detail/loaded',
 
   UI_RESET_ERROR: 'ui/reset_error',
 };
