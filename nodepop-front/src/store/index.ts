@@ -6,30 +6,29 @@ import * as adverts from '../pages/adverts/service';
 import * as actionCreators from './actions';
 
 import { withExtraArgument } from 'redux-thunk';
-// import { composeWithDevTools } from '@redux-devtools/extension';
+import { composeWithDevTools } from '@redux-devtools/extension';
 import { Auth, ReduxState } from '../interfaces/state.interface';
 import type { Router } from '@remix-run/router';
+import { Api } from './actions/action.interfaces';
 
-// const composeEnhancers = composeWithDevTools({ actionCreators });
+const composeEnhancers = composeWithDevTools({ actionCreators });
 
 export default function configureStore(
   preloadedState: { auth: Auth },
   { router }: { router: Router }
 ) {
-  const middleware = withExtraArgument<
+  const middlewares = withExtraArgument<
     ReduxState,
     Action,
-    { api: actionCreators.Api; router: Router }
+    { api: Api; router: Router }
   >({
     api: { auth, adverts },
     router,
   });
-
   const store = createStore(
     combineReducers(reducers),
     preloadedState,
-    // composeEnhancers(applyMiddleware(...middleware))
-    applyMiddleware(middleware)
+    composeEnhancers(applyMiddleware(middlewares))
   );
 
   return store;

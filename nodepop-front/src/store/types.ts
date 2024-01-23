@@ -17,10 +17,13 @@ export const types = {
 
   ADVERTS_LOADED_REQUEST: 'adverts/loaded/request',
   ADVERTS_LOADED_SUCCESS: 'adverts/loaded/success',
+  ADVERTS_LOADED_FAILURE: 'adverts/loaded/failure',
 
-  ADVERTS_LOAD_TAGS: 'adverts/load/tags',
+  ADVERTS_LOADED_TAGS: 'adverts/load/tags',
 
-  ADVERT_CREATED: 'advert/created',
+  ADVERT_CREATED_REQUEST: 'advert/created/request',
+  ADVERT_CREATED_SUCESS: 'advert/created/success',
+  ADVERT_CREATED_FAILURE: 'advert/created/failure',
 
   UI_RESET_ERROR: 'ui/reset_error',
 };
