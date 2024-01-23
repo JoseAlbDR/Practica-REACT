@@ -1,6 +1,6 @@
 import { Dispatch } from 'redux';
 import { toast } from 'react-toastify';
-import { ReduxState } from '../../interfaces/state.interface';
+
 import { types } from '../types';
 import {
   AuthLogoutAction,
@@ -30,7 +30,7 @@ export const authLogout = () => ({
 export function authLogin(credentials: Credentials, rememberMe: boolean) {
   return async function (
     dispatch: Dispatch,
-    _getState: () => ReduxState,
+    _getState: undefined,
     { api: { auth }, router }: Payload
   ) {
     try {
