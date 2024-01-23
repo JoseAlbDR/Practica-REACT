@@ -8,7 +8,6 @@ import {
 } from '../shared/';
 
 import { loginOut } from '../../store/actions';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../main';
 
@@ -17,7 +16,6 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   const handleLogoutUser = async () => {
-    toast.success('User logged out');
     dispatch(loginOut());
     navigate('/login');
   };

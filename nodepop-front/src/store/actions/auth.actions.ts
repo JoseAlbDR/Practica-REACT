@@ -40,7 +40,7 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
       toast.success('User logged in successfully');
       router?.navigate('/adverts');
     } catch (error) {
-      dispatch(authLoginFailure(error));
+      dispatch(authLoginFailure('Wrong username/password'));
       throw error;
     }
   };
@@ -55,6 +55,7 @@ export function loginOut(): ThunkAction<
   return (dispatch, _getState, { api: { auth } }) => {
     auth.logout();
     dispatch(authLogout());
+    toast.success('User logged out successfully');
   };
 }
 

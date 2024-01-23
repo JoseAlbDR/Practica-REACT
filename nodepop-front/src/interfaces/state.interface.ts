@@ -22,5 +22,5 @@ export interface Adverts {
 
 export interface Ui {
   isFetching: boolean;
-  error: string | null;
+  error: Error | string | null;
 }

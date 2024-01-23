@@ -6,6 +6,7 @@ import { Payload } from './action.interfaces';
 import { failureAction } from './failure.action';
 import { AppDispatch } from '../../main';
 import { getAdvert } from '../selectors';
+import { toast } from 'react-toastify';
 
 export const advertsLoadedSuccess = (adverts: IAdvert[]) => ({
   type: types.ADVERTS_LOADED_SUCCESS,
@@ -94,6 +95,7 @@ export function createAdvert(advert: FormData) {
       dispatch(advertsCreatedSuccess(newAdvert));
       dispatch(loadAdverts());
       dispatch(advertDetailSuccess(newAdvert));
+      toast.success('Advert created successfully');
       router?.navigate(`/adverts/${newAdvert.id}`);
     } catch (err) {
       dispatch(advertsCreatedFailure(err));

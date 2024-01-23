@@ -10,11 +10,11 @@ import Wrapper from './styles/CreateAdvertWrapper';
 
 import { ITags } from '../../interfaces/tags.interface';
 
-import { FormEvent, ReactNode } from 'react';
+import { FormEvent, ReactNode, useEffect } from 'react';
 import { getTags, getUi } from '../../store/selectors';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../main';
-import { createAdvert } from '../../store/actions';
+import { createAdvert, loadTags } from '../../store/actions';
 
 interface CreateAdvertProps {
   title?: string;
@@ -31,6 +31,12 @@ const CreateAdvert = ({
   const dispatch = useAppDispatch();
   const { isFetching } = useSelector(getUi);
   const tags = useSelector(getTags);
+
+  useEffect(() => {
+    if (tags.length > 0) return;
+
+    dispatch(loadTags());
+  }, [tags, dispatch]);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

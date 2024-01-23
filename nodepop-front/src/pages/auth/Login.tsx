@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { getAuth, getUi } from '../../store/selectors';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../main';
+import { getError } from '../../utils';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -19,8 +20,12 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isFetching } = useSelector(getUi);
+  const { isFetching, error } = useSelector(getUi);
   const { rememberMe, isLoggedIn } = useSelector(getAuth);
+
+  let renderError = '';
+
+  if (error) renderError = getError(error).message;
 
   useEffect(() => {
     if (isLoggedIn) navigate('/adverts');
@@ -74,6 +79,7 @@ const Login = () => {
           Remember Me
         </div>
         <SubmitButton formBtn />
+        {error && <div className="alert alert-danger">{renderError}</div>}
         <p>
           Not a Member Yet?
           <Link to="/signup" className="member-btn">
