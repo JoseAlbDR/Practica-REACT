@@ -18,6 +18,8 @@ export const types = {
   ADVERTS_LOADED_REQUEST: 'adverts/loaded/request',
   ADVERTS_LOADED_SUCCESS: 'adverts/loaded/success',
   ADVERTS_LOADED_FAILURE: 'adverts/loaded/failure',
+  ADVERTS_GET_MIN_MAX_PRICE: 'adverts/get_min_max_price',
+  ADVERTS_FILTER: 'adverts/filter',
 
   ADVERTS_DELETED_REQUEST: 'adverts/deleted/request',
   ADVERTS_DELETED_SUCCESS: 'adverts/deleted/success',

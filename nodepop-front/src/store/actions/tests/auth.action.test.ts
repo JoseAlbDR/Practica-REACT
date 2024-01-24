@@ -4,8 +4,10 @@ import {
   authLoginRequest,
   authLoginSuccess,
 } from '..';
+import { IAdvert } from '../../../interfaces/advert.interface';
+
 import { types } from '../../types';
-import { Credentials } from '../action.interfaces';
+import { Api, Credentials } from '../action.interfaces';
 
 describe('authLoginSuccess', () => {
   test('Should return a login success action', () => {
@@ -24,6 +26,24 @@ describe('authLoginRequest', () => {
 });
 
 describe('authLogin', () => {
+  const adverts: IAdvert[] = [
+    {
+      name: 'test',
+      sale: true,
+      price: 123,
+      tags: ['motor'],
+      photo: 'test',
+      id: '1',
+    },
+    {
+      name: 'test1',
+      sale: false,
+      price: 321,
+      tags: ['motor', 'lifestyle', 'mobile', 'work'],
+      photo: 'test1',
+      id: '2',
+    },
+  ];
   const credentials: Credentials = {
     username: 'test@test.com',
     password: 'test',
@@ -31,21 +51,40 @@ describe('authLogin', () => {
   const action = authLogin(credentials, false);
   const redirectUrl: string = '/adverts';
   const dispatch = jest.fn();
-  const api = {
+  const api: Api = {
     auth: {
       login: async () => {},
       logout: async () => {},
     },
     adverts: {
-      createAdvert: async (advert: FormData) => advert,
+      createAdvert: async () => adverts[0],
       getAllAdverts: async () => [],
       getTags: async () => [],
-      deleteAdvert: async (id: string) => {},
-      getAdvert: async (id: string) => {},
+      deleteAdvert: async () => {},
+      getAdvert: async () => adverts[0],
     },
   };
   const router = {
     navigate: jest.fn(),
+    basename: '',
+    state: {},
+    routes: [],
+    window: window,
+    initialize: () => {},
+    subscribe: () => {},
+    enableScrollRestoration: true,
+    fetch,
+    revalidate: () => {},
+    createHref: () => {},
+    encodeLocation: () => {},
+    getFetcher: () => {},
+    deleteFetcher: () => {},
+    dispose: () => {},
+    getBlocker: () => {},
+    deleteBlocker: () => {},
+    _internalSetRoutes: () => {}, // Añade las propiedades adicionales requeridas por la interfaz
+    _internalFetchControllers: () => {}, // Añade las propiedades adicionales requeridas por la interfaz
+    _internalActiveDeferreds: () => {},
   };
 
   test('Should auth login should be success', async () => {

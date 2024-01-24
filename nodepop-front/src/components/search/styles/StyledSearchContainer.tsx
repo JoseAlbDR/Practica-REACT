@@ -14,6 +14,12 @@ const Wrapper = styled.section`
     margin-bottom: 2rem;
   }
 
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
   .form-center {
     display: grid;
     align-items: center;

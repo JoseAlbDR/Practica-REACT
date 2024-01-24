@@ -17,3 +17,8 @@ export const getAdvertDetail = (state: ReduxState) =>
 
 export const getAdvert = (id: string) => (state: ReduxState) =>
   getAdverts(state).find((advert) => advert.id === id);
+
+export const getMinMaxPrice = (state: ReduxState) => state.adverts.prices;
+
+export const getFilteredAdverts = (state: ReduxState) =>
+  state.adverts.filteredAdverts;

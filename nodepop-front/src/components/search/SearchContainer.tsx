@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 import StyledSearchContainer from './styles/StyledSearchContainer';
 
@@ -8,54 +8,94 @@ import {
   FormRowSelect,
   FormRowInput,
   FormRowTags,
+  SubmitButton,
 } from '../shared/';
 
 import { useSelector } from 'react-redux';
-import { getAdverts, getTags, getUi } from '../../store/selectors';
-import { useEffect } from 'react';
+import { getMinMaxPrice, getTags, getUi } from '../../store/selectors';
+import { FormEvent, useEffect } from 'react';
 import { useAppDispatch } from '../../main';
-import { loadTags } from '../../store/actions';
+import { filterAdverts, loadTags } from '../../store/actions';
 
 const SearchContainer = () => {
   const tags = useSelector(getTags);
+  const prices = useSelector(getMinMaxPrice);
   // const adverts = useSelector(getAdverts);
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const { isFetching } = useSelector(getUi);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (tags.length > 0) return;
-
     dispatch(loadTags());
   }, [tags, dispatch]);
 
-  console.log({ tags });
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const searchParams: { [key: string]: string } = {};
+    params.forEach((value, key) => (searchParams[key] = value));
+
+    dispatch(filterAdverts(searchParams));
+  }, [dispatch]);
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    searchParams.delete('name');
+    searchParams.delete('type');
+    searchParams.delete('tags');
+    searchParams.delete('minPrice');
+    searchParams.delete('maxPrice');
+
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const name = formData.get('productName');
+    const type = formData.get('type');
+    const tags = formData.getAll('tags');
+    const price = formData.getAll('price');
+
+    if (name) searchParams.set('name', name.toString());
+    if (type) searchParams.set('type', type.toString());
+    if (tags.length >= 1) searchParams.set('tags', tags.join('-'));
+    if (price) {
+      searchParams.set('minPrice', price[0].toString());
+      searchParams.set('maxPrice', price[1].toString());
+    }
+
+    const querySearch: { [key: string]: string } = {};
+
+    searchParams.forEach((value, key) => (querySearch[key] = value));
+
+    setSearchParams(searchParams);
+    dispatch(filterAdverts(querySearch));
+  };
 
   return (
     <StyledSearchContainer>
       <div className="search-form">
-        <form id="search-form">
+        <form id="search-form" onSubmit={handleSubmit}>
           <h4>Search</h4>
           <div className="form-center">
             <FormRowInput
               required={false}
-              onChange={() => {}}
               type="search"
               name="productName"
               labelText="name"
               defaultValue=""
               disabled={isFetching}
             />
-            <FormSearchPrices onChange={() => {}} defaultValue={[0, 1000]} />
+            <FormSearchPrices defaultValue={[prices.min, prices.max]} />
             <FormRowSelect
               name="type"
               types={['all', 'On sale', 'Search']}
-              selected={''}
-              onChange={() => {}}
+              selected="all"
             />
             <FormRowTags tags={tags} disabled={isFetching} />
-            <Link className="btn btn-block form-btn" to={`/adverts`}>
-              Reset Search Values
-            </Link>
+            <div className="btn-group">
+              <Link className="btn btn-block form-btn" to={`/adverts`}>
+                Reset Search Values
+              </Link>
+              <SubmitButton />
+            </div>
           </div>
         </form>
       </div>

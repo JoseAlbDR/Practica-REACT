@@ -9,6 +9,7 @@ export function adverts(state = initialState.adverts, action: UnknownAction) {
         ...state,
         loaded: true,
         data: action.payload,
+        filteredAdverts: action.payload,
       };
     case types.ADVERT_DETAIL_SUCCESS:
       return {
@@ -19,6 +20,18 @@ export function adverts(state = initialState.adverts, action: UnknownAction) {
       return {
         ...state,
         advertDetail: null,
+      };
+    case types.ADVERTS_GET_MIN_MAX_PRICE:
+      return {
+        ...state,
+        prices: action.payload,
+      };
+
+    case types.ADVERTS_FILTER:
+      return {
+        ...state,
+        filteredAdverts: action.payload,
+        params: action.params,
       };
     default:
       return state;

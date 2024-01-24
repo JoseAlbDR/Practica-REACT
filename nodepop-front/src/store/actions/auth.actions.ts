@@ -33,6 +33,7 @@ export function authLogin(credentials: Credentials, rememberMe: boolean) {
     _getState: undefined,
     { api: { auth }, router }: Payload
   ) {
+    router?.initialize;
     try {
       dispatch(authLoginRequest());
       await auth.login(credentials, rememberMe);

@@ -1,31 +1,25 @@
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { useEffect, useState, RefObject } from 'react';
-import { SubmitFunction, useSearchParams } from 'react-router-dom';
-
-import { changePriceNameUrl } from '../../utils';
+import { useState } from 'react';
+// import { useSearchParams } from 'react-router-dom';
 
 interface FormSearchPricesProps {
-  onChange: SubmitFunction;
   defaultValue: [number, number];
 }
 
-const FormSearchPrices = ({
-  onChange,
-  defaultValue,
-}: FormSearchPricesProps) => {
+const FormSearchPrices = ({ defaultValue }: FormSearchPricesProps) => {
   const [value, setValue] = useState<[number, number]>(defaultValue);
 
-  const [searchParams] = useSearchParams();
+  // const [searchParams] = useSearchParams();
 
-  const params = Object.fromEntries(searchParams);
-  const currentMinPrice = params['min-price'];
-  const currentMaxPrice = params['max-price'];
+  // const params = Object.fromEntries(searchParams);
+  // const currentMinPrice = params['min-price'];
+  // const currentMaxPrice = params['max-price'];
 
-  useEffect(() => {
-    if (currentMinPrice && currentMaxPrice)
-      setValue([+currentMinPrice, +currentMaxPrice]);
-  }, [currentMinPrice, currentMaxPrice]);
+  // useEffect(() => {
+  //   if (currentMinPrice && currentMaxPrice)
+  //     setValue([+currentMinPrice, +currentMaxPrice]);
+  // }, [currentMinPrice, currentMaxPrice]);
 
   const handleChange = (_event: Event, newValue: number | number[]) => {
     setValue(newValue as [number, number]);

@@ -31,6 +31,8 @@
     "@redux-devtools/dock-monitor": "^4.0.0",
     "@redux-devtools/extension": "^3.3.0",
     "@redux-devtools/log-monitor": "^5.0.0",
+    "@testing-library/jest-dom": "^6.2.1",
+    "@testing-library/react": "^14.1.2",
     "@types/jest": "^29.5.11",
     "@types/node": "^20.9.2",
     "@types/react": "^18.2.15",

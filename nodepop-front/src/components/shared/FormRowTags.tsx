@@ -1,7 +1,7 @@
 import { ITags } from '../../interfaces/tags.interface';
 import { ErrorComponent, Spinner } from '.';
 import { useSelector } from 'react-redux';
-import { getTags, getUi } from '../../store/selectors';
+import { getUi } from '../../store/selectors';
 
 interface FormRowTagsProps {
   tags?: ITags[] | undefined;
@@ -9,7 +9,6 @@ interface FormRowTagsProps {
 }
 
 const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
-  const renderTags = useSelector(getTags);
   const { isFetching } = useSelector(getUi);
 
   return (
@@ -22,7 +21,7 @@ const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
         {isFetching ? (
           <Spinner />
         ) : (
-          renderTags?.map((tag: ITags) => (
+          tags?.map((tag: ITags) => (
             <label key={tag}>
               <input
                 type="checkbox"
@@ -30,7 +29,6 @@ const FormRowTags = ({ tags = undefined, disabled }: FormRowTagsProps) => {
                 value={tag}
                 className="input-check"
                 disabled={disabled}
-                // defaultChecked={tags && tags.includes(tag)}
               />
               {tag}
             </label>

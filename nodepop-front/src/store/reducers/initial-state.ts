@@ -9,7 +9,12 @@ export const initialState: ReduxState = {
     loaded: false,
     data: [],
     params: {},
+    filteredAdverts: [],
     advertDetail: null,
+    prices: {
+      min: 0,
+      max: 0,
+    },
   },
   tags: [],
   ui: {

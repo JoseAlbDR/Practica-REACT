@@ -1,6 +1,6 @@
 import AdvertsPage from './AdvertsPage';
 
-import { loadAdverts, loadTags } from '../../store/actions';
+import { loadAdverts } from '../../store/actions';
 
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -18,7 +18,6 @@ const AllAdverts = () => {
   useEffect(() => {
     if (isLoaded) return;
     dispatch(loadAdverts());
-    dispatch(loadTags());
   }, [dispatch, isLoaded]);
 
   if (error) return <ErrorPage />;
