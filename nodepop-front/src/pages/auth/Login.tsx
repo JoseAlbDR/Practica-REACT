@@ -9,8 +9,9 @@ import { authLogin, authRememberMe } from '../../store/actions';
 import { useSelector } from 'react-redux';
 import { getAuth, getUi } from '../../store/selectors';
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
-import { useAppDispatch } from '../../main';
+
 import { getError } from '../../utils';
+import { useAppDispatch } from '../../main';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({

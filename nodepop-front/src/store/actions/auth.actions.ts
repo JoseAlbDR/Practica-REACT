@@ -11,6 +11,7 @@ import {
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from '../../main';
 import { failureAction } from './failure.action';
+import { ReduxState } from '../../interfaces/state.interface';
 
 export const authLoginRequest = () => ({
   type: types.AUTH_LOGIN_REQUEST,
@@ -30,7 +31,7 @@ export const authLogout = () => ({
 export function authLogin(credentials: Credentials, rememberMe: boolean) {
   return async function (
     dispatch: Dispatch,
-    _getState: undefined,
+    _getState: () => ReduxState,
     { api: { auth }, router }: Payload
   ) {
     router?.initialize;

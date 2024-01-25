@@ -12,15 +12,24 @@ import {
 } from '../shared/';
 
 import { useSelector } from 'react-redux';
-import { getMinMaxPrice, getTags, getUi } from '../../store/selectors';
+import {
+  getAdverts,
+  getMinMaxPrice,
+  getTags,
+  getUi,
+} from '../../store/selectors';
 import { FormEvent, useEffect } from 'react';
 import { useAppDispatch } from '../../main';
-import { filterAdverts, loadTags } from '../../store/actions';
+import {
+  advertsGetMinMaxPrice,
+  filterAdverts,
+  loadTags,
+} from '../../store/actions';
 
 const SearchContainer = () => {
   const tags = useSelector(getTags);
   const prices = useSelector(getMinMaxPrice);
-  // const adverts = useSelector(getAdverts);
+  const adverts = useSelector(getAdverts);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { isFetching } = useSelector(getUi);
@@ -69,6 +78,15 @@ const SearchContainer = () => {
     dispatch(filterAdverts(querySearch));
   };
 
+  const handleReset = () => {
+    const form = document.getElementById('search-form') as HTMLFormElement;
+    if (form) {
+      form.reset();
+    }
+    dispatch(filterAdverts({}));
+    dispatch(advertsGetMinMaxPrice(adverts));
+  };
+
   return (
     <StyledSearchContainer>
       <div className="search-form">
@@ -91,7 +109,11 @@ const SearchContainer = () => {
             />
             <FormRowTags tags={tags} disabled={isFetching} />
             <div className="btn-group">
-              <Link className="btn btn-block form-btn" to={`/adverts`}>
+              <Link
+                className="btn btn-block form-btn"
+                to={`/adverts`}
+                onClick={handleReset}
+              >
                 Reset Search Values
               </Link>
               <SubmitButton />
