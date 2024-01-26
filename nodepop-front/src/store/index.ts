@@ -1,6 +1,6 @@
 import { configureStore as rtkConfigureStore } from '@reduxjs/toolkit';
 
-import * as reducers from './reducers';
+import * as reducer from './reducers';
 import * as auth from '../pages/auth/service';
 import * as adverts from '../pages/adverts/service';
 import * as actionCreators from './actions';
@@ -12,17 +12,19 @@ export default function configureStore(
   preloadedState: { auth: Auth },
   { router }: { router: Router }
 ) {
+  const extraArgument = {
+    api: { auth, adverts },
+    router,
+  };
+
   const store = rtkConfigureStore({
-    reducer: reducers,
+    reducer,
     preloadedState,
     devTools: { actionCreators },
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({
         thunk: {
-          extraArgument: {
-            api: { auth, adverts },
-            router,
-          },
+          extraArgument,
         },
         serializableCheck: false,
       }),
