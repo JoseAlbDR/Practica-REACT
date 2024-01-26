@@ -1,7 +1,6 @@
 import { types } from '../types';
 import { initialState } from './initial-state';
 import { UnknownAction } from 'redux';
-import { filterAdverts } from '../actions/adverts.actions';
 
 export function adverts(state = initialState.adverts, action: UnknownAction) {
   switch (action.type) {

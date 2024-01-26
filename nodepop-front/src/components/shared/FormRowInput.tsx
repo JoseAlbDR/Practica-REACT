@@ -6,6 +6,7 @@ const FormRowInput = ({
   name,
   labelText,
   disabled,
+  defaultValue,
   onChange = () => {},
   onClick = () => {},
 }: IFormRowProps) => {
@@ -19,6 +20,7 @@ const FormRowInput = ({
         id={name}
         min={type === 'number' ? 0 : ''}
         name={name}
+        value={defaultValue}
         disabled={disabled}
         onChange={onChange}
         onClick={onClick}

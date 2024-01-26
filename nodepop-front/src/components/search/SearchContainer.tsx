@@ -18,7 +18,7 @@ import {
   getTags,
   getUi,
 } from '../../store/selectors';
-import { FormEvent, useEffect } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch } from '../../main';
 import {
   advertsGetMinMaxPrice,
@@ -30,6 +30,9 @@ const SearchContainer = () => {
   const tags = useSelector(getTags);
   const prices = useSelector(getMinMaxPrice);
   const adverts = useSelector(getAdverts);
+  const [currentParams, setCurrentParams] = useState<{ [key: string]: string }>(
+    {}
+  );
   const [searchParams, setSearchParams] = useSearchParams();
 
   const { isFetching } = useSelector(getUi);
@@ -46,6 +49,10 @@ const SearchContainer = () => {
     params.forEach((value, key) => (searchParams[key] = value));
 
     if (Object.keys(searchParams).length === 0) return;
+
+    console.log({ searchParams });
+
+    setCurrentParams(searchParams);
 
     dispatch(filterAdverts(searchParams));
   }, [dispatch]);
@@ -100,14 +107,14 @@ const SearchContainer = () => {
               type="search"
               name="productName"
               labelText="name"
-              defaultValue=""
+              defaultValue={currentParams.name}
               disabled={isFetching}
             />
             <FormSearchPrices defaultValue={[prices.min, prices.max]} />
             <FormRowSelect
               name="type"
               types={['all', 'On sale', 'Search']}
-              selected="all"
+              selected={currentParams.type ? currentParams.type : 'all'}
             />
             <FormRowTags tags={tags} disabled={isFetching} />
             <div className="btn-group">
