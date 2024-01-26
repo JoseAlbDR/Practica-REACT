@@ -103,7 +103,6 @@ export function createAdvert(advert: FormData) {
       dispatch(advertsCreatedRequest());
       const newAdvert = await adverts.createAdvert(advert);
       dispatch(advertsCreatedSuccess(newAdvert));
-      dispatch(loadAdverts());
       dispatch(advertDetailSuccess(newAdvert));
       toast.success('Advert created successfully');
       router?.navigate(`/adverts/${newAdvert.id}`);

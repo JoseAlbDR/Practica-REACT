@@ -1,6 +1,7 @@
 import { types } from '../types';
 import { initialState } from './initial-state';
 import { UnknownAction } from 'redux';
+import { filterAdverts } from '../actions/adverts.actions';
 
 export function adverts(state = initialState.adverts, action: UnknownAction) {
   switch (action.type) {
@@ -11,10 +12,17 @@ export function adverts(state = initialState.adverts, action: UnknownAction) {
         data: action.payload,
         filteredAdverts: action.payload,
       };
+    case types.ADVERT_CREATED_SUCCESS:
+      return {
+        ...state,
+        loaded: false,
+        data: [...state.data, action.payload],
+      };
     case types.ADVERT_DETAIL_SUCCESS:
       return {
         ...state,
         advertDetail: action.payload,
+        filterAdverts: [],
       };
     case types.ADVERTS_DELETED_SUCCESS:
       return {

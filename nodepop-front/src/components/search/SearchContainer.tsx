@@ -45,6 +45,8 @@ const SearchContainer = () => {
     const searchParams: { [key: string]: string } = {};
     params.forEach((value, key) => (searchParams[key] = value));
 
+    if (Object.keys(searchParams).length === 0) return;
+
     dispatch(filterAdverts(searchParams));
   }, [dispatch]);
 
