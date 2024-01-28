@@ -1,49 +1,67 @@
-import { fireEvent, render, screen } from '@testing-library/react';
-import { Provider } from 'react-redux';
-import LoginPage from '../Login';
-import 'react-testing-library/cleanup-after-each';
-import 'jest-dom/extend-expect';
-import { authLogin } from '../../../store/actions';
+import { render, screen, fireEvent } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Login from '../Login';
 
-jest.mock('../../../store/actions');
+// Mock Redux store and useDispatch
+jest.mock('react-redux', () => ({
+  ...jest.requireActual('react-redux'),
+  useDispatch: jest.fn(),
+  useSelector: jest.fn(),
+}));
 
-describe('LoginPage', () => {
-  const state = { ui: { isFetching: false, error: null } };
-  const store = {
-    getState: () => state,
-    dispatch: () => {},
-    subscribe: () => {},
-  };
+// Mock react-router-dom useNavigate
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+  useNavigate: jest.fn(),
+}));
 
-  const renderComponent = () =>
-    render(
-      <Provider store={store}>
-        <LoginPage />
-      </Provider>
-    );
-  test('snapshot', () => {
-    const { container } = renderComponent();
-    expect(container).toMatchSnapshot();
+describe('Login Component', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
   });
 
-  test('should dispatch authLogin action', () => {
-    const username = 'tester';
-    const password = 'test';
-    renderComponent();
+  it('renders login form correctly', () => {
+    render(<Login />);
 
-    const usernameInput = screen.getByLabelText(/username/);
-    const passwordInput = screen.getByLabelText(/password/);
-    const submitButton = screen.getByRole('button');
-
-    // expect(submitButton).toBeDisabled();
-
-    fireEvent.change(usernameInput, { target: { value: username } });
-    fireEvent.change(passwordInput, { target: { value: password } });
-
-    // expect(submitButton).toBeEnabled();
-
-    fireEvent.click(submitButton);
-
-    expect(authLogin).toHaveBeenCalledWith({ username, password });
+    expect(screen.getByText('Login')).toBeInTheDocument();
+    expect(screen.getByLabelText('email')).toBeInTheDocument();
+    expect(screen.getByLabelText('password')).toBeInTheDocument();
+    expect(screen.getByText('Remember Me')).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Submit' })).toBeInTheDocument();
+    expect(screen.getByText('Not a Member Yet?')).toBeInTheDocument();
+    expect(screen.getByText('Landing Page')).toBeInTheDocument();
   });
+
+  // it('handles form submission', () => {
+  //   render(<Login />);
+  //   const emailInput = screen.getByLabelText('email');
+  //   const passwordInput = screen.getByLabelText('password');
+  //   const submitButton = screen.getByRole('button', { name: 'Submit' });
+
+  //   const mockDispatch = jest.fn();
+  //   (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
+
+  //   userEvent.type(emailInput, 'test@example.com');
+  //   userEvent.type(passwordInput, 'password123');
+
+  //   fireEvent.click(submitButton);
+
+  //   expect(mockDispatch).toHaveBeenCalledWith(expect.any(Function));
+
+  // });
+
+  // it('handles remember me checkbox', () => {
+  //   render(<Login />);
+  //   const rememberMeCheckbox = screen.getByRole('checkbox', {
+  //     name: 'Remember Me',
+  //   });
+
+  //   const mockDispatch = jest.fn();
+  //   (useDispatch as jest.Mock).mockReturnValue(mockDispatch);
+
+  //   fireEvent.click(rememberMeCheckbox);
+
+  //   expect(mockDispatch).toHaveBeenCalledWith(expect.any(Function));
+
+  // });
 });

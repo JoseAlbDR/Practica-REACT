@@ -12,11 +12,9 @@ interface IFormSelectProps {
 const FormRowSelect = ({
   name,
   types,
-  selected = '',
+  // selected = '',
   disabled,
 }: IFormSelectProps) => {
-  console.log({ selected });
-
   return (
     <div className="form-row">
       <label className="form-label" htmlFor={name}>
@@ -28,7 +26,7 @@ const FormRowSelect = ({
             key={type}
             value={type}
             disabled={disabled}
-            selected={type === selected}
+            // selected={type === selected}
           >
             {type}
           </option>

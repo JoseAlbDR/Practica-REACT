@@ -22,7 +22,7 @@ if (accessToken) {
   setAuthorizationHeader(accessToken);
 }
 
-const router = createBrowserRouter([{ path: '*', element: <App /> }]);
+export const router = createBrowserRouter([{ path: '*', element: <App /> }]);
 
 export const store = configureStore(
   {

@@ -30,6 +30,11 @@ describe('getAdvert', () => {
       data: adverts,
       params: {},
       advertDetail: null,
+      filteredAdverts: [],
+      prices: {
+        min: 0,
+        max: Infinity,
+      },
     },
     tags: [],
     ui: {

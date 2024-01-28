@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import bothSides from '../../../assets/images/both_sides.svg';
 
 export const Wrapper = styled.div`
   min-height: 100vh;
@@ -47,7 +46,6 @@ export const Wrapper = styled.div`
     }
   }
 
-  background-image: url(${bothSides});
   background-repeat: repeat-x;
   background-size: cover;
   background-position-x: center;

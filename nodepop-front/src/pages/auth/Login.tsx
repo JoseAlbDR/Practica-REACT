@@ -58,7 +58,6 @@ const Login = () => {
           type="email"
           name="email"
           labelText="email"
-          defaultValue=""
           onChange={handleChange}
           disabled={isFetching}
         ></FormRow>
@@ -67,7 +66,6 @@ const Login = () => {
           type="password"
           name="password"
           labelText="password"
-          defaultValue=""
           onChange={handleChange}
           disabled={isFetching}
         ></FormRow>

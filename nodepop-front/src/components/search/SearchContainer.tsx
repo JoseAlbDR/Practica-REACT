@@ -107,7 +107,7 @@ const SearchContainer = () => {
               type="search"
               name="productName"
               labelText="name"
-              defaultValue={currentParams.name}
+              defaultValue={currentParams.name ? currentParams.name : ''}
               disabled={isFetching}
             />
             <FormSearchPrices defaultValue={[prices.min, prices.max]} />
