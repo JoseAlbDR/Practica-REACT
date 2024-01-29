@@ -1,27 +1,46 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
 import Login from '../Login';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
+jest.mock('../../store/actions');
+
+const userType = (input: Element, text: string) => {
+  userEvent.type(input, text);
+};
 
 // Mock Redux store and useDispatch
-jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
-  useDispatch: jest.fn(),
-  useSelector: jest.fn(),
-}));
+// jest.mock('react-redux', () => ({
+//   ...jest.requireActual('react-redux'),
+//   useDispatch: jest.fn(),
+//   useSelector: jest.fn(),
+// }));
 
-// Mock react-router-dom useNavigate
-jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom'),
-  useNavigate: jest.fn(),
-}));
+// // Mock react-router-dom useNavigate
+// jest.mock('react-router-dom', () => ({
+//   ...jest.requireActual('react-router-dom'),
+//   useNavigate: jest.fn(),
+// }));
 
 describe('Login Component', () => {
-  beforeEach(() => {
-    jest.clearAllMocks();
-  });
+  // beforeEach(() => {
+  //   jest.clearAllMocks();
+  // });
+
+  const initialState = { ui: { isFetching: false, error: null } };
+
+  const store = createStore((state) => state, initialState);
 
   it('renders login form correctly', () => {
-    render(<Login />);
+    console.log({ store });
+
+    render(
+      <Provider store={store}>
+        <Login />
+      </Provider>
+    );
 
     expect(screen.getByText('Login')).toBeInTheDocument();
     expect(screen.getByLabelText('email')).toBeInTheDocument();

@@ -38,11 +38,13 @@ type DispatchFunc = () => AppDispatch;
 export const useAppDispatch: DispatchFunc = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-    </Provider>
-    <ToastContainer position="top-center" className={'toast-message'} />
-  </>
-);
+window.addEventListener('DOMContentLoaded', function () {
+  ReactDOM.createRoot(document.getElementById('root')!).render(
+    <>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+      <ToastContainer position="top-center" className={'toast-message'} />
+    </>
+  );
+});
