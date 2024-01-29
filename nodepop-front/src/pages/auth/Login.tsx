@@ -1,5 +1,3 @@
-import { Link, useNavigate } from 'react-router-dom';
-
 import StyledLogin from './styles/AuthWrapper';
 import { Logo } from '../../components/';
 
@@ -8,7 +6,7 @@ import { FormRow, SubmitButton } from '../../components';
 import { authLogin, authRememberMe } from '../../store/actions';
 import { useSelector } from 'react-redux';
 import { getAuth, getUi } from '../../store/selectors';
-import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 
 import { getError } from '../../utils';
 import { useAppDispatch } from '../../main';
@@ -19,18 +17,13 @@ const Login = () => {
     password: '',
   });
 
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { isFetching, error } = useSelector(getUi);
-  const { rememberMe, isLoggedIn } = useSelector(getAuth);
+  const { rememberMe } = useSelector(getAuth);
 
   let renderError = '';
 
   if (error) renderError = getError(error).message;
-
-  useEffect(() => {
-    if (isLoggedIn) navigate('/adverts');
-  }, [isLoggedIn, navigate]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setCredentials((currentCredentials) => ({
@@ -81,7 +74,7 @@ const Login = () => {
         </div>
         <SubmitButton formBtn />
         {error && <div className="alert alert-danger">{renderError}</div>}
-        <p>
+        {/* <p>
           Not a Member Yet?
           <Link to="/signup" className="member-btn">
             Signup
@@ -91,7 +84,7 @@ const Login = () => {
           <Link to="/" className="member-btn">
             Landing Page
           </Link>
-        </p>
+        </p> */}
       </form>
     </StyledLogin>
   );

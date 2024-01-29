@@ -1,16 +1,17 @@
 import { Outlet } from 'react-router-dom';
 import Wrapper from './styles/MainLayoutWrapper';
 import { Navbar, Spinner } from '../../components';
-import { useCustomNavigation } from '../../hooks/useCustomNavigation';
+import { useSelector } from 'react-redux';
+import { getUi } from '../../store/selectors';
 
 const AdvertsLayout = () => {
-  const { isLoading } = useCustomNavigation();
+  const { isFetching } = useSelector(getUi);
 
   return (
     <Wrapper>
       <main className="main">
         <Navbar />
-        <div className="main-page">{isLoading ? <Spinner /> : <Outlet />}</div>
+        <div className="main-page">{isFetching ? <Spinner /> : <Outlet />}</div>
       </main>
     </Wrapper>
   );

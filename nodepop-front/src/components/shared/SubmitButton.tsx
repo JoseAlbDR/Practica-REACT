@@ -1,15 +1,16 @@
-import { useNavigation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getUi } from '../../store/selectors';
 
 const SubmitButton = ({ formBtn = false }: { formBtn?: boolean }) => {
-  const navigation = useNavigation();
-  const isSubmitting = navigation.state === 'submitting';
+  const { isFetching } = useSelector(getUi);
+
   return (
     <button
       type="submit"
       className={`btn btn-block ${formBtn ? 'form-btn' : ''}`}
-      disabled={isSubmitting}
+      disabled={isFetching}
     >
-      {isSubmitting ? 'submitting...' : 'submit'}
+      {isFetching ? 'submitting...' : 'submit'}
     </button>
   );
 };
