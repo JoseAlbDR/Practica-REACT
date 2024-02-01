@@ -50,8 +50,6 @@ const SearchContainer = () => {
 
     if (Object.keys(searchParams).length === 0) return;
 
-    console.log({ searchParams });
-
     setCurrentParams(searchParams);
 
     dispatch(filterAdverts(searchParams));
@@ -90,6 +88,7 @@ const SearchContainer = () => {
   const handleReset = () => {
     const form = document.getElementById('search-form') as HTMLFormElement;
     if (form) {
+      console.log('reset');
       form.reset();
     }
     dispatch(filterAdverts({}));

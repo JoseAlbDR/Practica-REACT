@@ -161,8 +161,8 @@ export function filterAdverts(params: { [key: string]: string }) {
     if (!params) return;
 
     if (params.name)
-      filteredAdverts = filteredAdverts.filter(
-        (advert) => advert.name === params.name
+      filteredAdverts = filteredAdverts.filter((advert) =>
+        advert.name.toLowerCase().includes(params.name.toLowerCase())
       );
 
     if (params.type && params.type !== 'all') {
