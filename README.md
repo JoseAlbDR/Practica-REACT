@@ -2,6 +2,14 @@
 
 Este proyecto se centra en la gestión de anuncios, permitiendo a los usuarios realizar diversas acciones como crear, ver y buscar anuncios, entre otras funcionalidades.
 
+## UPDATE
+
+Proyecto refactorizado para usar un store Redux donde se almacena la información relacionada a:
+- Información sobre la sesión de usuario
+- Información sobre los anuncios
+
+Incluido testing de actions, reducers, selectors y componentes.
+
 ## Estructura de Carpetas
 
 El proyecto está organizado en varias carpetas principales:
