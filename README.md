@@ -55,8 +55,10 @@ Se implementan rutas públicas y protegidas, como las relacionadas con la autent
 Para ejecutar este proyecto localmente:
 
 1. Clona el repositorio: `git clone https://github.com/JoseAlbDR/Practica-REACT.git`
-2. Instala las dependencias: `npm install`
-3. Inicia el servidor de desarrollo: `npm run dev`
+2. Muevete a la carpeta del proyecto `cd Practica-REACT/nodepop-front`
+3. Instala las dependencias: `npm install`
+4. Copia o renombra el archivo .env.example con tus datos del servidor
+5. Inicia el servidor de desarrollo: `npm run dev`
 
 ## Dependencias Principales
 
