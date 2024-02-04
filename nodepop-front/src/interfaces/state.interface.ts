@@ -18,7 +18,6 @@ export interface Adverts {
   data: IAdvert[];
   params: { [key: string]: string };
   filteredAdverts: IAdvert[];
-  advertDetail: IAdvert | null;
   prices: {
     min: number;
     max: number;

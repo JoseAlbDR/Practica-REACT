@@ -2,8 +2,11 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import configureStore from '../../../store';
 import Login from '../Login';
+
+// import { act } from '@testing-library/react';
 // import userEvent from '@testing-library/user-event';
 // import { authLogin } from '../../../store/actions';
+
 import { initialState } from '../../../store/reducers/initial-state';
 import { router } from '../../../main';
 

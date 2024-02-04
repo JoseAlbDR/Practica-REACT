@@ -1,7 +1,7 @@
 import { Advert } from '../../components';
 
 import { useSelector } from 'react-redux';
-import { getAdvertDetail, getUi } from '../../store/selectors';
+import { getAdvert, getUi } from '../../store/selectors';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../main';
 import { advertDetail } from '../../store/actions';
@@ -12,12 +12,11 @@ const AdvertDetail = () => {
   const params = useParams();
   const { error } = useSelector(getUi);
   const dispatch = useAppDispatch();
+  const advert = useSelector(getAdvert(params.id!));
 
   useEffect(() => {
     dispatch(advertDetail(params.id!));
   }, [dispatch, params.id]);
-
-  const advert = useSelector(getAdvertDetail);
 
   if (error || !advert) return <ErrorPage />;
 

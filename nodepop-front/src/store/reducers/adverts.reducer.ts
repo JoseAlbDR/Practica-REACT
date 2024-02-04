@@ -20,7 +20,7 @@ export function adverts(state = initialState.adverts, action: UnknownAction) {
     case types.ADVERT_DETAIL_SUCCESS:
       return {
         ...state,
-        advertDetail: action.payload,
+        data: [action.payload],
         filterAdverts: [],
       };
     case types.ADVERTS_DELETED_SUCCESS:

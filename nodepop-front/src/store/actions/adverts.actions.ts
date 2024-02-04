@@ -64,12 +64,7 @@ export function advertDetail(id: string) {
     getState: () => ReduxState,
     { api: { adverts } }: Payload
   ) => {
-    const advert = getAdvert(id)(getState());
-
-    if (advert) {
-      dispatch(advertDetailSuccess(advert));
-      return;
-    }
+    if (getAdvert(id)(getState())) return;
 
     try {
       dispatch(advertDetailRequest());
@@ -133,7 +128,6 @@ export function deleteAdvert(id: string) {
       dispatch(advertsDeletedRequest());
       await adverts.deleteAdvert(id);
       dispatch(advertsDeletedSuccess());
-      dispatch(loadAdverts());
       router?.navigate(`/adverts`);
     } catch (err) {
       dispatch(advertsDeletedFailure(err));
