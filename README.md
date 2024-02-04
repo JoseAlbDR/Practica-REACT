@@ -57,7 +57,8 @@ Para ejecutar este proyecto localmente:
 1. Clona el repositorio: `git clone https://github.com/JoseAlbDR/Practica-REACT.git`
 2. Muevete a la carpeta del proyecto `cd Practica-REACT/nodepop-front`
 3. Instala las dependencias: `npm install`
-4. Inicia el servidor de desarrollo: `npm run dev`
+4. Copia o renombra el archivo .env.example con tus datos del servidor
+5. Inicia el servidor de desarrollo: `npm run dev`
 
 ## Dependencias Principales
 
