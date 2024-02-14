@@ -41,7 +41,7 @@ describe('authLogin', () => {
     },
   ];
   const credentials: Credentials = {
-    username: 'test@test.com',
+    email: 'test@test.com',
     password: 'test',
   };
   const action = authLogin(credentials, false);
