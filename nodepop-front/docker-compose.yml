@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    container_name: frontend
+    environment:
+      VITE_BASE_URL: ${VITE_BASE_URL}
+
+  backend:
+    image: davidjj76/nodepop-api
+    container_name: backend
+    ports:
+      - ${PORT}:${PORT}
+    restart: unless-stopped
+    volumes:
+      - nodepop-api-data:/home/node/app/data
+      - nodepop-api-uploads:/home/node/app/${UPLOADS_FOLDER}
+
+  proxy:
+    build: ./nginx
+    container_name: proxy
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+      - ./nginx/passwd/:/etc/nginx/passwd:ro
+      - ./nginx/letsencrypt/:/etc/letsencrypt/:ro
+      - ./nginx/certificates/certs/:/etc/nginx/certs:ro
+      - ./nginx/certificates/private/:/etc/nginx/private:ro
+      - ./nginx/logs/:/var/log/nginx/
+
+volumes:
+  nodepop-api-data:
+  nodepop-api-uploads:

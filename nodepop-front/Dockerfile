@@ -15,10 +15,11 @@ COPY --from=dev-deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-FROM nginx:stable-alpine
+FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
-COPY --from=builder /app/nginx.conf /etc/nginx/conf.d/default.conf
-EXPOSE 80
+RUN rm /etc/nginx/conf.d/default.conf
+COPY nginx.conf /etc/nginx/conf.d/nginx.conf
+EXPOSE 3000
 CMD ["nginx", "-g", "daemon off;"]
 
 # FROM node:20-alpine as prod-deps

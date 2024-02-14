@@ -6,7 +6,6 @@ import StyledSignup from './styles/AuthWrapper';
 import { Logo, FormRow, SubmitButton } from '../../components';
 import { signup } from './service';
 import { CustomAxiosError } from '../../api/customFetch';
-import { useCustomNavigation } from '../../hooks/useCustomNavigation';
 
 export const action = async (data: ActionFunctionArgs) => {
   const { request } = data;
@@ -31,8 +30,6 @@ export const action = async (data: ActionFunctionArgs) => {
 };
 
 const Signup = () => {
-  const { isSubmitting } = useCustomNavigation();
-
   return (
     <StyledSignup>
       <Form method="post" className="form">
@@ -43,28 +40,28 @@ const Signup = () => {
           name="email"
           labelText="email"
           defaultValue="test@test.com"
-          disabled={isSubmitting}
+          required
         ></FormRow>
         <FormRow
           type="text"
           name="username"
           labelText="user name"
           defaultValue="test"
-          disabled={isSubmitting}
+          required
         ></FormRow>
         <FormRow
           type="password"
           name="password"
           labelText="password"
           defaultValue="test"
-          disabled={isSubmitting}
+          required
         ></FormRow>
         <FormRow
           type="text"
           name="name"
           labelText="name"
           defaultValue="test"
-          disabled={isSubmitting}
+          required
         ></FormRow>
         <SubmitButton formBtn />
         <p>

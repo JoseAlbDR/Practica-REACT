@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom';
 import StyledLanding from './styles/LandingWrapper';
 import main from '../../assets/images/main.svg';
 
-import { Logo, Spinner } from '../../components';
-import { useCustomNavigation } from '../../hooks/useCustomNavigation';
+import { Logo } from '../../components';
 
 const Landing = () => {
-  const { isLoading } = useCustomNavigation();
-
-  if (isLoading) return <Spinner />;
-
   return (
     <StyledLanding>
       <>
