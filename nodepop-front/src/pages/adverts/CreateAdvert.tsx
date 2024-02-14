@@ -2,7 +2,7 @@ import {
   FormRowInput,
   SubmitButton,
   FormRowTags,
-  FormRowFileInput,
+  // FormRowFileInput,
   FormRowSelect,
   Spinner,
 } from '../../components/shared';
@@ -75,12 +75,12 @@ const CreateAdvert = ({
             labelText="price"
             disabled={isFetching}
           />
-          <FormRowFileInput
+          {/* <FormRowFileInput
             labelText="select an image file (max 0.5MB)"
             type="file"
             id="image"
             name="photo"
-          />
+          /> */}
           <SubmitButton formBtn />
           {cancelButton}
         </form>
