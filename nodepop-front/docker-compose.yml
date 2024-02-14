@@ -24,7 +24,7 @@ services:
       - '27017:27017'
     container_name: nodepop-adv-db
     volumes:
-      - mongo:/data/db
+      - ./mongo:/data/db
 
   nodepop-adv:
     depends_on:
