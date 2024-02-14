@@ -53,6 +53,7 @@ const Login = () => {
           labelText="email"
           onChange={handleChange}
           disabled={isFetching}
+          defaultValue={'test@test'}
         ></FormRow>
         <FormRow
           required
@@ -61,6 +62,7 @@ const Login = () => {
           labelText="password"
           onChange={handleChange}
           disabled={isFetching}
+          defaultValue={'secret'}
         ></FormRow>
         <div className="check-form-row">
           <input
