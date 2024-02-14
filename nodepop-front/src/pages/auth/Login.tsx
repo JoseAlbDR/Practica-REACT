@@ -53,7 +53,7 @@ const Login = () => {
           labelText="email"
           onChange={handleChange}
           disabled={isFetching}
-          defaultValue={'test@test'}
+          defaultValue={'test@test.com'}
         ></FormRow>
         <FormRow
           required
