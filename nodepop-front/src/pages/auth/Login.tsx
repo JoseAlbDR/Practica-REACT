@@ -68,7 +68,7 @@ const Login = () => {
           <input
             type="checkbox"
             name="rememberMe"
-            checked
+            checked={rememberMe}
             disabled={isFetching}
             onChange={handleRememberMe}
           />
