@@ -13,8 +13,8 @@ import { useAppDispatch } from '../../main';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    username: '',
-    password: '',
+    username: 'test@test.com',
+    password: 'secret',
   });
 
   const dispatch = useAppDispatch();
