@@ -1,3 +1,13 @@
+# Practica *DESPLIEGUE EN SERVIDORES*
+## Ejercicio 1:
+[Backend Nodepop](https://devback.jadero.dev/home)
+
+## Ejercicio 2:
+[Frontend React](https://devfront.jadero.dev/login)
+
+Practica realizada con Docker, en el repositorio se puede encontrar el Dockerfile y el docker-compose.yml utilizados.
+
+
 # Proyecto de Anuncios
 
 Este proyecto se centra en la gestión de anuncios, permitiendo a los usuarios realizar diversas acciones como crear, ver y buscar anuncios, entre otras funcionalidades.
